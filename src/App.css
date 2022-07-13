@@ -1,0 +1,2280 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+* {
+  margin: 0;
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+    "Malgun Gothic", sans-serif;
+}
+
+.App {
+  width: 100vw;
+  height: auto;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+
+  min-height: 100%;
+  padding-bottom: 40px;
+}
+
+/* header */
+.HeaderContainer {
+  width: 100%;
+  height: 150px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/*height: 92px*/
+.HeaderWrapper {
+  width: 100%;
+  height: 150px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.HeaderLogSearchBarContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.Logo {
+  width: 74px;
+  margin-left: 80px;
+  margin-right: 40px;
+}
+
+.LogoImage {
+  width: 100%;
+  object-fit: cover;
+}
+
+.SearchBar {
+  border: solid 2px #111;
+  display: flex;
+  width: 65%;
+  height: 56px;
+  border-radius: 35px;
+}
+
+.SearchForm {
+  display: flex;
+  flex: 1;
+}
+
+.SearchInput {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  margin: 0px 24px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.SearchInput::placeholder {
+  color: #999;
+  font-size: 18px;
+}
+
+.SearchInput:focus {
+  outline: none;
+}
+
+.SearchButton {
+  display: none;
+}
+
+.IconButton {
+  position: relative;
+  right: 20px;
+  top: 16px;
+}
+
+.ButtonBundle {
+  height: 56px;
+  display: flex;
+  align-items: center;
+}
+
+.HeaderButton {
+  font-weight: 700;
+  font-size: 18px;
+
+  border: none;
+  background-color: transparent;
+  color: #333333;
+  white-space: nowrap;
+  margin-right: 40px;
+}
+
+.HeaderDisconnectButton {
+  width: 192px;
+  height: 42px;
+  border-radius: 8px;
+  background-color: #111;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 40px;
+}
+
+.HeaderAvatar {
+  margin-right: 80px;
+  cursor: pointer;
+}
+
+/* HeaderDropDown */
+input[id*="answer"] {
+  display: none;
+}
+
+input[id*="answer"] + label span {
+  display: block;
+  cursor: pointer;
+  position: relative;
+}
+
+input[id*="answer"] + label + div {
+  max-height: 0;
+  transition: all 0.35s;
+  overflow: hidden;
+}
+
+input[id*="answer"]:checked + label + div {
+  width: 16rem;
+  height: 9rem;
+  border: solid 2px #86c500;
+  background-color: #fff;
+  max-height: 9.188rem;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.32);
+  border-radius: 16px;
+  z-index: 1;
+}
+
+.AccordionMenuButton {
+  width: 16rem;
+  height: 4.5rem;
+  font-weight: 700;
+  font-size: 18px;
+  padding: 0px;
+  border: none;
+  background-color: transparent;
+  color: #333333;
+  white-space: nowrap;
+  margin-right: 40px;
+  border: 1px solid red;
+}
+
+.Accordion {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.AccordionMenu {
+  position: absolute;
+  top: 100px;
+}
+
+/* ButtonElement */
+.ButtonStyle {
+  width: 98px;
+  height: 42px;
+  background: #333333;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+/* Footer */
+.FooterContainer {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  transform: translateY(-100%);
+}
+
+.FooterWrapper {
+  width: 100%;
+  height: 40px;
+  margin-top: 40px;
+  padding: 40px 80px 100px 80px;
+  border-top: 1px solid #999;
+}
+
+.FooterInfo {
+  height: 24px;
+  margin: 8px 20px;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.5;
+  text-align: right;
+  color: #111;
+}
+
+/* Banner */
+
+/* MainPage */
+.MainContainer {
+  width: 100%;
+  height: auto;
+}
+
+.MainBanner1 {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.MainBanner2 {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 80px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.MainWrapper {
+  width: 75%;
+  height: auto;
+  margin: 0 240px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.MainItemSample {
+  margin-left: 1.5rem;
+  border-radius: 16px;
+}
+
+.MainCardWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20%, auto));
+  gap: 2rem;
+  width: 75%;
+  height: auto;
+  margin: 0 240px 160px;
+}
+
+.MainLetterWrap {
+  width: 100%;
+  height: 108px;
+  background-color: #111;
+  display: flex;
+  align-items: center;
+}
+
+.MainLetter {
+  position: relative;
+  width: 100%;
+  height: auto;
+  font-size: 64px;
+  font-weight: bold;
+  line-height: 0.94;
+  margin-left: 50px;
+  text-align: center;
+  color: #fff;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.MainLetter > .track {
+  position: absolute;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 60s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.MainLetterDescription {
+  height: 48px;
+  margin-top: 20px;
+  font-size: 32px;
+  font-weight: normal;
+  line-height: 1.5;
+  text-align: left;
+  margin-left: 20px;
+  color: #111;
+}
+
+.TitleWrapper {
+  width: 75%;
+  margin: 0 240px 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.TitleLetter {
+  width: auto;
+  height: auto;
+  margin: 200px 0 0 0;
+  font-size: 56px;
+  font-weight: bold;
+  line-height: 1;
+  text-align: left;
+  color: #111;
+}
+
+.ButtonWrap {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  margin: 200px 0 0 0;
+  cursor: pointer;
+}
+
+.View {
+  font-size: 56px;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  color: #111;
+  margin-right: 16px;
+}
+
+.Arrow {
+  width: 122px;
+  height: 43px;
+}
+
+/* TopSeller */
+.Ranking {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid #111111;
+  background-color: #7ef744;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 48px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: -32px 0 14px 0;
+}
+
+.UserWrapper {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin-bottom: 120px;
+}
+
+.UserName {
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 1.5;
+  text-align: center;
+  color: #111;
+}
+
+/* TeamInfo */
+.TeamBackground {
+  width: 100%;
+  height: 883px;
+  object-fit: cover;
+  background-image: url(assets/team/teambackground.png);
+}
+
+.TeamImageWrap {
+  margin-bottom: 24px;
+}
+
+.TeamImageBack {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #dcd2d8;
+  margin: -170px 0 0 0;
+}
+
+.TeamPosition {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.5;
+  text-align: center;
+  color: #111;
+  margin-bottom: 120px;
+}
+
+/* SearchListPage */
+.Container {
+  width: 75%;
+  height: auto;
+  margin: 80px 240px 0;
+}
+
+.SearchText {
+  width: 100%;
+  height: auto;
+  margin-bottom: 80px;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.25;
+  text-align: center;
+  color: #111;
+}
+
+.CategoryContainer {
+  width: 75%;
+  height: auto;
+  margin: 80px 240px;
+}
+
+.CategoryWrapper {
+  width: 100%;
+  height: auto;
+  border-bottom: 2px solid #e5e5e5;
+  display: flex;
+  align-items: flex-start;
+}
+
+.SmallCategoryWrapper {
+  width: 100%;
+  height: 60px;
+  border-bottom: 2px solid #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+}
+
+.CategoryWrap {
+  width: auto;
+  height: 50px;
+}
+
+.SelectedBigButton {
+  font-size: 56px;
+  font-weight: bold;
+  line-height: 1;
+  text-align: left;
+  color: #111;
+  border: none;
+  background-color: transparent;
+  border-bottom: 4px solid #111;
+  padding-bottom: 24px;
+  margin-right: 32px;
+  cursor: pointer;
+}
+
+.UnSelectedBigButton {
+  font-size: 56px;
+  font-weight: bold;
+  line-height: 1;
+  text-align: left;
+  color: #999999;
+  border: none;
+  background-color: transparent;
+  padding-bottom: 24px;
+  margin-right: 32px;
+  cursor: pointer;
+}
+
+.SelectedSmallButton {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+  text-align: left;
+  color: #111;
+  border: none;
+  background-color: transparent;
+  border-bottom: 4px solid #111;
+  padding-top: 16px;
+  padding-bottom: 24px;
+  margin-right: 32px;
+  cursor: pointer;
+}
+
+.UnSelectedSmallButton {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+  text-align: left;
+  color: #999999;
+  border: none;
+  background-color: transparent;
+  padding-top: 16px;
+  padding-bottom: 24px;
+  margin-right: 32px;
+  cursor: pointer;
+}
+
+.CardWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20%, auto));
+  gap: 2rem;
+  width: 100%;
+  height: auto;
+  margin: 40px 0 120px;
+}
+
+/* AuctionListPage */
+.AuctionListText {
+  width: 100%;
+  height: auto;
+  margin-bottom: 40px;
+  font-size: 56px;
+  font-weight: bold;
+  line-height: 1;
+  text-align: center;
+  color: #111;
+}
+
+/* CollectionPage */
+.UserImageWrap {
+  width: 75%;
+  height: 100%;
+  margin: 226px 0 102px 0;
+}
+
+.CollectionInfoContainer {
+  width: 340px;
+  height: 80px;
+  margin: -150px 0 40px 240px;
+  padding: 30px 40px;
+  border-radius: 24px;
+  border: solid 1px #e5e5e5;
+  background-color: #fff;
+}
+
+.CollectionInfoWrap {
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.CollectionInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.InfoTap {
+  margin: 0 4px 8px 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.38;
+  text-align: left;
+  color: #666;
+}
+
+.InfoValue {
+  margin: 8px 0 0;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.25;
+  text-align: left;
+  color: #111;
+}
+
+.CollectionTitleWrapper {
+  width: 75%;
+  margin: 0 240px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.CollectionTitleWrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.CollectionTitleLetter {
+  margin-bottom: 8px;
+  font-size: 56px;
+  font-weight: bold;
+  line-height: 1;
+  text-align: left;
+  color: #111;
+}
+
+.CollectionUerLetter {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.25;
+  text-align: left;
+  color: #666;
+}
+
+.CollectionButtonBundle {
+  height: 45px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.CollectionTitleButton {
+  width: auto;
+  height: auto;
+  margin-left: 16px;
+  padding: 10px 24px;
+  border-radius: 30px;
+  border: solid 1px #999;
+  background-color: #fff;
+  display: flex;
+
+  font-size: 18px;
+  font-weight: bold;
+  line-height: normal;
+  text-align: left;
+  color: #666;
+  cursor: pointer;
+}
+
+.ShareWrap {
+  margin-bottom: 10px;
+  border: none;
+}
+
+.ButtonIcon {
+  margin-right: 8px;
+}
+
+.CollectionDescriptionWrapper {
+  width: 75%;
+  margin: 40px 240px 80px 240px;
+}
+
+/* AuthorPage */
+.AuthorBanner {
+  width: 75%;
+  height: 200px;
+  margin: auto;
+  text-align: center;
+}
+
+.AuthorImageWrap {
+  height: 180px;
+  margin: 80px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.AuthorImage {
+  width: 152px;
+  height: 152px;
+  margin-bottom: 24px;
+}
+
+.AuthorName {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.25;
+  text-align: center;
+  color: #666;
+}
+
+/* AccountPage */
+.Icon {
+  margin-left: 10px;
+}
+
+/* CardComponents */
+.CardCollectionContainer {
+  width: 342px;
+  height: 398px;
+  border-radius: 16px;
+  border: solid 1px #e5e5e5;
+  display: inline-block;
+}
+
+.CardItemContainer {
+  width: 342px;
+  height: 480px;
+  border-radius: 16px;
+  border: solid 1px #e5e5e5;
+  display: inline-block;
+}
+
+.CardAuctionContainer {
+  width: 342px;
+  height: 614px;
+  border-radius: 16px;
+  border: solid 1px #e5e5e5;
+  display: inline-block;
+}
+
+.CardCollectionImageWrapper {
+  width: 100%;
+  height: 196px;
+}
+
+.CardImageWrapper {
+  width: 100%;
+  height: 342px;
+}
+
+.CardCollectionImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.CardCollectionContentWrapper {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -32px;
+}
+
+.CardItemWrapper {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CardAuctionTime {
+  width: 100%;
+  height: 55px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.TimeWrap {
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  margin: 15px 63px;
+}
+
+.TimeLimit {
+  margin-left: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.33;
+  text-align: center;
+  color: #111;
+}
+
+.CardName {
+  width: auto;
+  height: auto;
+  margin-top: 16px;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.25;
+  text-align: center;
+  color: #111;
+}
+
+.CardUserName {
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.43;
+  text-align: center;
+  color: #111;
+}
+
+.CardCollectionDescription {
+  margin: 8px 60px;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.5;
+  text-align: center;
+  color: #111;
+}
+
+.CurrentCardAuction {
+  width: 100%;
+  height: 77px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.CurrentAuctionWrap {
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  margin: 30px;
+}
+
+.CurrentAuction {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.25;
+  text-align: left;
+  color: #666;
+}
+
+.CurrentAuctionValue {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.25;
+  text-align: left;
+  color: #111;
+}
+
+/* ItemDetail */
+.ItemContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
+}
+
+.ItemWrapper {
+  width: 75%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ItemImageDiv {
+  width: 39%;
+  height: 79%;
+}
+
+.ItemImage {
+  max-width: 100%;
+  max-height: 560px;
+}
+
+.ItemInfoContainer {
+  width: 55.5%;
+  height: 100%;
+}
+
+.HeartWrap {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.Heart {
+  width: 23px;
+  height: 23px;
+}
+
+.HeartCount {
+  width: 46px;
+  height: 16px;
+  flex-grow: 0;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  text-align: center;
+  color: #111;
+}
+
+.SellItemNameWrapper {
+  width: auto;
+}
+
+.ItemDetailName {
+  flex-grow: 0;
+  font-size: 56px;
+  font-weight: bold;
+  line-height: 1;
+  color: #111;
+}
+
+.SellCollectionInfo {
+  margin-top: 26px;
+}
+.SellCollectionSpan {
+  width: 64px;
+  height: 20px;
+  flex-grow: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.43;
+  color: #666;
+}
+
+.ItemCollectionName {
+  flex-grow: 0;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.33;
+  color: #666;
+  margin-left: 40px;
+}
+
+.SellOwnerInfo {
+  margin-top: 18px;
+}
+
+.SellOwnerSpan {
+  flex-grow: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.43;
+  text-align: left;
+  color: #666;
+  margin-right: 60px;
+}
+
+.SellOwnerName {
+  flex-grow: 0;
+  margin: 0 0 0 8px;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.33;
+  text-align: left;
+  color: #666;
+}
+
+.ItemDescriptionTittle {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 45px;
+  width: 100%;
+}
+
+.SellDescriptionSpan {
+  flex-grow: 0;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.25;
+  color: #111;
+}
+
+.AvatarWrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  right: 30px;
+}
+
+.SellDescriptionAvatar {
+  margin-right: 8px;
+}
+
+.SellUserName {
+  width: 100px;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.33;
+  color: #111;
+  white-space: nowrap;
+}
+
+.ItemDescriptionContent {
+  width: 100%;
+  height: 174px;
+  margin: 24px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  padding-left: 20px;
+
+  background-color: #f7f7f7;
+  flex-grow: 0;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.38;
+  text-align: left;
+  color: #111;
+}
+
+.ItemButtons {
+  width: 100%;
+  display: flex;
+  margin-top: 40px;
+}
+
+.ShareButtonAndIcon {
+  display: flex;
+}
+
+.ShareIcon {
+  position: relative;
+  top: 12px;
+  right: 105px;
+}
+
+.ShareButton {
+  width: 126px;
+  height: 56px;
+  flex-grow: 0;
+  border-radius: 30px;
+  border: solid 1px #999;
+  font-size: 18px;
+  font-weight: bold;
+  color: #666;
+  padding-left: 30px;
+  position: relative;
+  background-color: transparent;
+}
+
+.EditButtonAndIcon {
+  display: flex;
+}
+
+.ItemEditButton {
+  width: 151px;
+  height: 56px;
+  flex-grow: 0;
+  border-radius: 30px;
+  border: solid 1px #999;
+
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  color: #666;
+  padding-left: 30px;
+  background-color: transparent;
+}
+
+.EditIcon {
+  position: relative;
+  right: 130px;
+  top: 12px;
+}
+
+.AuctionRegistration {
+  width: 474px;
+  height: 56px;
+
+  border-radius: 16px;
+  background-color: #111;
+  color: #fff;
+
+  flex-grow: 0;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.33;
+}
+
+/* ItemAuctionpage */
+
+.ItemBottomLine {
+  width: 800px;
+  height: 1px;
+}
+
+.ItemBottomContainer {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  margin-top: 80px;
+}
+
+.ItemBottomWrapper {
+  width: 42%;
+  height: 926px;
+  right: 0;
+  margin-right: 240px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.AuctionContent {
+  width: 100%;
+  border: solid 1px #e5e5e5;
+  border-radius: 24px;
+  margin-top: 80px;
+  padding: 32px 0px 0px 40px;
+  box-sizing: border-box;
+}
+
+.AuctionWrapper {
+  display: flex;
+}
+
+.PriceContent {
+  margin-right: 19%;
+}
+
+.PriceTittle {
+  margin-bottom: 8px;
+  color: #666;
+}
+
+.PriceNumber {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.AuctionLine {
+  width: 1px;
+  height: 72px;
+  border: solid 1px #e5e5e5;
+}
+
+.AuctionTimeContent {
+  margin-left: 40px;
+}
+
+.AuctionTimeSpan {
+  margin-bottom: 8px;
+  color: #666;
+}
+
+.AuctionTime {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.AuctionJoinContent {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.AuctionJoinButton {
+  width: calc(100% - 37px);
+  height: 56px;
+  margin-top: 24px;
+
+  background-color: #111;
+  color: #fff;
+  border-radius: 16px;
+
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.ActivityContent {
+  margin-top: 40px;
+}
+
+.ActivityTittle {
+  font-size: 24px;
+  font-weight: bold;
+  color: #111;
+  margin-bottom: 24px;
+}
+
+.ActivityInfoContainer {
+  width: 100%;
+  height: 64px;
+  padding-left: 32px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  border: solid 1px #e5e5e5;
+  background-color: #f7f7f7;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ActivityDateTime {
+  font-size: 14px;
+  color: #666;
+  margin-right: 18px;
+}
+
+.ActivityUserName {
+  font-size: 16px;
+  font-weight: bold;
+  color: #111;
+}
+
+.ActivityPrice {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 32px;
+}
+
+@media screen and (max-width: 1222px) {
+  .AuctionContent {
+    height: 250px;
+  }
+}
+
+/* SellingItemPage */
+
+.ItemAuctionRegisterTittle {
+  margin-bottom: 40px;
+}
+
+.ItemAuctionRegisterSpan {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.SellItemTittle {
+  font-size: 14px;
+  margin-right: 141px;
+  color: #666;
+}
+
+.SellItemName {
+  font-size: 16px;
+  font-weight: normal;
+  color: #111;
+}
+
+.SellDescriptionWrapper {
+  display: flex;
+  margin-top: 34px;
+}
+
+.SellDescriptionTittle {
+  font-size: 14px;
+  color: #666;
+  margin-right: 80px;
+}
+
+.SellDescriptionContent {
+  width: 100%;
+  height: 174px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  padding-left: 20px;
+
+  background-color: #f7f7f7;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+  color: #111;
+}
+
+.SellCollectionWrapper {
+  margin-top: 33px;
+}
+
+.SellCollectionTittle {
+  font-size: 14px;
+  color: #666;
+  margin-right: 106px;
+}
+
+.SellCollectionName {
+  font-size: 16px;
+  color: #111;
+}
+
+.SellPriceWrapper {
+  margin-top: 32px;
+}
+
+.SellPriceTittle {
+  font-size: 14px;
+  color: #666;
+  margin-right: 137px;
+}
+
+.SellPriceSpan {
+  font-size: 16px;
+  color: #111;
+}
+
+.SellAuctionNotification {
+  font-size: 16px;
+  font-weight: bold;
+  color: #df3434;
+
+  margin-top: 16px;
+  margin-left: 155px;
+}
+
+.SellAuctionNotification-2 {
+  margin-top: 8px;
+}
+
+.ItemAuctionRegisterWrapper {
+  width: 78%;
+  height: 88px;
+  border: solid 2px #111;
+  background-color: #fff;
+  box-sizing: border-box;
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  margin-top: 32px;
+  margin-left: 170px;
+}
+
+.ItemAuctionPriceInput {
+  width: 58%;
+  height: 88px;
+  font-size: 36px;
+  font-weight: bold;
+  padding-left: 32px;
+  border: none;
+  background-color: transparent;
+}
+
+.ItemAuctionPriceInput::placeholder {
+  font-weight: bold;
+  color: #e5e5e5;
+}
+
+.ItemAuctionPriceInput:focus {
+  outline: none;
+}
+
+.ItemAuctionPriceInputEth {
+  font-size: 36px;
+  font-weight: bold;
+  margin-right: 23px;
+}
+
+.ItemAuctionRegisterButton {
+  width: 120px;
+  height: 56px;
+  border-radius: 12px;
+  background-color: #111;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+}
+
+@media screen and (max-width: 1140px) {
+  .SellDescriptionContent {
+    height: 220px;
+  }
+}
+
+@media screen and (max-width: 1055px) {
+  .SellPriceSpan {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 1146px) {
+  .SellAuctionNotification-1 {
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 1146px) {
+  .SellAuctionNotification-2 {
+    font-size: 13px;
+  }
+}
+
+/* AuctionPage */
+
+.AuctionBottomContainer {
+  width: 100%;
+  height: 1000px;
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.AuctionBottomAllContainer {
+  width: 75%;
+  height: 100%;
+  display: flex;
+}
+
+.AuctionBottomLeftWrapper {
+  width: 44%;
+  height: 100%;
+}
+
+.AuctionBottomRightWrapper {
+  width: 56%;
+  height: 100%;
+  border-top: 1px solid #e5e5e5;
+}
+
+.AuctionBottomRightContent {
+  width: 100%;
+  height: 100%;
+  margin-top: 80px;
+}
+
+.AuctionPriceContent {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.AuctionHighestPriceWrapper {
+  width: 48.5%;
+  height: 168px;
+  border: solid 2px #111;
+  border-radius: 16px;
+}
+
+.AuctionHighestPriceSpanIcon {
+  margin-top: 40px;
+  margin-left: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.AuctionHighestPriceSpan {
+  font-size: 24px;
+  font-weight: bold;
+  color: #666;
+}
+
+.AuctionHighestPriceRefreshIcon {
+  margin-left: 5px;
+}
+
+.AuctionHighestPrice {
+  margin-top: 16px;
+  margin-left: 40px;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.AuctionStartingPriceWrapper {
+  width: 48.5%;
+  height: 168px;
+  border: solid 2px #111;
+  border-radius: 16px;
+}
+
+.AuctionStartingPriceSpan {
+  margin-top: 40px;
+  margin-left: 40px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #666;
+}
+
+.AuctionStartingPrice {
+  margin-top: 16px;
+  margin-left: 40px;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.AuctionOfferPrice {
+  margin-top: 40px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.AuctionBidWrapper {
+  width: 100%;
+  height: 88px;
+  border: solid 2px #111;
+  background-color: #fff;
+  box-sizing: border-box;
+  border-radius: 16px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+}
+
+.ItemAuctionPriceInput {
+  width: 58%;
+  height: 88px;
+  font-size: 36px;
+  font-weight: bold;
+  padding-left: 32px;
+  border: none;
+  background-color: transparent;
+}
+
+.ItemAuctionPriceInput::placeholder {
+  font-weight: bold;
+  color: #e5e5e5;
+}
+
+.ItemAuctionPriceInput:focus {
+  outline: none;
+}
+
+.AuctionBidInputEth {
+  font-size: 36px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.AuctionBidButton {
+  width: 120px;
+  height: 56px;
+  border-radius: 12px;
+  background-color: #111;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  margin-right: 15px;
+}
+
+.AuctionChattingPriceListTittle {
+  margin-top: 40px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.AuctionChattingTittle {
+  margin-right: 49%;
+}
+
+.AuctionChattingPriceListContainer {
+  width: 100%;
+  margin-top: 24px;
+  display: flex;
+}
+
+.AuctionChattingContainer {
+  width: 52.5%;
+  height: 640px;
+  background-color: #e5e5e5;
+  border-radius: 16px;
+  display: flex;
+  align-items: flex-end;
+  margin-right: 40px;
+}
+
+.AuctionChattingInputWrapper {
+  width: 100%;
+  height: 80px;
+  background-color: #fff;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  border: 1px solid #e5e5e5;
+}
+
+.AuctionChattingInputBackGround {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  width: 88%;
+  height: 48px;
+  border-radius: 32px;
+  border: solid 1px #e5e5e5;
+  background-color: #f7f7f7;
+  margin: 16px auto;
+}
+
+.AuctionChattingInput {
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: bold;
+  color: #111;
+  margin-left: 15px;
+}
+
+.UpArrowImg {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
+
+.AuctionPriceListContainer {
+  width: 42.5%;
+  margin-bottom: 16px;
+}
+
+.AuctionPriceContainer {
+  width: 100%;
+  height: 98px;
+  border: solid 1px #e5e5e5;
+  background-color: #f7f7f7;
+  border-radius: 16px;
+  box-sizing: border-box;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.AuctionOfferPrcieDateTime {
+  font-size: 14px;
+  color: #666;
+}
+
+.AuctionOfferPriceUserNameBid {
+  margin-top: 8px;
+}
+
+.AuctionOfferUserName {
+  font-size: 16px;
+  font-weight: 500;
+  color: #111;
+  margin-right: 34px;
+}
+
+.AuctionOfferPriceHistory {
+  font-size: 16px;
+  font-weight: bold;
+  color: #111;
+}
+
+@media screen and (max-width: 1125px) {
+  .AuctionChattingTittle {
+    margin-right: 40%;
+  }
+}
+
+/*CreateItemPage*/
+
+.CreateItemContainer {
+  width: 100%;
+  height: 1200px;
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.CreateItemWrapper {
+  width: 75%;
+}
+
+.CreateItemTittle {
+  font-size: 24px;
+  font-weight: bold;
+  color: #111;
+}
+
+.CreateItemContent {
+  width: 100%;
+  height: 808px;
+  border-radius: 24px;
+  border: solid 1px #e5e5e5;
+  margin-top: 40px;
+  padding-left: 40px;
+  box-sizing: border-box;
+}
+
+.CreateItemImageContainer {
+  display: flex;
+  margin-top: 56px;
+}
+
+.CreateItemImageTittle {
+  width: 260px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #111;
+}
+
+.CreateItemImageWrapper {
+  width: 152px;
+  height: 152px;
+  border-radius: 16px;
+  background-color: #e5e5e5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ImagePreivew {
+  width: 152px;
+  height: 152px;
+}
+
+.CreateInputFileCircle {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  box-sizing: border-box;
+
+  border-radius: 32px;
+  position: relative;
+  right: 45px;
+  top: 110px;
+}
+
+.CreateItemTittleInputContainer {
+  margin-top: 32px;
+  display: flex;
+}
+
+.CreateItemNameTittle {
+  width: 260px;
+  font-size: 16px;
+  color: #111;
+  font-weight: bold;
+}
+
+.CreateItemTittleInput {
+  width: 630px;
+  height: 56px;
+  font-size: 18px;
+  font-weight: 500;
+  border: solid 1px #e5e5e5;
+  border-radius: 16px;
+  padding-left: 16px;
+  box-sizing: border-box;
+}
+
+.CreateItemTittleInput::placeholder {
+  color: #e5e5e5;
+}
+
+.CreateItemDescriptionContainer {
+  margin-top: 32px;
+  display: flex;
+}
+
+.CreateItemDescriptionTittle {
+  width: 260px;
+  font-size: 16px;
+  color: #111;
+  font-weight: bold;
+}
+
+.CreateItemDescriptionTextArea {
+  width: 630px;
+  height: 160px;
+  border-radius: 16px;
+  border: solid 1px #e5e5e5;
+  background-color: #fff;
+  padding-left: 16px;
+  padding-top: 16px;
+  box-sizing: border-box;
+  font-size: 18px;
+  resize: none;
+}
+
+.CreateItemDescriptionTextArea::placeholder {
+  color: #e5e5e5;
+}
+
+.CreateItemSelectCollectionTittle {
+  width: 260px;
+  font-size: 16px;
+  color: #111;
+  font-weight: bold;
+}
+
+.CreateItemSelectCollection option[value=""][disabled] {
+  display: none;
+}
+
+.CreateItemSelectCollection {
+  width: 630px;
+  height: 56px;
+  border: solid 1px #e5e5e5;
+  background-color: #fff;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url(../src/assets/icon/selectarrow.png) no-repeat 97% 50%;
+  border-radius: 16px;
+  padding-left: 16px;
+  box-sizing: border-box;
+  color: #e5e5e5;
+  font-size: 18px;
+}
+
+.CreateItemSupplyContainer {
+  display: flex;
+  margin-top: 32px;
+}
+
+.CreateItemSupplyInputContainer {
+  display: flex;
+  align-items: center;
+}
+
+.CreateItemSupplyTittle {
+  width: 260px;
+  font-size: 16px;
+  color: #111;
+  font-weight: bold;
+}
+
+.CreateItemSupplyInput {
+  width: 590px;
+  height: 56px;
+  border-radius: 16px;
+  border: solid 1px #e5e5e5;
+  background-color: #fff;
+  padding-left: 16px;
+  box-sizing: border-box;
+  margin-right: 24px;
+}
+
+.CreateItemSupplyInput::placeholder {
+  font-size: 18px;
+  font-weight: 500;
+  color: #e5e5e5;
+}
+
+.CreateItemSupplySpan {
+  font-size: 18px;
+  font-weight: bold;
+  color: #111;
+}
+
+.CreateItemBlockChainTittle {
+  width: 260px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #111;
+}
+
+.CreateItemBlockChainContainer {
+  margin-top: 32px;
+  display: flex;
+}
+
+.CreateItemButtonContainer {
+  width: 100%;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.CreateItemButton {
+  width: 50%;
+  border-radius: 16px;
+  background-color: #111;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* EditItemPage */
+.EditItemButton {
+  width: 25%;
+  border-radius: 16px;
+  background-color: #111;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.DeleteBuutton {
+  width: 25%;
+  border-radius: 16px;
+  background-color: #111;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* CreateCollectionPage */
+.CreateCollectionContainer {
+  width: 100%;
+  height: 1200px;
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.CreateCollectionWrapper {
+  width: 75%;
+}
+
+.CreateCollectionTittle {
+  font-size: 56px;
+  font-weight: bold;
+  color: #111;
+}
+
+.CreateCollectionContent {
+  width: 100%;
+  height: 848px;
+  border-radius: 24px;
+  border: solid 1px #e5e5e5;
+  margin-top: 40px;
+  padding-left: 40px;
+  box-sizing: border-box;
+}
+
+.CreateCollectionBannerImageContainer {
+  display: flex;
+  margin-top: 56px;
+}
+
+.CreateCollectionBannerImageTittle {
+  width: 260px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #111;
+}
+
+.CreateCollectionBannerImageWrapper {
+  width: 560px;
+  height: 152px;
+  border-radius: 16px;
+  background-color: #e5e5e5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CollectionImagePreview {
+  width: 100%;
+  height: 100%;
+}
+
+.CollectionFeaturedImagePreview {
+  width: 100%;
+  height: 100%;
+}
+
+.CreateCollectionFeaturedImageContainer {
+  display: flex;
+  margin-top: 40px;
+}
+
+.CreateCollectionFeaturedImageTittle {
+  width: 260px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #111;
+}
+
+.CreateCollectionFeaturedImageWrapper {
+  width: 260px;
+  height: 152px;
+  border-radius: 16px;
+  background-color: #e5e5e5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CreateCollectionTittleInputContainer {
+  margin-top: 40px;
+  display: flex;
+}
+
+.CreateCollectionNameTittle {
+  width: 260px;
+  font-size: 24px;
+  color: #111;
+  font-weight: bold;
+}
+
+.CreateCollectionTittleInput {
+  width: 630px;
+  height: 56px;
+  font-size: 18px;
+  font-weight: 500;
+  border: solid 1px #e5e5e5;
+  border-radius: 16px;
+  padding-left: 16px;
+  box-sizing: border-box;
+}
+
+.CreateCollectionTittleInput::placeholder {
+  color: #e5e5e5;
+}
+
+.CreateCollectionDescriptionContainer {
+  margin-top: 32px;
+  display: flex;
+}
+
+.CreateCollectionDescriptionTittle {
+  width: 260px;
+  font-size: 24px;
+  color: #111;
+  font-weight: bold;
+}
+
+.CreateCollectionDescriptionTextArea {
+  width: 630px;
+  height: 160px;
+  border-radius: 16px;
+  border: solid 1px #e5e5e5;
+  background-color: #fff;
+  padding-left: 16px;
+  padding-top: 16px;
+  box-sizing: border-box;
+  font-size: 18px;
+  resize: none;
+}
+
+.CreateCollectionDescriptionTextArea::placeholder {
+  color: #e5e5e5;
+}
+
+.CreateCollectionCreatorEarningsContainer {
+  margin-top: 40px;
+  display: flex;
+}
+
+.CreateCollectionCreatorEarningsTittle {
+  width: 260px;
+  font-size: 24px;
+  color: #111;
+  font-weight: bold;
+}
+
+.CreateCollectionCreatorEarningsInput {
+  width: 630px;
+  height: 56px;
+  font-size: 18px;
+  font-weight: 500;
+  border: solid 1px #e5e5e5;
+  background-color: #f7f7f7;
+  border-radius: 16px;
+  padding-left: 16px;
+  box-sizing: border-box;
+}
+
+/* LoginModal */
+.LoginOverLay {
+  width: 100%;
+  height: 100%;
+  background-color: #0000007a;
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.LoginModal {
+  width: 720px;
+  height: 318px;
+  background: #fff;
+  margin: 300px auto;
+  border-radius: 24px;
+  border: solid 1px #e5e5e5;
+}
+
+.LoginModalQuestionContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 72px;
+  margin-bottom: 40px;
+}
+
+.LoginModalQuestion {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.LoginModalButtonContainer {
+  width: 572px;
+  height: 104px;
+  border-radius: 16px;
+  background-color: #111;
+  margin-left: 74px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.LoginModalButton {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.LoginMetaMaskImg {
+  width: 56px;
+  height: 56px;
+}
+
+.LoginModalButtonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ConnetWalletSpan {
+  margin-left: 24px;
+}
+
+/* Header 드롭다운 연습한거*/
+#CheckBox {
+  display: none;
+}
+
+input[id*="CheckBox"]:checked + label + div {
+  max-height: 100px;
+}
+
+.CreateLabelButton {
+  display: block;
+  cursor: pointer;
+  width: 80px;
+
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+
+  color: #333333;
+  white-space: nowrap;
+}
+
+input[id*="CheckBox"] + label + div {
+  max-height: 0px;
+  transition: all 0.35s;
+  overflow: hidden;
+}
+
+.LabelButton {
+  display: block;
+}
+
+/* AdminPage */
+.AdminContainer {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.AdminSidebar {
+  width: 12.5%;
+  height: 100vh;
+  background-color: white;
+  border-top: 1px solid #e5e5e5;
+}
+
+.AdminList {
+  width: auto;
+  height: auto;
+  margin: 40px 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.SelectedList {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.33;
+  text-align: right;
+  color: #111;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+
+.UnSelectedList {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.33;
+  text-align: right;
+  color: #999;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+
+.AdminContentWrap {
+  width: 87.5%;
+  background-color: #f7f7f7;
+  border-left: 1px solid #e5e5e5;
+  border-top: 1px solid #e5e5e5;
+}
+
+.AdminContentTable {
+  width: 95%;
+  display: flex;
+  margin: 80px 40px 0 40px;
+}
+
+.TableList {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.38;
+  text-align: left;
+  color: #111;
+}
+
+.AdminContent {
+  width: 90%;
+  height: 70%;
+  margin: 20px 40px 40px 40px;
+  padding: 24px 40px;
+  border-radius: 16px;
+  border: solid 1px #e5e5e5;
+  background-color: #fff;
+}
+
+/* AdminListItem */
+.AdminListWrap {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.AdminListItem {
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 1.33;
+  text-align: left;
+  color: #111;
+}
+
+.AdminImage {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
+
+.AdminImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.AdminButton {
+  width: 120px;
+  height: 56px;
+  margin: 0 16px 0 0;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background-color: #111;
+
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.33;
+  text-align: center;
+  color: #fff;
+}
+
+.AdminButtonLong {
+  width: 260px;
+  height: 56px;
+  margin: 0 16px 0 0;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background-color: #111;
+
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.33;
+  text-align: center;
+  color: #fff;
+}

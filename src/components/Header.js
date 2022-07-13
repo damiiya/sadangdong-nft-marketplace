@@ -1,0 +1,94 @@
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../assets/icon/logo.png";
+import { Avatar, Checkbox } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import ButtonElement from "../elements/ButtonElement";
+import LoginModal from "../elements/LoginModal";
+import LogoutModal from "../elements/LogoutModal";
+
+const Header = () => {
+  const [isLogin, setIsLogin] = useState(true);
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [openLogoutModal, setOpenLogoutModal] = useState(false);
+
+  return (
+    <>
+      <LoginModal
+        openLoginModal={openLoginModal}
+        setOpenLoginModal={setOpenLoginModal}
+      />
+      <LogoutModal
+        openLogoutModal={openLogoutModal}
+        setOpenLogoutModal={setOpenLogoutModal}
+      />
+      <div className="HeaderContainer">
+        <div className="HeaderWrapper">
+          <div className="HeaderLogSearchBarContainer">
+            <div className="Logo">
+              <img className="LogoImage" src={logo} />
+            </div>
+            <div className="SearchBar">
+              <form className="SearchForm">
+                <input
+                  className="SearchInput"
+                  type="text"
+                  placeholder="검색어를 입력하세요"
+                />
+                <button className="SearchButton" type="submit"></button>
+                <SearchIcon className="IconButton" />
+              </form>
+            </div>
+          </div>
+
+          <div className="ButtonBundle">
+            <button className="HeaderButton">All NFTs</button>
+            <div className="Accordion">
+              <input type="checkbox" id="answer01" />
+              <label htmlFor="answer01">
+                <span className="HeaderButton">Create</span>
+              </label>
+              <div className="AccordionMenu">
+                <button className="AccordionMenuButton">Create Item</button>
+                <button className="AccordionMenuButton">
+                  Create Collection
+                </button>
+              </div>
+            </div>
+            {isLogin ? (
+              <>
+                <button
+                  className="HeaderDisconnectButton"
+                  onClick={() => {
+                    setOpenLogoutModal(true);
+                  }}
+                >
+                  Disconnect a Wallet
+                </button>
+                <Avatar
+                  className="HeaderAvatar"
+                  alt="User Name"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
+                  sx={{ width: 56, height: 56 }}
+                />
+              </>
+            ) : (
+              <>
+                <button
+                  className="HeaderDisconnectButton"
+                  onClick={() => {
+                    setOpenLoginModal(true);
+                  }}
+                >
+                  Connect a Wallet
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Header;
