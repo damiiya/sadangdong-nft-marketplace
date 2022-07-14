@@ -6,9 +6,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import ButtonElement from "../elements/ButtonElement";
 import LoginModal from "../elements/LoginModal";
 import LogoutModal from "../elements/LogoutModal";
+import createitem from "../assets/icon/createitem.png";
+import createcollection from "../assets/icon/createcollection.png";
 
 const Header = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
 
@@ -45,14 +47,23 @@ const Header = () => {
             <button className="HeaderButton">All NFTs</button>
             <div className="Accordion">
               <input type="checkbox" id="answer01" />
-              <label htmlFor="answer01">
-                <span className="HeaderButton">Create</span>
+              <label className="HeaderLabel" htmlFor="answer01">
+                <span className="HeaderButton">
+                  Create
+                  <em></em>
+                </span>
               </label>
               <div className="AccordionMenu">
-                <button className="AccordionMenuButton">Create Item</button>
-                <button className="AccordionMenuButton">
-                  Create Collection
-                </button>
+                <div className="AccordionCreateitemContainer-1">
+                  <img src={createitem} />
+                  <button className="AccordionMenuButton-1">Create Item</button>
+                </div>
+                <div className="AccordionCreateitemContainer-2">
+                  <img src={createcollection} />
+                  <button className="AccordionMenuButton-2">
+                    Create Collection
+                  </button>
+                </div>
               </div>
             </div>
             {isLogin ? (
@@ -82,6 +93,12 @@ const Header = () => {
                 >
                   Connect a Wallet
                 </button>
+                <Avatar
+                  className="HiddenHeaderAvatar"
+                  alt="User Name"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
+                  sx={{ width: 56, height: 56 }}
+                />
               </>
             )}
           </div>
