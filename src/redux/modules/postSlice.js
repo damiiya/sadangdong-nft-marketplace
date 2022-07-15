@@ -5,6 +5,15 @@ import { serverUrl } from "../../shared/api";
 
 // 액션함수+데이터명으로 axios 요청 작성
 // export const loadAllLists
+
+// export const createUser = createAsyncThunk("CREATE_USER",
+// async() => {
+//   const response = await axios.post(`${serverUrl}`,)
+//   console.log(response.data);
+//   return response.data;
+// }
+// )
+
 export const createCollection = createAsyncThunk(
   "CREATE_LIST",
   async (formData) => {
