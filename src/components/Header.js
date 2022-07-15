@@ -14,6 +14,7 @@ const Header = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
 
+  const checkWalletId = localStorage.getItem("walletId");
   return (
     <>
       <LoginModal
@@ -66,7 +67,7 @@ const Header = () => {
                 </div>
               </div>
             </div>
-            {isLogin ? (
+            {checkWalletId ? (
               <>
                 <button
                   className="HeaderDisconnectButton"
