@@ -129,15 +129,47 @@
   cursor: pointer;
 }
 
+.HiddenHeaderAvatar {
+  margin-right: 80px;
+  visibility: hidden;
+}
+
 /* HeaderDropDown */
 input[id*="answer"] {
   display: none;
 }
 
+.HeaderLabel {
+}
+
 input[id*="answer"] + label span {
-  display: block;
+  display: flex;
   cursor: pointer;
   position: relative;
+  align-items: center;
+}
+
+input[id*="answer"]:checked + label span {
+  font-weight: bold;
+  color: #86c500;
+}
+
+input[id*="answer"] + label em {
+  /* position: absolute;
+  top: 78px;
+  right: 360px; */
+  position: relative;
+  top: 5px;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: -15px;
+  display: inline-block;
+  cursor: pointer;
+  background: url("/src/assets/icon/arrowblack.png") 0 0 no-repeat;
+}
+
+input[id*="answer"]:checked + label em {
+  background: url("/src/assets/icon/arrowgreen.png") 0 0 no-repeat;
 }
 
 input[id*="answer"] + label + div {
@@ -154,21 +186,7 @@ input[id*="answer"]:checked + label + div {
   max-height: 9.188rem;
   box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.32);
   border-radius: 16px;
-  z-index: 1;
-}
-
-.AccordionMenuButton {
-  width: 16rem;
-  height: 4.5rem;
-  font-weight: 700;
-  font-size: 18px;
-  padding: 0px;
-  border: none;
-  background-color: transparent;
-  color: #333333;
-  white-space: nowrap;
-  margin-right: 40px;
-  border: 1px solid red;
+  z-index: 3;
 }
 
 .Accordion {
@@ -179,7 +197,73 @@ input[id*="answer"]:checked + label + div {
 
 .AccordionMenu {
   position: absolute;
-  top: 100px;
+  top: 110px;
+  right: 310px;
+}
+
+.AccordionCreateitemContainer-1 {
+  display: flex;
+  width: 100%;
+  height: 4.5rem;
+}
+.AccordionCreateitemContainer-1:hover {
+  background-color: #c5ff49;
+}
+
+.AccordionCreateitemContainer-2 {
+  display: flex;
+  width: 100%;
+  height: 4.5rem;
+}
+
+.AccordionCreateitemContainer-2:hover {
+  background-color: #c5ff49;
+}
+
+.AccordionCreateitemContainer-1 img {
+  width: 1.75rem;
+  height: 1.75rem;
+  position: relative;
+  top: 22px;
+  left: 40px;
+}
+
+.AccordionCreateitemContainer-2 img {
+  width: 1.75rem;
+  height: 1.75rem;
+  position: relative;
+  top: 22px;
+  left: 40px;
+}
+
+.AccordionMenuButton-1 {
+  width: 100%;
+  height: 4.5rem;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 0px;
+  border: none;
+  background-color: transparent;
+  color: #111;
+  white-space: nowrap;
+  text-align: center;
+  box-sizing: border-box;
+  padding-right: 20px;
+}
+
+.AccordionMenuButton-2 {
+  width: 100%;
+  height: 4.5rem;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 0px;
+  border: none;
+  background-color: transparent;
+  color: #111;
+  white-space: nowrap;
+  text-align: center;
+  box-sizing: border-box;
+  padding-left: 28px;
 }
 
 /* ButtonElement */
