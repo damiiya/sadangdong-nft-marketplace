@@ -18,7 +18,13 @@ const LogoutModal = (props) => {
           </span>
         </div>
         <div className="LoginModalButtonContainer">
-          <button className="LoginModalButton">
+          <button
+            className="LoginModalButton"
+            onClick={() => {
+              localStorage.removeItem("walletId");
+              setOpenLogoutModal(false);
+            }}
+          >
             <div className="LoginModalButtonWrapper">
               <img className="LoginMetaMaskImg" src={metamaskfox} />
               <span className="ConnetWalletSpan">메타마스크 지갑 해제하기</span>
