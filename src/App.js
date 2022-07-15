@@ -22,15 +22,7 @@ import ApprovedAdminPage from "./pages/ApprovedAdminPage";
 import RejectedAdminPage from "./pages/RejectedAdminPage";
 import Footer from "./components/Footer";
 
-import web3 from "./web3";
-
 function App() {
-  web3.eth.getAccounts().then(console.log);
-  web3.eth
-    .getBalance("0xa9F0571052289Ed8d731D511EDe36ece3df3d0D1")
-    .then(console.log);
-  // 62381a47d631f7460f1768b40ed5ec79d463e2c6
-
   return (
     <div className="App">
       <Header />
