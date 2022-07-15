@@ -1,10 +1,18 @@
 import React, { useState, useRef } from "react";
+import { contractAbi } from "../abi";
+import { contractAddress } from "../shared/api";
 // import { useDispatch } from "react-redux";
 // import { createItem } from "../redux/modules/postSlice";
 import uploadimage from "../assets/uploadimage.png";
+// import { nftStorageKey } from "../shared/api";
+// import { NFTStorage } from "nft.storage";
 
 const CreateItemPage = () => {
   const [imageSrc, setImageSrc] = useState("");
+  const [itemName, setItemName] = useState("");
+  const [status, setStatus] = useState("");
+  const [desc, setDesc] = useState("");
+  const fileInput = useRef();
 
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -17,8 +25,22 @@ const CreateItemPage = () => {
     });
   };
 
-  // useDispatch;
-  // createItem;
+  const onClickMint = async () => {
+    // First we use the nft.storage client library to add the image and metadata to IPFS / Filecoin
+    // const client = new NFTStorage({ token: nftStorageKey });
+    // setStatus("Uploading to nft.storage...");
+    // const metadata = await client.store({
+    //   itemName,
+    //   desc,
+    //   fileInput,
+    // });
+    // setStatus(
+    //   `Upload complete! Minting token with metadata URI: ${metadata.url}`
+    // );
+    // // the returned metadata.url has the IPFS URI we want to add.
+    // // our smart contract already prefixes URIs with "ipfs://", so we remove it before calling the `mintToken` function
+    // const metadataURI = metadata.url.replace(/^ipfs:\/\//, "");
+  };
 
   return (
     <>
@@ -45,6 +67,7 @@ const CreateItemPage = () => {
               <input
                 type="file"
                 id="CreateItemFile"
+                ref={fileInput}
                 style={{ display: "none" }}
                 onChange={(e) => {
                   encodeFileToBase64(e.target.files[0]);
@@ -57,6 +80,11 @@ const CreateItemPage = () => {
                 <input
                   className="CreateItemTittleInput"
                   placeholder="아이템 이름을 입력해 주세요."
+                  type="text"
+                  value={itemName}
+                  onChange={(e) => {
+                    setItemName(e.target.value);
+                  }}
                 />
               </div>
             </div>
@@ -66,6 +94,10 @@ const CreateItemPage = () => {
                 <textarea
                   className="CreateItemDescriptionTextArea"
                   placeholder="아이템 설명글을 작성해 주세요."
+                  value={desc}
+                  onChange={(e) => {
+                    setDesc(e.target.value);
+                  }}
                 />
               </div>
             </div>
@@ -74,19 +106,23 @@ const CreateItemPage = () => {
                 Collection Sellect
               </span>
               <select className="CreateItemSelectCollection">
-                <option value="" disabled selected>
+                <option value="" disabled>
                   컬렉션을 선택해주세요.
                 </option>
                 <option>컬렉션1</option>
-                <option>컬렉션2</option>
+                {/* <option>컬렉션2</option>
                 <option>컬렉션3</option>
-                <option>컬렉션4</option>
+                <option>컬렉션4</option> */}
               </select>
             </div>
             <div className="CreateItemSupplyContainer">
               <span className="CreateItemSupplyTittle">Supply</span>
               <div className="CreateItemSupplyInputContainer">
-                <input className="CreateItemSupplyInput" placeholder="0" />
+                <input
+                  className="CreateItemSupplyInput"
+                  placeholder="1"
+                  disabled
+                />
                 <span className="CreateItemSupplySpan">개</span>
               </div>
             </div>
@@ -97,13 +133,16 @@ const CreateItemPage = () => {
                   발행할 코인을 선택해주세요.
                 </option>
                 <option>ETH</option>
-                <option>폴리곤</option>
-                <option>클레이튼</option>
+                {/* <option>폴리곤</option>
+                <option>클레이튼</option> */}
               </select>
             </div>
           </div>
           <div className="CreateItemButtonContainer">
-            <button className="CreateItemButton">Create</button>
+            <button className="CreateItemButton" onClick={onClickMint}>
+              Create
+            </button>
+            <span>{status}</span>
           </div>
         </div>
       </div>
