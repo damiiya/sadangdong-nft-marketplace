@@ -9,18 +9,18 @@ import { store } from "./redux/store.js";
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 
-function getLibrary(provider) {
-  const library = new Web3Provider(provider, "any");
-  return library;
-}
+// function getLibrary(provider) {
+//   const library = new Web3Provider(provider, "any");
+//   return library;
+// }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <Web3ReactProvider getLibrary={getLibrary}>
-        <App />
-      </Web3ReactProvider>
+      {/* <Web3ReactProvider getLibrary={getLibrary}> */}
+      <App />
+      {/* </Web3ReactProvider> */}
     </Provider>
   </BrowserRouter>
 );

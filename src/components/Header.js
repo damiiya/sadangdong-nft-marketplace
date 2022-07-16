@@ -10,11 +10,21 @@ import createitem from "../assets/icon/createitem.png";
 import createcollection from "../assets/icon/createcollection.png";
 
 const Header = () => {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
 
   const checkWalletId = localStorage.getItem("walletId");
+
+  const goMain = () => {
+    navigate("/main");
+  };
+
+  const goItem = () => {
+    navigate("/createItem");
+  };
+
   return (
     <>
       <LoginModal
@@ -29,7 +39,7 @@ const Header = () => {
         <div className="HeaderWrapper">
           <div className="HeaderLogSearchBarContainer">
             <div className="Logo">
-              <img className="LogoImage" src={logo} />
+              <img className="LogoImage" src={logo} onClick={goMain} />
             </div>
             <div className="SearchBar">
               <form className="SearchForm">
@@ -57,7 +67,9 @@ const Header = () => {
               <div className="AccordionMenu">
                 <div className="AccordionCreateitemContainer-1">
                   <img src={createitem} />
-                  <button className="AccordionMenuButton-1">Create Item</button>
+                  <button className="AccordionMenuButton-1" onClick={goItem}>
+                    Create Item
+                  </button>
                 </div>
                 <div className="AccordionCreateitemContainer-2">
                   <img src={createcollection} />
