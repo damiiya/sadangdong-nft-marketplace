@@ -4,14 +4,15 @@ import { contractAddress } from "../shared/api";
 // import { useDispatch } from "react-redux";
 // import { createItem } from "../redux/modules/postSlice";
 import uploadimage from "../assets/uploadimage.png";
-// import { nftStorageKey } from "../shared/api";
+import { nftStorageKey } from "../shared/api";
 // import { NFTStorage } from "nft.storage";
+import { NFTStorage } from "nft.storage/dist/bundle.esm.min.js";
 
 const CreateItemPage = () => {
-  const [imageSrc, setImageSrc] = useState("");
-  const [itemName, setItemName] = useState("");
+  const [imageSrc, setImageSrc] = useState(null);
+  const [name, setName] = useState("");
   const [status, setStatus] = useState("");
-  const [desc, setDesc] = useState("");
+  const [description, setDescription] = useState("");
   const fileInput = useRef();
 
   const encodeFileToBase64 = (fileBlob) => {
@@ -27,19 +28,21 @@ const CreateItemPage = () => {
 
   const onClickMint = async () => {
     // First we use the nft.storage client library to add the image and metadata to IPFS / Filecoin
-    // const client = new NFTStorage({ token: nftStorageKey });
-    // setStatus("Uploading to nft.storage...");
-    // const metadata = await client.store({
-    //   itemName,
-    //   desc,
-    //   fileInput,
-    // });
-    // setStatus(
-    //   `Upload complete! Minting token with metadata URI: ${metadata.url}`
-    // );
-    // // the returned metadata.url has the IPFS URI we want to add.
-    // // our smart contract already prefixes URIs with "ipfs://", so we remove it before calling the `mintToken` function
-    // const metadataURI = metadata.url.replace(/^ipfs:\/\//, "");
+    const image = fileInput.current.files[0];
+    const client = new NFTStorage({ token: nftStorageKey });
+    setStatus("Uploading to nft.storage...");
+    const metadata = await client.store({
+      name,
+      description,
+      image,
+    });
+    console.log(metadata);
+    setStatus(
+      `Upload complete! Minting token with metadata URI: ${metadata.url}`
+    );
+    // the returned metadata.url has the IPFS URI we want to add.
+    // our smart contract already prefixes URIs with "ipfs://", so we remove it before calling the `mintToken` function
+    const metadataURI = metadata.url.replace(/^ipfs:\/\//, "");
   };
 
   return (
@@ -81,9 +84,9 @@ const CreateItemPage = () => {
                   className="CreateItemTittleInput"
                   placeholder="아이템 이름을 입력해 주세요."
                   type="text"
-                  value={itemName}
+                  value={name}
                   onChange={(e) => {
-                    setItemName(e.target.value);
+                    setName(e.target.value);
                   }}
                 />
               </div>
@@ -94,9 +97,9 @@ const CreateItemPage = () => {
                 <textarea
                   className="CreateItemDescriptionTextArea"
                   placeholder="아이템 설명글을 작성해 주세요."
-                  value={desc}
+                  value={description}
                   onChange={(e) => {
-                    setDesc(e.target.value);
+                    setDescription(e.target.value);
                   }}
                 />
               </div>
