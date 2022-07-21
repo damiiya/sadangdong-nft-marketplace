@@ -15,7 +15,7 @@ const Header = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
 
-  const checkWalletId = localStorage.getItem("walletId");
+  const checkWalletId = localStorage.getItem("auth_token");
 
   const goMain = () => {
     navigate("/main");

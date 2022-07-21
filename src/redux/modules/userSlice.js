@@ -26,17 +26,32 @@ export const createAccount = createAsyncThunk(
   "ACCOUNT_INFO",
   async (account) => {
     console.log(account);
-    // const navigate = useNavigate();
+    // return await axios({
+    //   method: "post",
+    //   url: `${serverUrl}/api/account/auth`,
+    //   headers: {
+    //     "authorization": account
+    //   },
+    // })
+    // .then((response) => {
+    //   console.log(response.data)
+    // })
+    // .error((error)=> {
+    //   console.log(error.message)
+    // })
+
     return await axios
-      .post(`${serverUrl}api/account/sign`, { walletId: account })
-      .then(
-        (response) => {
-          localStorage.setItem("walletId", account);
-          console.log(response.data);
-          return response.data;
+      .post(
+        `${serverUrl}/api/account/auth`,
+        {},
+        {
+          headers: { authorization: `${account}` },
         }
-        // navigate("/main");
       )
+      .then((response) => {
+        localStorage.setItem("auth_token", account);
+        console.log(response.data);
+      })
       .catch((error) => {
         console.log(error.message);
       });
@@ -49,7 +64,6 @@ const userSlice = createSlice({
   reducers: [],
   extraReducers: {
     [createAccount.fulfilled]: (state, action) => {
-      console.log(action.payload);
       state.account = action.payload;
     },
   },

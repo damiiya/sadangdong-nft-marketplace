@@ -5,7 +5,11 @@ import pencil from "../assets/icon/pencil.png";
 import CardAuction from "../components/CardAuction";
 import CardItem from "../components/CardItem";
 
+import { useParams } from "react-router-dom";
+
 const CollectionPage = () => {
+  const params = useParams();
+  const collectionId = params.collectionId;
   const [category, setCategory] = useState(0);
 
   return (
@@ -47,7 +51,7 @@ const CollectionPage = () => {
           </button>
           <button className="CollectionTitleButton">
             <img className="ButtonIcon" src={pencil} />
-            Collection Edit
+            <a href={`/editcollection/${collectionId}`}>Collection Edit</a>
           </button>
         </div>
       </div>
