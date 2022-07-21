@@ -48,7 +48,6 @@ const CreateCollectionPage = () => {
 
     const formData = new FormData();
     formData.append("fileInfo", JSON.stringify(fileInfo));
-    // formData.append("fileInfo", new Blob( [ JSON.stringify(fileInfo, { contentType: "application/json", }), ], { type: "application/json", } ) );
     formData.append("files", file1, "bannerImg");
     formData.append("files", file2, "featuredImg");
 

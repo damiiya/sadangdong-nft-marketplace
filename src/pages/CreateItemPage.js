@@ -1,22 +1,37 @@
-import React, { useState, useRef } from "react";
-import { contractAbi } from "../abi";
-import { contractAddress } from "../shared/api";
-// import { useDispatch } from "react-redux";
-// import { createItem } from "../redux/modules/postSlice";
+import React, { useState, useRef, useEffect } from "react";
+import { CONTRACT_ABI } from "../contracts/abi";
+import { MintContractAddress } from "../shared/api";
+import { useDispatch, useSelector } from "react-redux";
 import uploadimage from "../assets/uploadimage.png";
-import { nftStorageKey } from "../shared/api";
-// import { NFTStorage } from "nft.storage";
-import { NFTStorage } from "nft.storage/dist/bundle.esm.min.js";
+import { ethers } from "ethers";
+import { MINT_NFT_ABI } from "../contracts/mintabi";
+import { PINATA_API_KEY, PINATA_API_SECRET } from "../shared/api";
+import axios from "axios";
+import {
+  getCollectionSelect,
+  postMintedItem,
+} from "../redux/modules/itemSlice";
 
 const CreateItemPage = () => {
+  const [isLoad, setIsLoad] = useState(false);
+  const [file, setFile] = useState("");
   const [imageSrc, setImageSrc] = useState(null);
   const [name, setName] = useState("");
-  const [status, setStatus] = useState("");
   const [description, setDescription] = useState("");
+  const [selected, setSelected] = useState("");
   const fileInput = useRef();
 
-  const arr = [{ name: "1" }, { name: "2" }, { name: "3" }];
+  const dispatch = useDispatch();
+  const collectionName = useSelector((state) => state.item.collectionName);
+  console.log(collectionName);
 
+  // 이미지 파일 가져오기
+  const getImage = (e) => {
+    setFile(e);
+    console.log(file);
+  };
+
+  // 이미지 미리보기
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
@@ -28,134 +43,263 @@ const CreateItemPage = () => {
     });
   };
 
-  const onClickMint = async () => {
-    // First we use the nft.storage client library to add the image and metadata to IPFS / Filecoin
-    const image = fileInput.current.files[0];
-    const client = new NFTStorage({ token: nftStorageKey });
-    setStatus("Uploading to nft.storage...");
-    const metadata = await client.store({
-      name,
-      description,
-      image,
-    });
-    console.log(metadata);
-    setStatus(
-      `Upload complete! Minting token with metadata URI: ${metadata.url}`
-    );
-    // the returned metadata.url has the IPFS URI we want to add.
-    // our smart contract already prefixes URIs with "ipfs://", so we remove it before calling the `mintToken` function
-    const metadataURI = metadata.url.replace(/^ipfs:\/\//, "");
+  // formData로 요청하기
+  const handleSubmit = async (tokenID, tokenURI, ImgHash) => {
+    const itemInfo = {
+      token_id: tokenID,
+      ipfsJson: tokenURI,
+      ipfsImage: ImgHash,
+      name: name,
+      description: description,
+      collection_id: selected,
+    };
+    console.log(itemInfo);
+    const formData = new FormData();
+    formData.append("itemInfo", JSON.stringify(itemInfo));
+    formData.append("files", file);
+    console.log(formData);
+
+    dispatch(postMintedItem(formData));
   };
 
-  return (
-    <>
-      <div className="CreateItemContainer">
-        <div className="CreateItemWrapper">
-          <span className="CreateItemTittle">아이템 생성</span>
-          <div className="CreateItemContent">
-            <div className="CreateItemImageContainer">
-              <span className="CreateItemImageTittle">Item image</span>
-              <div className="CreateItemImageWrapper">
-                {imageSrc && (
-                  <img
-                    className="ImagePreivew"
-                    src={imageSrc}
-                    alt="preview-img"
-                  />
-                )}
-              </div>
-              <label htmlFor="CreateItemFile">
-                <div className="CreateInputFileCircle">
-                  <img src={uploadimage} />
+  // 민팅
+  const getMintNFT = async (tokenURI, ImgHash) => {
+    // if (
+    //   window.ethereum.request({
+    //     method: "wallet_switchEthereumChain",
+    //     params: [{ chainId: "1387" }],
+    //   })
+    // )
+    //   alert("Wallet switch!");
+    try {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      const account = accounts[0];
+      console.log("현재 계정:", account);
+
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        MintContractAddress,
+        MINT_NFT_ABI,
+        signer
+      );
+
+      const txn = await contract.mintNFT(tokenURI);
+      console.log(txn.hash);
+
+      const tx = await provider.getTransaction(txn.hash);
+      console.log(tx);
+
+      const receipt = await tx.wait();
+      console.log(receipt);
+
+      const getmintItem = await contract.getNftTokens(account);
+      console.log(getmintItem);
+
+      const tokensOwned = await contract.balanceOf(account);
+
+      const tokenIds = [];
+
+      for (let i = 0; i < tokensOwned; i++) {
+        const tokenId = await contract.tokenOfOwnerByIndex(account, i);
+        tokenIds.push(tokenId.toString());
+      }
+
+      const tokenID = tokenIds[tokenIds.length - 1];
+      console.log(tokenID);
+
+      handleSubmit(tokenID, tokenURI, ImgHash);
+    } catch (error) {
+      console.log("Error while minting NFT with contract");
+      console.log(error);
+    }
+  };
+
+  // tokenURI 받기
+  const sendJsontoIPFS = async (ImgHash) => {
+    try {
+      const resJSON = await axios({
+        method: "post",
+        url: "https://api.pinata.cloud/pinning/pinJsonToIPFS",
+        data: {
+          name: name,
+          description: description,
+          image: ImgHash,
+        },
+        headers: {
+          pinata_api_key: `${PINATA_API_KEY}`,
+          pinata_secret_api_key: `${PINATA_API_SECRET}`,
+        },
+      });
+
+      console.log("final ", `ipfs://${resJSON.data.IpfsHash}`);
+      const tokenURI = `ipfs://${resJSON.data.IpfsHash}`;
+      console.log("Token URI", tokenURI);
+
+      getMintNFT(tokenURI, ImgHash);
+    } catch (error) {
+      console.log("JSON to IPFS: ");
+      console.log(error);
+    }
+  };
+
+  // 이미지 파일 Ipfshash로 변환
+  const SetFiletoIPFS = async (e) => {
+    e.preventDefault();
+    if (file) {
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const resFile = await axios({
+          method: "post",
+          url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+          data: formData,
+          headers: {
+            pinata_api_key: `${PINATA_API_KEY}`,
+            pinata_secret_api_key: `${PINATA_API_SECRET}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        const ImgHash = `ipfs://${resFile.data.IpfsHash}`;
+        sendJsontoIPFS(ImgHash);
+      } catch (error) {
+        console.log("File to IPFS: ");
+        console.log(error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    dispatch(getCollectionSelect());
+  }, []);
+
+  useEffect(() => {
+    if (collectionName) {
+      setIsLoad(true);
+    }
+  }, [collectionName]);
+
+  if (!isLoad) {
+    return null;
+  } else {
+    return (
+      <>
+        <div className="CreateItemContainer">
+          <div className="CreateItemWrapper">
+            <span className="CreateItemTittle">아이템 생성</span>
+            <div className="CreateItemContent">
+              <div className="CreateItemImageContainer">
+                <span className="CreateItemImageTittle">Item image</span>
+                <div className="CreateItemImageWrapper">
+                  {imageSrc && (
+                    <img
+                      className="ImagePreivew"
+                      src={imageSrc}
+                      alt="preview-img"
+                    />
+                  )}
                 </div>
-              </label>
-              <input
-                type="file"
-                id="CreateItemFile"
-                ref={fileInput}
-                style={{ display: "none" }}
-                onChange={(e) => {
-                  encodeFileToBase64(e.target.files[0]);
-                }}
-              />
-            </div>
-            <div className="CreateItemTittleInputContainer">
-              <span className="CreateItemNameTittle">Item</span>
-              <div>
+                <label htmlFor="CreateItemFile">
+                  <div className="CreateInputFileCircle">
+                    <img src={uploadimage} />
+                  </div>
+                </label>
                 <input
-                  className="CreateItemTittleInput"
-                  placeholder="아이템 이름을 입력해 주세요."
-                  type="text"
-                  value={name}
+                  type="file"
+                  id="CreateItemFile"
+                  ref={fileInput}
+                  style={{ display: "none" }}
                   onChange={(e) => {
-                    setName(e.target.value);
+                    encodeFileToBase64(e.target.files[0]);
+                    getImage(e.target.files[0]);
                   }}
                 />
               </div>
-            </div>
-            <div className="CreateItemDescriptionContainer">
-              <span className="CreateItemDescriptionTittle">Description</span>
-              <div>
-                <textarea
-                  className="CreateItemDescriptionTextArea"
-                  placeholder="아이템 설명글을 작성해 주세요."
-                  value={description}
+              <div className="CreateItemTittleInputContainer">
+                <span className="CreateItemNameTittle">Item</span>
+                <div>
+                  <input
+                    className="CreateItemTittleInput"
+                    placeholder="아이템 이름을 입력해 주세요."
+                    type="text"
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="CreateItemDescriptionContainer">
+                <span className="CreateItemDescriptionTittle">Description</span>
+                <div>
+                  <textarea
+                    className="CreateItemDescriptionTextArea"
+                    placeholder="아이템 설명글을 작성해 주세요."
+                    value={description}
+                    onChange={(e) => {
+                      setDescription(e.target.value);
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="CreateItemDescriptionContainer">
+                <span className="CreateItemSelectCollectionTittle">
+                  Collection Select
+                </span>
+                <select
+                  className="CreateItemSelectCollection"
+                  value={selected}
                   onChange={(e) => {
-                    setDescription(e.target.value);
+                    setSelected(e.target.value);
                   }}
-                />
+                >
+                  <option value="" disabled>
+                    컬렉션을 선택해주세요.
+                  </option>
+                  {collectionName.map((list, i) => (
+                    <option value={list.name}>{list.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="CreateItemSupplyContainer">
+                <span className="CreateItemSupplyTittle">Supply</span>
+                <div className="CreateItemSupplyInputContainer">
+                  <input
+                    className="CreateItemSupplyInput"
+                    placeholder="1"
+                    disabled
+                  />
+                  <span className="CreateItemSupplySpan">개</span>
+                </div>
+              </div>
+              <div className="CreateItemBlockChainContainer">
+                <span className="CreateItemBlockChainTittle">Block Chain</span>
+                <select className="CreateItemSelectCollection">
+                  <option value="" disabled selected>
+                    발행할 코인을 선택해주세요.
+                  </option>
+                  <option>ETH</option>
+                </select>
               </div>
             </div>
-            <div className="CreateItemDescriptionContainer">
-              <span className="CreateItemSelectCollectionTittle">
-                Collection Sellect
-              </span>
-              <select className="CreateItemSelectCollection">
-                <option value="" disabled>
-                  컬렉션을 선택해주세요.
-                </option>
-                {arr.map((val, index) => (
-                  <option>{val.name}</option>
-                ))}
-                {/* <option>컬렉션1</option>
-                <option>컬렉션2</option>
-                <option>컬렉션3</option>
-                <option>컬렉션4</option> */}
-              </select>
+            <div className="CreateItemButtonContainer">
+              <button
+                className="CreateItemButton"
+                onClick={SetFiletoIPFS}
+                // {()=>{SetFiletoIPFS(); handleSubmit();}}
+              >
+                Create
+              </button>
             </div>
-            <div className="CreateItemSupplyContainer">
-              <span className="CreateItemSupplyTittle">Supply</span>
-              <div className="CreateItemSupplyInputContainer">
-                <input
-                  className="CreateItemSupplyInput"
-                  placeholder="1"
-                  disabled
-                />
-                <span className="CreateItemSupplySpan">개</span>
-              </div>
-            </div>
-            <div className="CreateItemBlockChainContainer">
-              <span className="CreateItemBlockChainTittle">Block Chain</span>
-              <select className="CreateItemSelectCollection">
-                <option value="" disabled selected>
-                  발행할 코인을 선택해주세요.
-                </option>
-                <option>ETH</option>
-                {/* <option>폴리곤</option>
-                <option>클레이튼</option> */}
-              </select>
-            </div>
-          </div>
-          <div className="CreateItemButtonContainer">
-            <button className="CreateItemButton" onClick={onClickMint}>
-              Create
-            </button>
-            <span>{status}</span>
           </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 };
 
 export default CreateItemPage;

@@ -17,14 +17,13 @@ import i6 from "../assets/itemsample/i6.png";
 import viewarrow from "../assets/icon/viewarrow.png";
 
 import Marquee from "react-fast-marquee";
-import { useSelector } from "react-redux";
 
 const MainPage = () => {
   const navigate = useNavigate();
   const toAuction = () => {
     navigate("/auctionlist");
   };
-  const accountId = useSelector((state) => state.user.account);
+
   return (
     <div className="MainContainer">
       <div className="MainBanner1">

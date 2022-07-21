@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar } from "@mui/material";
 import heart from "../assets/icon/heart.png";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import EditIcon from "@mui/icons-material/Edit";
 
 const ItemDetail = () => {
-  const [checkUser, SetCheckUser] = React.useState(true);
+  const [checkUser, SetCheckUser] = useState(true);
+
   return (
     <>
       <div className="ItemContainer">
