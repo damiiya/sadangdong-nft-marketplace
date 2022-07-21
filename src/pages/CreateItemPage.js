@@ -15,6 +15,8 @@ const CreateItemPage = () => {
   const [description, setDescription] = useState("");
   const fileInput = useRef();
 
+  const arr = [{ name: "1" }, { name: "2" }, { name: "3" }];
+
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
@@ -112,8 +114,11 @@ const CreateItemPage = () => {
                 <option value="" disabled>
                   컬렉션을 선택해주세요.
                 </option>
-                <option>컬렉션1</option>
-                {/* <option>컬렉션2</option>
+                {arr.map((val, index) => (
+                  <option>{val.name}</option>
+                ))}
+                {/* <option>컬렉션1</option>
+                <option>컬렉션2</option>
                 <option>컬렉션3</option>
                 <option>컬렉션4</option> */}
               </select>

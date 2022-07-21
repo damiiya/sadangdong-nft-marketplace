@@ -1,0 +1,15 @@
+{
+  "collection": [
+    {
+      "address": "0x9692342cAFa9Cd32F388AF01246cb54d620794F409",
+      "name": "sadangdong컬렉션",
+      "description": "사당동 컬렉션 입니다",
+      "commission": 0.1,
+      "benner_image": "https://cdn.filestackcontent.com/jPmKA6TsSwyqUVX5AT8W/convert?cache=true&crop=0%2C126%2C1491%2C745&crop_first=true&quality=90&w=1920",
+      "feature_image": "https://images.radiox.co.uk/images/67172?width=1400&crop=16_9&signature=oOzOBNznUl35DsUl5UoB-DVZlRQ=",
+      "id": 1,
+      "created_at": "2022-07-15T22:33:55.299Z",
+      "updated_at": "2022-07-15T22:33:55.299Z"
+    }
+  ]
+}

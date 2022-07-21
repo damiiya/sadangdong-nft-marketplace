@@ -1,12 +1,15 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createCollection } from "../redux/modules/postSlice";
+import { createCollection } from "../redux/modules/collectionSlice";
 import uploadimage from "../assets/uploadimage.png";
 
 const CreateCollectionPage = () => {
   const dispatch = useDispatch();
   const fileInputA = useRef();
   const fileInputB = useRef();
+  const name = useRef();
+  const desc = useRef();
+  const commission = useRef();
 
   const [imageSrc, setImageSrc] = useState("");
 
@@ -37,29 +40,22 @@ const CreateCollectionPage = () => {
     let file1 = fileInputA.current.files[0];
     let file2 = fileInputB.current.files[0];
 
-    const projectRequestDto = {
-      files: file1,
-      files: file2,
+    const fileInfo = {
+      name: name.current.value,
+      desc: desc.current.value,
+      commission: commission.current.value,
     };
 
     const formData = new FormData();
-    formData.append(
-      "projectRequestDto",
-      new Blob(
-        [
-          JSON.stringify(projectRequestDto, {
-            contentType: "application/json",
-          }),
-        ],
-        {
-          type: "application/json",
-        }
-      )
-    );
+    formData.append("fileInfo", JSON.stringify(fileInfo));
+    // formData.append("fileInfo", new Blob( [ JSON.stringify(fileInfo, { contentType: "application/json", }), ], { type: "application/json", } ) );
+    formData.append("files", file1, "bannerImg");
+    formData.append("files", file2, "featuredImg");
 
-    formData.append("files", file1);
-    formData.append("files", file2);
-
+    console.log(formData);
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
     dispatch(createCollection(formData));
   };
 
@@ -129,6 +125,7 @@ const CreateCollectionPage = () => {
               <span className="CreateCollectionNameTittle">Collection</span>
               <div>
                 <input
+                  ref={name}
                   className="CreateCollectionTittleInput"
                   placeholder="컬렉션 이름을 입력해 주세요."
                 />
@@ -140,6 +137,7 @@ const CreateCollectionPage = () => {
               </span>
               <div>
                 <textarea
+                  ref={desc}
                   className="CreateCollectionDescriptionTextArea"
                   placeholder="컬렉션 설명글을 작성해 주세요."
                 />
@@ -151,6 +149,7 @@ const CreateCollectionPage = () => {
               </span>
               <div>
                 <input
+                  ref={commission}
                   className="CreateCollectionCreatorEarningsInput"
                   placeholder="9.99 ETH"
                 />
