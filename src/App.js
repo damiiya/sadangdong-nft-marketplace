@@ -14,7 +14,6 @@ import EditItemPage from "./pages/EditItemPage";
 import EditCollectionPage from "./pages/EditCollectionPage";
 import ItemAuctionPage from "./pages/ItemAuctionPage";
 import ItemPage from "./pages/ItemPage";
-import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
 import SearchListPage from "./pages/SearchListPage";
 import SellingItemPage from "./pages/SellingItemPage";
@@ -27,7 +26,7 @@ function App() {
     <div className="App">
       <Header />
       <Routes>
-        <Route path="main" element={<MainPage />} />
+        <Route path="/" element={<MainPage />} />
         <Route path="list" element={<AllListPage />} />
         <Route path="search" element={<SearchListPage />} />
         <Route path="auctionlist" element={<AuctionListPage />} />
@@ -36,7 +35,6 @@ function App() {
         <Route path="collection" element={<CollectionPage />} />
         <Route path="itemauction" element={<ItemAuctionPage />} />
         <Route path="item" element={<ItemPage />} />
-        <Route path="login" element={<LoginPage />} />
 
         <Route path="account" element={<AccountPage />} />
         <Route path="createcollection" element={<CreateCollectionPage />} />

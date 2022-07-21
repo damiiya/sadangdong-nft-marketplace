@@ -17,16 +17,13 @@ import i6 from "../assets/itemsample/i6.png";
 import viewarrow from "../assets/icon/viewarrow.png";
 
 import Marquee from "react-fast-marquee";
-import { useSelector } from "react-redux";
 
 const MainPage = () => {
   const navigate = useNavigate();
   const toAuction = () => {
     navigate("/auctionlist");
   };
-  const accountId = useSelector((state) => state.user.account);
-  console.log(accountId);
-  console.log(useSelector((state) => state.user));
+
   return (
     <div className="MainContainer">
       <div className="MainBanner1">
@@ -50,7 +47,7 @@ const MainPage = () => {
         </Marquee>
       </div>
       <div className="MainLetterWrap">
-        <Marquee speed="150" gradient={false}>
+        <Marquee speed="100" gradient={false}>
           <span className="MainLetter">
             사실은 오래전부터 당신만을 위한 동물을 준비해왔다우
           </span>
@@ -59,7 +56,7 @@ const MainPage = () => {
           </span>
         </Marquee>
       </div>
-      <Marquee speed="400" gradient={false}>
+      <Marquee speed="300" gradient={false}>
         <span className="MainLetterDescription">
           예쁘고 귀엽고 사랑스러운 동물들을 찾아 여기까지 왔다는걸 알고 있어.
           언젠가 당신이 동물들을 찾지 않을까하고 오래전부터 우리는 생각했었어.

@@ -21,7 +21,7 @@ const LogoutModal = (props) => {
           <button
             className="LoginModalButton"
             onClick={() => {
-              localStorage.removeItem("walletId");
+              localStorage.removeItem("auth_token");
               setOpenLogoutModal(false);
             }}
           >

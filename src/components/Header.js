@@ -11,14 +11,13 @@ import createcollection from "../assets/icon/createcollection.png";
 
 const Header = () => {
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
 
-  const checkWalletId = localStorage.getItem("walletId");
+  const token = localStorage.getItem("auth_token");
 
   const goMain = () => {
-    navigate("/main");
+    navigate("/");
   };
 
   const goItem = () => {
@@ -79,7 +78,7 @@ const Header = () => {
                 </div>
               </div>
             </div>
-            {checkWalletId ? (
+            {token ? (
               <>
                 <button
                   className="HeaderDisconnectButton"
