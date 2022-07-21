@@ -32,7 +32,7 @@ function App() {
         <Route path="auctionlist" element={<AuctionListPage />} />
         <Route path="auction" element={<AuctionPage />} />
         <Route path="author" element={<AuthorPage />} />
-        <Route path="collection" element={<CollectionPage />} />
+        <Route path="collection/:collectionId" element={<CollectionPage />} />
         <Route path="itemauction" element={<ItemAuctionPage />} />
         <Route path="item" element={<ItemPage />} />
 
@@ -40,7 +40,10 @@ function App() {
         <Route path="createcollection" element={<CreateCollectionPage />} />
         <Route path="createitem" element={<CreateItemPage />} />
         <Route path="edititem" element={<EditItemPage />} />
-        <Route path="editcollection" element={<EditCollectionPage />} />
+        <Route
+          path="editcollection/:collectionId"
+          element={<EditCollectionPage />}
+        />
         <Route path="selling" element={<SellingItemPage />} />
 
         <Route path="admin" element={<AdminPage />} />

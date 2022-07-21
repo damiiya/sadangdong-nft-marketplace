@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createCollection } from "../redux/modules/postSlice";
+import { createCollection } from "../redux/modules/collectionSlice";
 import uploadimage from "../assets/uploadimage.png";
 
 const CreateCollectionPage = () => {
@@ -9,6 +9,7 @@ const CreateCollectionPage = () => {
   const fileInputB = useRef();
   const name = useRef();
   const desc = useRef();
+  const commission = useRef();
 
   const [imageSrc, setImageSrc] = useState("");
 
@@ -42,11 +43,11 @@ const CreateCollectionPage = () => {
     const fileInfo = {
       name: name.current.value,
       desc: desc.current.value,
+      commission: commission.current.value,
     };
 
     const formData = new FormData();
     formData.append("fileInfo", JSON.stringify(fileInfo));
-
     formData.append("files", file1, "bannerImg");
     formData.append("files", file2, "featuredImg");
 
@@ -147,6 +148,7 @@ const CreateCollectionPage = () => {
               </span>
               <div>
                 <input
+                  ref={commission}
                   className="CreateCollectionCreatorEarningsInput"
                   placeholder="9.99 ETH"
                 />

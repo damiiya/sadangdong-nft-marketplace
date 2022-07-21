@@ -31,8 +31,7 @@ const userSlice = createSlice({
   reducers: [],
   extraReducers: {
     [createAccount.fulfilled]: (state, action) => {
-      console.log(action.payload);
-      // state.account = action.payload;
+      state.account = action.payload;
     },
   },
 });
