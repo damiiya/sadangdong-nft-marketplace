@@ -28,7 +28,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="list" element={<AllListPage />} />
-        <Route path="search" element={<SearchListPage />} />
+        <Route path="search/:keyword" element={<SearchListPage />} />
         <Route path="auctionlist" element={<AuctionListPage />} />
         <Route path="auction" element={<AuctionPage />} />
         <Route path="author" element={<AuthorPage />} />

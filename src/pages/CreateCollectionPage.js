@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createCollection } from "../redux/modules/collectionSlice";
 import uploadimage from "../assets/uploadimage.png";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CreateCollectionPage = () => {
   const dispatch = useDispatch();
@@ -10,6 +11,9 @@ const CreateCollectionPage = () => {
   const name = useRef();
   const desc = useRef();
   const commission = useRef();
+  const params = useParams();
+  const navigate = useNavigate();
+  const collectionId = params.collectionId;
 
   const [imageSrc, setImageSrc] = useState("");
 
@@ -55,7 +59,14 @@ const CreateCollectionPage = () => {
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
-    dispatch(createCollection(formData));
+    dispatch(
+      createCollection({
+        formData: formData,
+        collectionId: collectionId,
+        fileInfo: fileInfo,
+        navigate: navigate,
+      })
+    );
   };
 
   return (

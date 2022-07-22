@@ -8,13 +8,14 @@ import LoginModal from "../elements/LoginModal";
 import LogoutModal from "../elements/LogoutModal";
 import createitem from "../assets/icon/createitem.png";
 import createcollection from "../assets/icon/createcollection.png";
+import Search from "@mui/icons-material/Search";
 
 const Header = () => {
   const navigate = useNavigate();
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
 
-  const token = localStorage.getItem("auth_token");
+  const token = sessionStorage.getItem("auth_token");
 
   const goMain = () => {
     navigate("/");
@@ -22,6 +23,13 @@ const Header = () => {
 
   const goItem = () => {
     navigate("/createItem");
+  };
+
+  const search = (event) => {
+    if (event.key === "Enter") {
+      let keyword = event.target.value;
+      navigate(`/search/${keyword}`);
+    }
   };
 
   return (
@@ -41,20 +49,21 @@ const Header = () => {
               <img className="LogoImage" src={logo} onClick={goMain} />
             </div>
             <div className="SearchBar">
-              <form className="SearchForm">
-                <input
-                  className="SearchInput"
-                  type="text"
-                  placeholder="검색어를 입력하세요"
-                />
-                <button className="SearchButton" type="submit"></button>
-                <SearchIcon className="IconButton" />
-              </form>
+              <input
+                className="SearchInput"
+                type="text"
+                placeholder="검색어를 입력하세요"
+                onKeyPress={(event) => search(event)}
+              />
+              <button className="SearchButton" type="submit"></button>
+              <SearchIcon className="IconButton" />
             </div>
           </div>
 
           <div className="ButtonBundle">
-            <button className="HeaderButton">All NFTs</button>
+            <button className="HeaderButton">
+              <a href="/list">All NFTs</a>
+            </button>
             <div className="Accordion">
               <input type="checkbox" id="answer01" />
               <label className="HeaderLabel" htmlFor="answer01">
@@ -66,14 +75,14 @@ const Header = () => {
               <div className="AccordionMenu">
                 <div className="AccordionCreateitemContainer-1">
                   <img src={createitem} />
-                  <button className="AccordionMenuButton-1" onClick={goItem}>
-                    Create Item
+                  <button className="AccordionMenuButton-1">
+                    <a href="createitem">Create Item</a>
                   </button>
                 </div>
                 <div className="AccordionCreateitemContainer-2">
                   <img src={createcollection} />
                   <button className="AccordionMenuButton-2">
-                    Create Collection
+                    <a href="createcollection">Create Collection</a>
                   </button>
                 </div>
               </div>
