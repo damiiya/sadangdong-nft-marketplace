@@ -37,6 +37,13 @@ const Header = () => {
     return null;
   }
 
+  const search = (event) => {
+    if (event.key === "Enter") {
+      let keyword = event.target.value;
+      navigate(`/search/${keyword}`);
+    }
+  };
+
   return (
     <>
       <LoginModal
@@ -54,15 +61,14 @@ const Header = () => {
               <img className="LogoImage" src={logo} onClick={goMain} />
             </div>
             <div className="SearchBar">
-              <form className="SearchForm">
-                <input
-                  className="SearchInput"
-                  type="text"
-                  placeholder="검색어를 입력하세요"
-                />
-                <button className="SearchButton" type="submit"></button>
-                <SearchIcon className="IconButton" />
-              </form>
+              <input
+                className="SearchInput"
+                type="text"
+                placeholder="검색어를 입력하세요"
+                onKeyPress={(event) => search(event)}
+              />
+              <button className="SearchButton" type="submit"></button>
+              <SearchIcon className="IconButton" />
             </div>
           </div>
           <div className="ButtonBundle">

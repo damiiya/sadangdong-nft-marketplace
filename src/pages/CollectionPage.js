@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { loadCollectionDetail } from "../redux/modules/collectionSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
 import share from "../assets/icon/share.png";
 import pencil from "../assets/icon/pencil.png";
@@ -8,13 +10,34 @@ import CardItem from "../components/CardItem";
 import { useParams } from "react-router-dom";
 
 const CollectionPage = () => {
+  const dispatch = useDispatch();
   const params = useParams();
   const collectionId = params.collectionId;
   const [category, setCategory] = useState(0);
 
+  useEffect(() => {
+    dispatch(loadCollectionDetail(collectionId));
+  }, []);
+
+  const collectionDetail = useSelector(
+    (state) => state.collection.collectionDetail
+  );
+  console.log(collectionDetail);
+
+  if (!collectionDetail) {
+    return <h1>hi</h1>;
+  }
+
   return (
     <div className="MainContainer">
-      <div className="MainBanner">
+      <div
+        className="MainBanner"
+        style={{
+          backgroundImage: `url(
+            ${collectionDetail && collectionDetail.banner_image}
+          )`,
+        }}
+      >
         <div className="UserImageWrap">
           <Avatar
             alt="User Name"
@@ -41,7 +64,9 @@ const CollectionPage = () => {
       </div>
       <div className="CollectionTitleWrapper">
         <div className="CollectionTitleWrap">
-          <span className="CollectionTitleLetter">Collection name</span>
+          <span className="CollectionTitleLetter">
+            {collectionDetail && collectionDetail.name}
+          </span>
           <span className="CollectionUerLetter">by User name</span>
         </div>
         <div className="CollectionButtonBundle">
@@ -56,8 +81,7 @@ const CollectionPage = () => {
         </div>
       </div>
       <div className="CollectionDescriptionWrapper">
-        Magnum 75 #11 by Bruno Barbey. Paris, France. 1966 Danish actor Anna
-        Karina The Magnum 75 collection ...
+        {collectionDetail && collectionDetail.description}
       </div>
       <div className="CategoryContainer">
         <div className="CategoryWrapper">

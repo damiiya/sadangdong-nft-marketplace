@@ -147,8 +147,8 @@ input[id*="answer"] {
   display: none;
 }
 
-.HeaderLabel {
-}
+/* .HeaderLabel {
+} */
 
 input[id*="answer"] + label span {
   display: flex;
@@ -634,14 +634,19 @@ input[id*="answer"]:checked + label + div {
   background-color: #f7e3d6;
   display: flex;
   justify-content: center;
+  background-size: cover;
+  background-position: center;
 }
 
+.MainBannerImage {
+  width: 100%;
+  height: 100%;
+}
 .UserImageWrap {
   width: 75%;
   height: 100%;
   margin: 226px 0 102px 0;
 }
-
 .CollectionInfoContainer {
   width: 340px;
   height: 80px;
