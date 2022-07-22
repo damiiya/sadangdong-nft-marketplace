@@ -1,24 +1,28 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import heart from "../assets/icon/heart.png";
 
-const CardItem = () => {
+const CardItem = (props) => {
   return (
-    <div className="CardItemContainer">
-      <div className="CardImageWrapper">
-        <img
-          className="CardCollectionImage"
-          src="https://htmlcolorcodes.com/assets/images/colors/light-gray-color-solid-background-1920x1080.png"
-        />
-      </div>
-      <div className="CardItemWrapper">
-        <span className="CardName">Item Name</span>
-        <span className="CardUserName">by User name</span>
-        <div className="HeartWrap">
-          <img className="Heart" src={heart} />
-          <span className="HeartCount">9,999</span>
-        </div>
-      </div>
-    </div>
+    <>
+      {props.data.map((val, i) => (
+        <Link to={`/item/${val.token_id}`}>
+          <div key={val.id} className="CardItemContainer">
+            <div className="CardImageWrapper">
+              <img className="CardCollectionImage" src={val.image} />
+            </div>
+            <div className="CardItemWrapper">
+              <span className="CardName">{val.name}</span>
+              <span className="CardUserName">by {val.user_name}</span>
+              <div className="HeartWrap">
+                <img className="Heart" src={heart} />
+                <span className="HeartCount">{val.likeCount}</span>
+              </div>
+            </div>
+          </div>
+        </Link>
+      ))}
+    </>
   );
 };
 

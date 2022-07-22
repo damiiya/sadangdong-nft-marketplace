@@ -1,28 +1,41 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import logo from "../assets/icon/logo.png";
-import { Avatar, Checkbox } from "@mui/material";
+import { Avatar } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import ButtonElement from "../elements/ButtonElement";
 import LoginModal from "../elements/LoginModal";
 import LogoutModal from "../elements/LogoutModal";
 import createitem from "../assets/icon/createitem.png";
 import createcollection from "../assets/icon/createcollection.png";
+import { getUserProfile } from "../redux/modules/userSlice";
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
-
-  const token = localStorage.getItem("auth_token");
+  const [isLoad, setIsLoad] = useState(false);
+  const token = sessionStorage.getItem("auth_token");
+  const userProfile = useSelector((state) => state.user.userProfile);
 
   const goMain = () => {
     navigate("/");
   };
 
-  const goItem = () => {
-    navigate("/createItem");
-  };
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, []);
+
+  useEffect(() => {
+    if (userProfile && token) {
+      setIsLoad(true);
+    }
+  }, [userProfile, isLoad]);
+
+  if (!isLoad) {
+    return null;
+  }
 
   return (
     <>
@@ -52,9 +65,10 @@ const Header = () => {
               </form>
             </div>
           </div>
-
           <div className="ButtonBundle">
-            <button className="HeaderButton">All NFTs</button>
+            <button className="HeaderButton">
+              <a href="list">All NFTs</a>
+            </button>
             <div className="Accordion">
               <input type="checkbox" id="answer01" />
               <label className="HeaderLabel" htmlFor="answer01">
@@ -66,14 +80,14 @@ const Header = () => {
               <div className="AccordionMenu">
                 <div className="AccordionCreateitemContainer-1">
                   <img src={createitem} />
-                  <button className="AccordionMenuButton-1" onClick={goItem}>
-                    Create Item
+                  <button className="AccordionMenuButton-1">
+                    <a href="createitem">Create Item</a>
                   </button>
                 </div>
                 <div className="AccordionCreateitemContainer-2">
                   <img src={createcollection} />
                   <button className="AccordionMenuButton-2">
-                    Create Collection
+                    <a href="createcollection">Create Collection</a>
                   </button>
                 </div>
               </div>
@@ -91,7 +105,7 @@ const Header = () => {
                 <Avatar
                   className="HeaderAvatar"
                   alt="User Name"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
+                  src={userProfile.profile_image}
                   sx={{ width: 56, height: 56 }}
                 />
               </>
@@ -119,5 +133,4 @@ const Header = () => {
     </>
   );
 };
-
 export default Header;

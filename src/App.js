@@ -34,7 +34,7 @@ function App() {
         <Route path="author" element={<AuthorPage />} />
         <Route path="collection/:collectionId" element={<CollectionPage />} />
         <Route path="itemauction" element={<ItemAuctionPage />} />
-        <Route path="item" element={<ItemPage />} />
+        <Route path="item/:token_id" element={<ItemPage />} />
 
         <Route path="account" element={<AccountPage />} />
         <Route path="createcollection" element={<CreateCollectionPage />} />

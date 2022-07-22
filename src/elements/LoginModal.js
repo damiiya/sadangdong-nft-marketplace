@@ -31,6 +31,8 @@ const LoginModal = (props) => {
         const signer = provider.getSigner();
         console.log(signer);
 
+        const balance = await provider.getBalance(account);
+        console.log(balance);
         // const contract = new ethers.Contract(
         //   MintContractAddress,
         //   MINT_NFT_ABI,
@@ -52,7 +54,6 @@ const LoginModal = (props) => {
   };
 
   const loadHome = () => {
-    setOpenLoginModal(false);
     dispatch(createAccount(account));
   };
 
@@ -62,14 +63,12 @@ const LoginModal = (props) => {
         className="LoginModal"
         overlayClassName="LoginOverLay"
         isOpen={openLoginModal}
-        // onRequestClose={() => setOpenLoginModal(false)}
       >
         {account ? (
           <>
             <div className="LoginModalQuestionContainer">
               <span className="LoginModalQuestion">지갑이 연결되었습니다!</span>
             </div>
-
             <>
               <div className="LoginModalButtonContainer">
                 <button className="LoginModalButton" onClick={loadHome}>

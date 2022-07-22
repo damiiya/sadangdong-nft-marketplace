@@ -274,22 +274,6 @@ input[id*="answer"]:checked + label + div {
   padding-left: 28px;
 }
 
-/* ButtonElement */
-.ButtonStyle {
-  width: 98px;
-  height: 42px;
-  background: #333333;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 21px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  color: #ffffff;
-}
-
 /* Footer */
 .FooterContainer {
   width: 100%;
@@ -644,6 +628,14 @@ input[id*="answer"]:checked + label + div {
 }
 
 /* CollectionPage */
+.MainBanner {
+  width: 100%;
+  height: 480px;
+  background-color: #f7e3d6;
+  display: flex;
+  justify-content: center;
+}
+
 .UserImageWrap {
   width: 75%;
   height: 100%;
@@ -653,7 +645,7 @@ input[id*="answer"]:checked + label + div {
 .CollectionInfoContainer {
   width: 340px;
   height: 80px;
-  margin: -150px 0 40px 240px;
+  margin: -62px 0 40px 240px;
   padding: 30px 40px;
   border-radius: 24px;
   border: solid 1px #e5e5e5;

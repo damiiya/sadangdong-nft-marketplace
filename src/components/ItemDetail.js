@@ -4,7 +4,7 @@ import heart from "../assets/icon/heart.png";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import EditIcon from "@mui/icons-material/Edit";
 
-const ItemDetail = () => {
+const ItemDetail = (props) => {
   const [checkUser, SetCheckUser] = useState(true);
 
   return (
@@ -12,23 +12,22 @@ const ItemDetail = () => {
       <div className="ItemContainer">
         <div className="ItemWrapper">
           <div className="ItemImageDiv">
-            <img
-              className="ItemImage"
-              src="https://www.cosmorning.com/data/photos/20210153/art_16095743571912_f2a3fc.jpg"
-            />
+            <img className="ItemImage" src={props.data.image} />
           </div>
           <div className="ItemInfoContainer">
             <div className="SellInfo">
               <div className="HeartWrap">
                 <img className="Heart" src={heart} />
-                <span className="HeartCount">9,999</span>
+                <span className="HeartCount">{props.data.favoritesCount}</span>
               </div>
               <div className="SellItemNameWrapper">
-                <span className="ItemDetailName">Item Name</span>
+                <span className="ItemDetailName">{props.data.name}</span>
               </div>
               <div className="SellCollectionInfo">
                 <span className="SellCollectionSpan">Collection</span>
-                <span className="ItemCollectionName"> Collection name</span>
+                <span className="ItemCollectionName">
+                  {props.data.collection_name}
+                </span>
               </div>
               <div className="SellOwnerInfo">
                 <span className="SellOwnerSpan">Owner</span>
@@ -43,21 +42,11 @@ const ItemDetail = () => {
                   alt="User Name"
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
                 />
-                <span className="SellUserName">by username</span>
+                <span className="SellUserName">by {props.data.owner}</span>
               </div>
             </div>
             <div className="ItemDescriptionContent">
-              <p>Magnum 75 #11 by Bruno Barbey. Paris, France. 1966</p>
-              <p>Danish actor Anna Karina</p>
-              <p>
-                The Magnum 75 collection is the inaugural NFT collection by
-                Magnum
-              </p>
-              <p>
-                Photos. Created in 2022, the collection brings together works
-                by76
-              </p>
-              <p>photographers taken across seven decades.</p>
+              <p>{props.data.description}</p>
             </div>
             <div className="ItemButtons">
               <div className="ShareButtonAndIcon">

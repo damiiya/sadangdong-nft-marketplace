@@ -2,25 +2,26 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { loadCollection } from "../redux/modules/collectionSlice";
+import { loadItemList } from "../redux/modules/itemSlice";
 import CardAuction from "../components/CardAuction";
 import CardCollection from "../components/CardCollection";
 import CardItem from "../components/CardItem";
 
 const AllListPage = () => {
-  const [collectionData, setCollectionData] = useState("");
   const [category, setCategory] = useState(0);
   const dispatch = useDispatch();
 
+  const collectionList = useSelector((state) => state.collection.collection);
+  const itemList = useSelector((state) => state.item.itemList);
+
   useEffect(() => {
     dispatch(loadCollection());
+    dispatch(loadItemList());
   }, []);
 
-  const collectionList = useSelector((state) => state.collection.collection);
-  console.log(collectionList);
   if (!collectionList) {
     return null;
   }
-  console.log(collectionList);
 
   return (
     <div className="Container">
@@ -52,7 +53,7 @@ const AllListPage = () => {
       </div>
       <div className="CardWrapper">
         {category === 0 && <CardCollection data={collectionList} />}
-        {category === 1 && <CardItem />}
+        {category === 1 && <CardItem data={itemList} />}
         {category === 2 && <CardAuction />}
       </div>
     </div>

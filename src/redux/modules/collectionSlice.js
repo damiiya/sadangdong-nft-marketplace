@@ -1,21 +1,10 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { serverUrl } from "../../shared/api";
 
-// 액션함수+데이터명으로 axios 요청 작성
-// export const loadAllLists
+const token = sessionStorage.getItem("auth_token");
 
-// export const createUser = createAsyncThunk("CREATE_USER",
-// async() => {
-//   const response = await axios.post(${serverUrl},)
-//   console.log(response.data);
-//   return response.data;
-// }
-// )
-
-const token = localStorage.getItem("auth_token");
-
+// 컬렉션 생성하기
 export const createCollection = createAsyncThunk(
   "CREATE_LIST",
   async (formData) => {
@@ -27,28 +16,29 @@ export const createCollection = createAsyncThunk(
         },
       })
       .then((response) => response.data)
-      .catch((err) => err);
-    // console.log(response.data);
-    // return response.data;
+      .catch((error) => {
+        console.log(error.message);
+      });
   }
 );
 
+// 컬렉션 가져오기
 export const loadCollection = createAsyncThunk(
   "LOAD_COLLECTION_LIST",
   async () => {
     return await axios
       .get(`${serverUrl}/api/explore?tab=collection`)
       .then((response) => {
-        console.log(response.data);
-        return response.data;
+        console.log(response.data.data);
+        return response.data.data;
       })
       .catch((error) => {
         console.log(error.message);
       });
   }
 );
-// `${serverUrl}/api/explore?tab=collection`
 
+// 컬렉션 수정하기
 export const editCollection = createAsyncThunk(
   "EDIT_COLLECTION",
   async (param) => {
@@ -75,7 +65,8 @@ export const editCollection = createAsyncThunk(
       });
   }
 );
-// `${serverUrl}/api/collections/${params}`
+
+// 컬렉션 삭제하기
 export const deleteCollection = createAsyncThunk(
   "Delete_COLLECTION",
   async (collectionId) => {
@@ -92,51 +83,31 @@ export const deleteCollection = createAsyncThunk(
   }
 );
 
-// export const deleteCollection = createAsyncThunk(
-//   "Delete_COLLECTION",
-//   async (collectionId) => {
-//     return await axios({
-//       method: "delete",
-//       url: `${serverUrl}/api/collections/${collectionId}`,
-//       headers: {
-//         authorization: `${token}`,
-//       },
-//     })
-//       .then((response) => console.log(response))
-//       .catch((error) => console.log(error));
-//   }
-// );
-
+// 컬렉션 상세페이지 가져오기
 export const loadCollectionDetail = createAsyncThunk(
   "LOAD_COLLECTION_DETAIL",
   async (collectionId) => {
     return await axios
-      .get(`${serverUrl}/api/collections/${collectionId}`, {
-        headers: { auth_token: `${token}` },
-      })
+      .get(`${serverUrl}/api/collections/${collectionId}`)
       .then((response) => {
         console.log(response.data);
         return response.data.data;
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
       });
   }
 );
-
-// `${serverUrl}/api/collections/${collectionId}`
 
 const collectionSlice = createSlice({
   name: "Collection",
   initialState: {},
   reducers: {},
   extraReducers: {
-    // [createCollection.fulfilled]: (state, { payload }) => [...payload],
     [loadCollection.fulfilled]: (state, action) => {
       state.collection = action.payload;
     },
     [loadCollectionDetail.fulfilled]: (state, action) => {
-      console.log(action);
       state.collectionDetail = action.payload;
     },
   },
