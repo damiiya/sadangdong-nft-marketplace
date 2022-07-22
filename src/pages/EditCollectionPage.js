@@ -5,10 +5,11 @@ import {
   loadCollectionDetail,
   deleteCollection,
 } from "../redux/modules/collectionSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import uploadimage from "../assets/uploadimage.png";
 
 const EditCollectionPage = (props) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const fileInputA = useRef();
   const fileInputB = useRef();
@@ -54,15 +55,26 @@ const EditCollectionPage = (props) => {
     };
     const formData = new FormData();
     formData.append("fileInfo", JSON.stringify(fileInfo));
-    formData.append("files", file1, "bannerImg");
-    formData.append("files", file2, "featuredImg");
+    if (file1) {
+      formData.append("files", file1, "bannerImg");
+    }
+    if (file2) {
+      formData.append("files", file2, "featuredImg");
+    }
     dispatch(
-      editCollection({ formData: formData, collectionId: collectionId })
+      editCollection({
+        formData: formData,
+        collectionId: collectionId,
+        navigate: navigate,
+        fileInfo: fileInfo,
+      })
     );
   };
 
   const deleteSubmit = () => {
-    dispatch(deleteCollection(collectionId));
+    dispatch(
+      deleteCollection({ collectionId: collectionId, navigate: navigate })
+    );
   };
 
   const [inputName, setInputName] = useState("");
@@ -88,7 +100,7 @@ const EditCollectionPage = (props) => {
   }, [collectionDetail]);
 
   if (!collectionDetail) {
-    return <h1>hi</h1>;
+    return null;
   }
 
   return (

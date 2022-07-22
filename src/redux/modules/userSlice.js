@@ -2,12 +2,12 @@ import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
 import { serverUrl } from "../../shared/api";
 
-const token = localStorage.getItem("auth_token");
+const token = sessionStorage.getItem("auth_token");
 
 export const createAccount = createAsyncThunk(
   "ACCOUNT_INFO",
-  async (account) => {
-    console.log(account);
+  async (ACCOUNT) => {
+    const account = ACCOUNT.toLowerCase();
     return await axios({
       method: "post",
       url: `${serverUrl}/api/account/auth`,
@@ -16,8 +16,9 @@ export const createAccount = createAsyncThunk(
       },
     })
       .then((response) => {
-        localStorage.setItem("auth_token", account);
+        sessionStorage.setItem("auth_token", account);
         console.log(response.data);
+        window.location.href = "/";
       })
       .catch((error) => {
         console.log(error.message);

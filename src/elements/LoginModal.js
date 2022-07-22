@@ -52,7 +52,6 @@ const LoginModal = (props) => {
   };
 
   const loadHome = () => {
-    setOpenLoginModal(false);
     dispatch(createAccount(account));
   };
 
