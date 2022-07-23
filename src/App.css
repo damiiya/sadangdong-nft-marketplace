@@ -2383,3 +2383,21 @@ input[id*="CheckBox"] + label + div {
   text-align: center;
   color: #fff;
 }
+
+/* 무한스크롤 */
+/* .CardWrapperInfinite {
+  display: flex;
+  width: 100%;
+  height: auto;
+  margin: 64px 0 120px;
+}
+
+.CardCollectionContainerInfinite {
+  width: 342px;
+  height: 398px;
+  border-radius: 16px;
+  border: solid 1px #e5e5e5;
+  display: inline-block;
+  margin-right: 1.5rem;
+  margin-bottom: 40px;
+} */
