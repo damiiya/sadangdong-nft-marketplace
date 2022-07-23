@@ -287,11 +287,7 @@ const CreateItemPage = () => {
               </div>
             </div>
             <div className="CreateItemButtonContainer">
-              <button
-                className="CreateItemButton"
-                onClick={SetFiletoIPFS}
-                // {()=>{SetFiletoIPFS(); handleSubmit();}}
-              >
+              <button className="CreateItemButton" onClick={SetFiletoIPFS}>
                 Create
               </button>
             </div>

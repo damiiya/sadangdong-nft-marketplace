@@ -18,8 +18,12 @@ export const createAccount = createAsyncThunk(
     })
       .then((response) => {
         sessionStorage.setItem("auth_token", account);
-        console.log(response.data);
-        window.location.href = "/";
+        sessionStorage.setItem(
+          "user_profile",
+          response.data.data.profile_image
+        );
+        console.log(response.data.data);
+        window.location.href = "";
       })
       .catch((error) => {
         console.log(error.message);
@@ -27,22 +31,7 @@ export const createAccount = createAsyncThunk(
   }
 );
 
-// header 유저 정보 가져오기
-export const getUserProfile = createAsyncThunk("GET_USER_PROFILE", async () => {
-  return await axios
-    .get(`${serverUrl}/api/account/info`, {
-      headers: {
-        authorization: `${token}`,
-      },
-    })
-    .then((response) => {
-      console.log(response.data.data);
-      return response.data.data;
-    })
-    .catch((error) => {
-      console.log(error.message);
-    });
-});
+// 유저 정보 가져오기
 
 // 유저 정보 수정하기
 
@@ -53,10 +42,6 @@ const userSlice = createSlice({
   extraReducers: {
     [createAccount.fulfilled]: (state, action) => {
       state.account = action.payload;
-    },
-    [getUserProfile.fulfilled]: (state, action) => {
-      state.userProfile = action.payload;
-      console.log(state.userProfile);
     },
   },
 });

@@ -17,8 +17,10 @@ export const getCollectionSelect = createAsyncThunk(
           authorization: `${token}`,
         },
       });
-      console.log(response);
-      if (response.data.data.length == 0) {
+      if (!token) {
+        alert("로그인이 필요합니다!!");
+        window.location.href = "/";
+      } else if (response.data.data.length == 0) {
         alert("컬렉션을 먼저 생성해주세요!");
         window.location.href = "/createcollection";
       }

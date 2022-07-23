@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import logo from "../assets/icon/logo.png";
 import { Avatar } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -8,34 +7,17 @@ import LoginModal from "../elements/LoginModal";
 import LogoutModal from "../elements/LogoutModal";
 import createitem from "../assets/icon/createitem.png";
 import createcollection from "../assets/icon/createcollection.png";
-import { getUserProfile } from "../redux/modules/userSlice";
 
-const Header = () => {
+const Header = (userProfile) => {
+  console.log(userProfile.profile_image);
+
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
-  const [isLoad, setIsLoad] = useState(false);
+
   const token = sessionStorage.getItem("auth_token");
-  const userProfile = useSelector((state) => state.user.userProfile);
-
-  const goMain = () => {
-    navigate("/");
-  };
-
-  useEffect(() => {
-    dispatch(getUserProfile());
-  }, []);
-
-  useEffect(() => {
-    if (userProfile && token) {
-      setIsLoad(true);
-    }
-  }, [userProfile, isLoad]);
-
-  if (!isLoad) {
-    return null;
-  }
+  const profile = sessionStorage.getItem("user_profile");
 
   const search = (event) => {
     if (event.key === "Enter") {
@@ -58,7 +40,9 @@ const Header = () => {
         <div className="HeaderWrapper">
           <div className="HeaderLogSearchBarContainer">
             <div className="Logo">
-              <img className="LogoImage" src={logo} onClick={goMain} />
+              <a href="/">
+                <img className="LogoImage" src={logo} />
+              </a>
             </div>
             <div className="SearchBar">
               <input
@@ -98,7 +82,7 @@ const Header = () => {
                 </div>
               </div>
             </div>
-            {token ? (
+            {token && userProfile ? (
               <>
                 <button
                   className="HeaderDisconnectButton"
@@ -111,7 +95,7 @@ const Header = () => {
                 <Avatar
                   className="HeaderAvatar"
                   alt="User Name"
-                  src={userProfile.profile_image}
+                  src={profile}
                   sx={{ width: 56, height: 56 }}
                 />
               </>
@@ -128,7 +112,7 @@ const Header = () => {
                 <Avatar
                   className="HiddenHeaderAvatar"
                   alt="User Name"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
+                  src=""
                   sx={{ width: 56, height: 56 }}
                 />
               </>

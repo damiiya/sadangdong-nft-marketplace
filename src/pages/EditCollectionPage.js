@@ -61,6 +61,7 @@ const EditCollectionPage = (props) => {
     if (file2) {
       formData.append("files", file2, "featuredImg");
     }
+
     dispatch(
       editCollection({
         formData: formData,
@@ -186,8 +187,8 @@ const EditCollectionPage = (props) => {
                   className="CreateCollectionTittleInput"
                   placeholder="컬렉션 이름을 입력해 주세요."
                   ref={name}
-                  onChange={(event) => {
-                    setInputName(event.currentTarget.value);
+                  onChange={(e) => {
+                    setInputName(e.currentTarget.value);
                   }}
                   value={inputName}
                 />
@@ -202,8 +203,8 @@ const EditCollectionPage = (props) => {
                   className="CreateCollectionDescriptionTextArea"
                   placeholder="컬렉션 설명글을 작성해 주세요."
                   ref={desc}
-                  onChange={(event) => {
-                    setInputDescription(event.target.value);
+                  onChange={(e) => {
+                    setInputDescription(e.target.value);
                   }}
                   value={inputDescrition}
                 />
@@ -218,8 +219,8 @@ const EditCollectionPage = (props) => {
                   className="CreateCollectionCreatorEarningsInput"
                   placeholder="9.99 ETH"
                   ref={commission}
-                  onChange={(event) => {
-                    setInputCommission(event.target.value);
+                  onChange={(e) => {
+                    setInputCommission(e.target.value);
                   }}
                   value={inputCommission}
                 />

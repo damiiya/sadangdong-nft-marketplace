@@ -943,7 +943,7 @@ input[id*="answer"]:checked + label + div {
 
 .ItemWrapper {
   width: 75%;
-  height: 100%;
+  height: 828px;
   display: flex;
   justify-content: space-between;
 }
@@ -1017,30 +1017,6 @@ input[id*="answer"]:checked + label + div {
   line-height: 1.33;
   color: #666;
   margin-left: 40px;
-}
-
-.SellOwnerInfo {
-  margin-top: 18px;
-}
-
-.SellOwnerSpan {
-  flex-grow: 0;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.43;
-  text-align: left;
-  color: #666;
-  margin-right: 60px;
-}
-
-.SellOwnerName {
-  flex-grow: 0;
-  margin: 0 0 0 8px;
-  font-size: 18px;
-  font-weight: bold;
-  line-height: 1.33;
-  text-align: left;
-  color: #666;
 }
 
 .ItemDescriptionTittle {
