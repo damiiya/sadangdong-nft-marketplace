@@ -18,19 +18,19 @@ export const createCollection = createAsyncThunk(
         value.navigate(`/collection/${value.fileInfo.name}`);
         return response.data;
       })
-      .catch((err) => err);
-    // console.log(response.data);
-    // return response.data;
+      .catch((error) => {
+        console.log(error.message);
+      });
   }
 );
 
-export const loadCollection = createAsyncThunk(
-  "LOAD_COLLECTION_LIST",
-  async () => {
+export const loadFirstCollection = createAsyncThunk(
+  "LOAD_COLLECTION_FIRST_LIST",
+  async (setCollectionData) => {
     return await axios
-      .get(`${serverUrl}/api/explore?tab=collection`)
+      .get(`${serverUrl}/api/explore?tab=collection&_page=1&_limit=12`)
       .then((response) => {
-        console.log(response.data);
+        setCollectionData(response.data.data);
         return response.data.data;
       })
       .catch((error) => {
@@ -38,7 +38,31 @@ export const loadCollection = createAsyncThunk(
       });
   }
 );
-// `${serverUrl}/api/explore?tab=collection`
+
+export const loadAfterFirstCollection = createAsyncThunk(
+  "LOAD_COLLECTION_AFTER_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/explore?tab=collection&_page=${value.page}&_limit=12`
+      )
+      .then((response) => {
+        value.setCollectionData([
+          ...value.collectionData,
+          ...response.data.data,
+        ]);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.sethasMore(false);
+        }
+        value.setpage(value.page + 1);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
 
 export const editCollection = createAsyncThunk(
   "EDIT_COLLECTION",
@@ -55,7 +79,6 @@ export const editCollection = createAsyncThunk(
         }
       )
       .then((response) => {
-        console.log(response.data);
         value.navigate(`/collection/${value.fileInfo.name}`);
         return response.data;
       })
@@ -73,7 +96,6 @@ export const deleteCollection = createAsyncThunk(
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        console.log(response.data);
         value.navigate("/list");
       })
       .catch((error) => {
@@ -90,7 +112,6 @@ export const loadCollectionDetail = createAsyncThunk(
         headers: { auth_token: `${token}` },
       })
       .then((response) => {
-        console.log(response.data);
         return response.data.data;
       })
       .catch((error) => {
@@ -117,13 +138,12 @@ export const loadCollectionSearch = createAsyncThunk(
   }
 );
 
-export const loadFirstCollection = createAsyncThunk(
+export const loadSearchFirstCollection = createAsyncThunk(
   "LOAD_COLLECTION_FIRST_LIST",
   async (setCollectionData) => {
     return await axios
-      .get(`http://localhost:5001/collections?_page=1&_limit=12`)
+      .get(`${serverUrl}/api/explore?tab=collection&_page=1&_limit=12`)
       .then((response) => {
-        console.log(response.data);
         setCollectionData(response.data.data);
         return response.data.data;
       })
@@ -133,14 +153,24 @@ export const loadFirstCollection = createAsyncThunk(
   }
 );
 
-export const loadAfterFirstCollection = createAsyncThunk(
+export const loadSearchAfterFirstCollection = createAsyncThunk(
   "LOAD_COLLECTION_AFTER_FIRST_LIST",
-  async () => {
+  async (value) => {
     return await axios
-      .get(`http://localhost:5001/collections?_page=1&_limit=12`)
+      .get(
+        `${serverUrl}/api/explore?tab=collection&_page=${value.page}&_limit=12`
+      )
       .then((response) => {
-        console.log(response.data);
-        return response.data;
+        value.setCollectionData([
+          ...value.collectionData,
+          ...response.data.data,
+        ]);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.sethasMore(false);
+        }
+        value.setpage(value.page + 1);
+        return response.data.data;
       })
       .catch((error) => {
         console.log(error.message);
@@ -153,10 +183,6 @@ const collectionSlice = createSlice({
   initialState: {},
   reducers: {},
   extraReducers: {
-    // [createCollection.fulfilled]: (state, { payload }) => [...payload],
-    [loadCollection.fulfilled]: (state, action) => {
-      state.collection = action.payload;
-    },
     [loadCollectionDetail.fulfilled]: (state, action) => {
       console.log(action);
       state.collectionDetail = action.payload;
@@ -164,9 +190,6 @@ const collectionSlice = createSlice({
     [loadCollectionSearch.fulfilled]: (state, action) => {
       console.log(action);
       state.collectionSearch = action.payload;
-    },
-    [loadFirstCollection.fulfilled]: (state, action) => {
-      state.collectionFirst = action.payload;
     },
   },
 });
