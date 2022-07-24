@@ -4,7 +4,11 @@ import { useParams } from "react-router-dom";
 import CardAuction from "../components/CardAuction";
 import CardCollection from "../components/CardCollection";
 import CardItem from "../components/CardItem";
-import { loadCollectionSearch } from "../redux/modules/collectionSlice";
+import {
+  loadSearchFirstCollection,
+  loadSearchAfterFirstCollection,
+} from "../redux/modules/collectionSlice";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const SearchListPage = () => {
   const dispatch = useDispatch();
@@ -12,17 +16,19 @@ const SearchListPage = () => {
   const params = useParams();
   const keyword = params.keyword;
 
-  const collectionSearch = useSelector(
-    (state) => state.collection.collectionSearch
-  );
+  const [collectionData, setCollectionData] = useState([]);
+  const [hasMore, sethasMore] = useState(true);
+  const [page, setpage] = useState(2);
+
+  // const collectionSearch = useSelector(
+  //   (state) => state.collection.collectionSearch
+  // );
 
   useEffect(() => {
-    dispatch(loadCollectionSearch(keyword));
-  }, [keyword]);
+    dispatch(loadSearchAfterFirstCollection(setCollectionData));
+  }, []);
 
-  console.log(collectionSearch);
-
-  if (!collectionSearch) {
+  if (!collectionData) {
     return null;
   }
 
@@ -56,7 +62,7 @@ const SearchListPage = () => {
         </button>
       </div>
       <div className="CardWrapper">
-        {category === 0 && <CardCollection data={collectionSearch} />}
+        {category === 0 && <CardCollection data={collectionData} />}
         {category === 1 && <CardItem />}
         {category === 2 && <CardAuction />}
       </div>
