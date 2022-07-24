@@ -20,13 +20,21 @@ const SearchListPage = () => {
   const [hasMore, sethasMore] = useState(true);
   const [page, setpage] = useState(2);
 
-  // const collectionSearch = useSelector(
-  //   (state) => state.collection.collectionSearch
-  // );
-
   useEffect(() => {
-    dispatch(loadSearchAfterFirstCollection(setCollectionData));
+    dispatch(loadSearchFirstCollection({ setCollectionData, keyword }));
   }, []);
+
+  const collectionFetchData = () => {
+    dispatch(
+      loadSearchAfterFirstCollection({
+        page,
+        collectionData,
+        setCollectionData,
+        sethasMore,
+        setpage,
+      })
+    );
+  };
 
   if (!collectionData) {
     return null;
@@ -61,11 +69,26 @@ const SearchListPage = () => {
           경매 진행중
         </button>
       </div>
-      <div className="CardWrapper">
-        {category === 0 && <CardCollection data={collectionData} />}
-        {category === 1 && <CardItem />}
-        {category === 2 && <CardAuction />}
-      </div>
+
+      {category === 0 && (
+        <InfiniteScroll
+          dataLength={collectionData.length} //This is important field to render the next data
+          next={collectionFetchData}
+          hasMore={hasMore}
+          loader={<h4>Loading...</h4>}
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+        >
+          <div className="CardWrapper">
+            <CardCollection data={collectionData} />
+          </div>
+        </InfiniteScroll>
+      )}
+      {category === 1 && <CardItem />}
+      {category === 2 && <CardAuction />}
     </div>
   );
 };

@@ -140,11 +140,11 @@ export const loadCollectionSearch = createAsyncThunk(
 
 export const loadSearchFirstCollection = createAsyncThunk(
   "LOAD_COLLECTION_FIRST_LIST",
-  async (setCollectionData) => {
+  async (value) => {
     return await axios
       .get(`${serverUrl}/api/explore?tab=collection&_page=1&_limit=12`)
       .then((response) => {
-        setCollectionData(response.data.data);
+        value.setCollectionData(response.data.data);
         return response.data.data;
       })
       .catch((error) => {
