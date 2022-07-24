@@ -102,6 +102,7 @@ a:active {
   position: relative;
   right: 20px;
   top: 16px;
+  cursor: pointer;
 }
 
 .ButtonBundle {

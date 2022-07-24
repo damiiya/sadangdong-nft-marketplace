@@ -1,35 +1,33 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/icon/logo.png";
-import { Avatar, Checkbox } from "@mui/material";
+import { Avatar } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import ButtonElement from "../elements/ButtonElement";
 import LoginModal from "../elements/LoginModal";
 import LogoutModal from "../elements/LogoutModal";
 import createitem from "../assets/icon/createitem.png";
 import createcollection from "../assets/icon/createcollection.png";
-import Search from "@mui/icons-material/Search";
 
 const Header = () => {
   const navigate = useNavigate();
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
-
+  const [keyword, setKeyword] = useState("");
   const token = sessionStorage.getItem("auth_token");
 
   const goMain = () => {
     navigate("/");
   };
 
-  const goItem = () => {
-    navigate("/createItem");
-  };
-
   const search = (event) => {
     if (event.key === "Enter") {
-      let keyword = event.target.value;
+      setKeyword(event.target.value);
       navigate(`/search/${keyword}`);
     }
+  };
+
+  const iconSearch = () => {
+    navigate(`/search/${keyword}`);
   };
 
   return (
@@ -46,17 +44,24 @@ const Header = () => {
         <div className="HeaderWrapper">
           <div className="HeaderLogSearchBarContainer">
             <div className="Logo">
-              <img className="LogoImage" src={logo} onClick={goMain} />
+              <a href="/">
+                <img className="LogoImage" src={logo} />
+              </a>
             </div>
             <div className="SearchBar">
               <input
                 className="SearchInput"
                 type="text"
                 placeholder="검색어를 입력하세요"
+                onChange={(event) => {
+                  setKeyword(event.target.value);
+                }}
                 onKeyPress={(event) => search(event)}
               />
               <button className="SearchButton" type="submit"></button>
-              <SearchIcon className="IconButton" />
+              <div className="SearchIconDiv" onClick={iconSearch}>
+                <SearchIcon className="IconButton" />
+              </div>
             </div>
           </div>
 
