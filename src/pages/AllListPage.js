@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  loadFirstCollection,
+  loadAfterFirstCollection,
+} from "../redux/modules/collectionSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { serverUrl } from "../shared/api";
 import CardAuction from "../components/CardAuction";
@@ -14,9 +18,6 @@ const AllListPage = () => {
   const [hasMore, sethasMore] = useState(true);
   const [page, setpage] = useState(2);
 
-  // useEffect(() => {
-  //   dispatch(loadCollection());
-  // }, []);
   // `http://localhost:5001/collections?_page=1&_limit=12`
   // `${serverUrl}/api/explore?tab=collection&_page=1&_limit=12`
   useEffect(() => {
