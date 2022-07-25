@@ -7,6 +7,8 @@ import LoginModal from "../elements/LoginModal";
 import LogoutModal from "../elements/LogoutModal";
 import createitem from "../assets/icon/createitem.png";
 import createcollection from "../assets/icon/createcollection.png";
+import cart from "../assets/icon/cart.png";
+import user from "../assets/icon/user.png";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -81,13 +83,13 @@ const Header = () => {
                 <div className="AccordionCreateitemContainer-1">
                   <img src={createitem} />
                   <button className="AccordionMenuButton-1">
-                    <a href="createitem">Create Item</a>
+                    <a href="/createitem">Create Item</a>
                   </button>
                 </div>
                 <div className="AccordionCreateitemContainer-2">
                   <img src={createcollection} />
                   <button className="AccordionMenuButton-2">
-                    <a href="createcollection">Create Collection</a>
+                    <a href="/createcollection">Create Collection</a>
                   </button>
                 </div>
               </div>
@@ -102,12 +104,32 @@ const Header = () => {
                 >
                   Disconnect a Wallet
                 </button>
-                <Avatar
-                  className="HeaderAvatar"
-                  alt="User Name"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
-                  sx={{ width: 56, height: 56 }}
-                />
+
+                <div className="Accordion">
+                  <input type="checkbox" id="account01" />
+                  <label className="HeaderLabel" htmlFor="account01">
+                    <Avatar
+                      className="HeaderAvatar"
+                      alt="User Name"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
+                      sx={{ width: 56, height: 56 }}
+                    />
+                  </label>
+                  <div className="AccordionAccountMenu">
+                    <div className="AccordionCreateitemContainer-1">
+                      <img src={user} />
+                      <button className="AccordionMenuAccountButton-1">
+                        <a href="/myaccount">내 계정</a>
+                      </button>
+                    </div>
+                    <div className="AccordionCreateitemContainer-2">
+                      <img src={cart} />
+                      <button className="AccordionMenuButton-2">
+                        <a href="/myauction">내 경매목록</a>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </>
             ) : (
               <>
@@ -119,12 +141,19 @@ const Header = () => {
                 >
                   Connect a Wallet
                 </button>
-                <Avatar
-                  className="HiddenHeaderAvatar"
-                  alt="User Name"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
-                  sx={{ width: 56, height: 56 }}
-                />
+                <div className="Accordion">
+                  <input type="checkbox" id="account01" />
+                  <Avatar
+                    className="HiddenHeaderAvatar"
+                    alt="User Name"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
+                    sx={{ width: 56, height: 56 }}
+                  />
+                  <div className="AccordionAccountMenu">
+                    <div className="AccordionCreateitemContainer-1"></div>
+                    <div className="AccordionCreateitemContainer-2"></div>
+                  </div>
+                </div>
               </>
             )}
           </div>

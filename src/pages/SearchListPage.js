@@ -27,6 +27,7 @@ const SearchListPage = () => {
   const collectionFetchData = () => {
     dispatch(
       loadSearchAfterFirstCollection({
+        keyword,
         page,
         collectionData,
         setCollectionData,

@@ -142,7 +142,9 @@ export const loadSearchFirstCollection = createAsyncThunk(
   "LOAD_COLLECTION_FIRST_LIST",
   async (value) => {
     return await axios
-      .get(`${serverUrl}/api/explore?tab=collection&_page=1&_limit=12`)
+      .get(
+        `${serverUrl}/api/search?tab=colleciton&name=${value.keyword}&_page=1&_limit=12`
+      )
       .then((response) => {
         value.setCollectionData(response.data.data);
         return response.data.data;
@@ -158,7 +160,7 @@ export const loadSearchAfterFirstCollection = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/explore?tab=collection&_page=${value.page}&_limit=12`
+        `${serverUrl}/api/search?tab=colleciton&name=${value.keyword}&_page=${value.page}&_limit=12`
       )
       .then((response) => {
         value.setCollectionData([

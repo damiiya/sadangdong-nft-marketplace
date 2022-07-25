@@ -12,7 +12,7 @@ export const getCollectionSelect = createAsyncThunk(
     try {
       const response = await axios({
         method: "get",
-        url: `${serverUrl}/api/items/minting`,
+        url: `${serverUrl}/api/items/collections`,
         headers: {
           authorization: `${token}`,
         },
