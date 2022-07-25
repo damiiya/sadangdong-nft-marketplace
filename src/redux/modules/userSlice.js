@@ -4,6 +4,7 @@ import { serverUrl } from "../../shared/api";
 
 const token = sessionStorage.getItem("auth_token");
 
+// 유저 계정 생성하기
 export const createAccount = createAsyncThunk(
   "ACCOUNT_INFO",
   async (ACCOUNT) => {
@@ -17,14 +18,22 @@ export const createAccount = createAsyncThunk(
     })
       .then((response) => {
         sessionStorage.setItem("auth_token", account);
-        console.log(response.data);
-        window.location.href = "/";
+        sessionStorage.setItem(
+          "user_profile",
+          response.data.data.profile_image
+        );
+        console.log(response.data.data);
+        window.location.href = "";
       })
       .catch((error) => {
         console.log(error.message);
       });
   }
 );
+
+// 유저 정보 가져오기
+
+// 유저 정보 수정하기
 
 const userSlice = createSlice({
   name: "userSlice",

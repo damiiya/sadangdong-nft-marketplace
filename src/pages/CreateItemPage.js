@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import { CONTRACT_ABI } from "../contracts/abi";
 import { MintContractAddress } from "../shared/api";
 import { useDispatch, useSelector } from "react-redux";
 import uploadimage from "../assets/uploadimage.png";
@@ -64,13 +63,6 @@ const CreateItemPage = () => {
 
   // 민팅
   const getMintNFT = async (tokenURI, ImgHash) => {
-    // if (
-    //   window.ethereum.request({
-    //     method: "wallet_switchEthereumChain",
-    //     params: [{ chainId: "1387" }],
-    //   })
-    // )
-    //   alert("Wallet switch!");
     try {
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
@@ -146,7 +138,7 @@ const CreateItemPage = () => {
   };
 
   // 이미지 파일 Ipfshash로 변환
-  const SetFiletoIPFS = async (e) => {
+  const setFiletoIPFS = async (e) => {
     e.preventDefault();
     if (file) {
       try {
@@ -167,7 +159,6 @@ const CreateItemPage = () => {
         const ImgHash = `ipfs://${resFile.data.IpfsHash}`;
         sendJsontoIPFS(ImgHash);
       } catch (error) {
-        console.log("File to IPFS: ");
         console.log(error);
       }
     }
@@ -279,19 +270,15 @@ const CreateItemPage = () => {
               <div className="CreateItemBlockChainContainer">
                 <span className="CreateItemBlockChainTittle">Block Chain</span>
                 <select className="CreateItemSelectCollection">
-                  <option value="" disabled selected>
+                  <option value="" disabled>
                     발행할 코인을 선택해주세요.
                   </option>
-                  <option>ETH</option>
+                  <option selected>ETH</option>
                 </select>
               </div>
             </div>
             <div className="CreateItemButtonContainer">
-              <button
-                className="CreateItemButton"
-                onClick={SetFiletoIPFS}
-                // {()=>{SetFiletoIPFS(); handleSubmit();}}
-              >
+              <button className="CreateItemButton" onClick={setFiletoIPFS}>
                 Create
               </button>
             </div>

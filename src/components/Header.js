@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/icon/logo.png";
 import { Avatar } from "@mui/material";
@@ -7,19 +7,23 @@ import LoginModal from "../elements/LoginModal";
 import LogoutModal from "../elements/LogoutModal";
 import createitem from "../assets/icon/createitem.png";
 import createcollection from "../assets/icon/createcollection.png";
+
 import cart from "../assets/icon/cart.png";
 import user from "../assets/icon/user.png";
 
-const Header = () => {
+
+const Header = (userProfile) => {
+  console.log(userProfile.profile_image);
+
   const navigate = useNavigate();
+
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
   const [keyword, setKeyword] = useState("");
   const token = sessionStorage.getItem("auth_token");
 
-  const goMain = () => {
-    navigate("/");
-  };
+  const profile = sessionStorage.getItem("user_profile");
+
 
   const search = (event) => {
     if (event.key === "Enter") {
@@ -66,7 +70,6 @@ const Header = () => {
               </div>
             </div>
           </div>
-
           <div className="ButtonBundle">
             <button className="HeaderButton">
               <a href="/list">All NFTs</a>
@@ -94,7 +97,7 @@ const Header = () => {
                 </div>
               </div>
             </div>
-            {token ? (
+            {token && userProfile ? (
               <>
                 <button
                   className="HeaderDisconnectButton"
@@ -104,6 +107,7 @@ const Header = () => {
                 >
                   Disconnect a Wallet
                 </button>
+
 
                 <div className="Accordion">
                   <input type="checkbox" id="account01" />
@@ -130,6 +134,7 @@ const Header = () => {
                     </div>
                   </div>
                 </div>
+
               </>
             ) : (
               <>
@@ -141,6 +146,7 @@ const Header = () => {
                 >
                   Connect a Wallet
                 </button>
+
                 <div className="Accordion">
                   <input type="checkbox" id="account01" />
                   <Avatar
@@ -154,6 +160,7 @@ const Header = () => {
                     <div className="AccordionCreateitemContainer-2"></div>
                   </div>
                 </div>
+
               </>
             )}
           </div>
@@ -162,5 +169,4 @@ const Header = () => {
     </>
   );
 };
-
 export default Header;

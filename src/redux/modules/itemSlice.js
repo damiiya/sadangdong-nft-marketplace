@@ -17,14 +17,17 @@ export const getCollectionSelect = createAsyncThunk(
           authorization: `${token}`,
         },
       });
-      console.log(response);
-      if (response.data.data.length == 0) {
+      if (!token) {
+        alert("로그인이 필요합니다!!");
+        window.location.href = "/";
+      } else if (response.data.data.length == 0) {
         alert("컬렉션을 먼저 생성해주세요!");
         window.location.href = "/createcollection";
       }
+      console.log(response.data.data);
       return response.data.data;
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
 );
@@ -43,9 +46,79 @@ export const postMintedItem = createAsyncThunk(
       .then((response) => {
         console.log(response.data);
         window.location.href = "/";
+      })
+      .catch((error) => {
+        console.log(error.message);
       });
   }
 );
+
+// 아이템 리스트 가져오기
+export const loadItemList = createAsyncThunk("LOAD_ITEM_LIST", async () => {
+  return await axios
+    .get(`${serverUrl}/api/explore?tab=item`)
+    .then((response) => {
+      console.log(response.data.data);
+      return response.data.data;
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+});
+
+// 아이템 상세페이지 정보 가져오기
+export const loadItemDetail = createAsyncThunk(
+  "LOAD_ITEM_DETAIL",
+  async (token_id) => {
+    return await axios
+      .get(`${serverUrl}/api/items/${token_id}`)
+      .then((response) => {
+        console.log(response.data.data);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 아이템 수정하기
+export const editItem = createAsyncThunk("EDIT_ITEM", async (args) => {
+  const response = await axios
+    .put(`${serverUrl}/api/items/${args.token_id}`, args.itemInfo, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `${token}`,
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+      alert("아이템을 수정하였습니다!");
+      window.location.href = `/items/${args.token_id}`;
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+});
+
+// 아이템 삭제하기
+export const deleteItem = createAsyncThunk("Delete_ITEM", async (token_id) => {
+  return await axios
+    .delete(`${serverUrl}/api/items/${token_id}`, {
+      headers: { authorization: `${token}` },
+    })
+    .then((response) => {
+      console.log(response.data);
+      alert("아이템을 삭제하였습니다!");
+      window.location.href = "/";
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+});
+
+// 아이템 경매 등록하기
+// 경매중인 아이템 가져오기
 
 const itemSlice = createSlice({
   name: "itemSlice",
@@ -56,12 +129,13 @@ const itemSlice = createSlice({
   extraReducers: {
     [getCollectionSelect.fulfilled]: (state, action) => {
       state.collectionName = action.payload;
-      console.log("succeed collection select!");
-      console.log(state.collectionName);
     },
-    // [postMintedItem.fulfilled]: (state, action) => {
-    //   console.log("succeed!");
-    // },
+    [loadItemList.fulfilled]: (state, action) => {
+      state.itemList = action.payload;
+    },
+    [loadItemDetail.fulfilled]: (state, action) => {
+      state.itemDetail = action.payload;
+    },
   },
 });
 

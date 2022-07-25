@@ -4,6 +4,7 @@ import metamaskfox from "../assets/icon/metamaskfox.png";
 
 const LogoutModal = (props) => {
   const { openLogoutModal, setOpenLogoutModal } = props;
+
   return (
     <>
       <Modal
@@ -22,7 +23,9 @@ const LogoutModal = (props) => {
             className="LoginModalButton"
             onClick={() => {
               sessionStorage.removeItem("auth_token");
+              sessionStorage.removeItem("user_profile");
               setOpenLogoutModal(false);
+              window.location.reload();
             }}
           >
             <div className="LoginModalButtonWrapper">
