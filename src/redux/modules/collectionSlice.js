@@ -4,6 +4,7 @@ import { serverUrl } from "../../shared/api";
 
 const token = sessionStorage.getItem("auth_token");
 
+// 컬렉션 생성하기
 export const createCollection = createAsyncThunk(
   "CREATE_LIST",
   async (value) => {
@@ -24,13 +25,14 @@ export const createCollection = createAsyncThunk(
   }
 );
 
+// 컬렉션 가져오기
 export const loadCollection = createAsyncThunk(
   "LOAD_COLLECTION_LIST",
   async () => {
     return await axios
       .get(`${serverUrl}/api/explore?tab=collection`)
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.data);
         return response.data.data;
       })
       .catch((error) => {
@@ -38,8 +40,8 @@ export const loadCollection = createAsyncThunk(
       });
   }
 );
-// `${serverUrl}/api/explore?tab=collection`
 
+// 컬렉션 수정하기
 export const editCollection = createAsyncThunk(
   "EDIT_COLLECTION",
   async (value) => {
@@ -64,7 +66,8 @@ export const editCollection = createAsyncThunk(
       });
   }
 );
-// `${serverUrl}/api/collections/${params}`
+
+// 컬렉션 삭제하기
 export const deleteCollection = createAsyncThunk(
   "Delete_COLLECTION",
   async (value) => {
@@ -82,6 +85,7 @@ export const deleteCollection = createAsyncThunk(
   }
 );
 
+// 컬렉션 상세페이지 가져오기
 export const loadCollectionDetail = createAsyncThunk(
   "LOAD_COLLECTION_DETAIL",
   async (keyword) => {
@@ -94,13 +98,12 @@ export const loadCollectionDetail = createAsyncThunk(
         return response.data.data;
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
       });
   }
 );
 
-// `${serverUrl}/api/collections/${collectionId}`
-
+// 컬렉션 검색하기
 export const loadCollectionSearch = createAsyncThunk(
   "LOAD_COLLECTION_Search",
   async (keyword) => {
@@ -108,7 +111,6 @@ export const loadCollectionSearch = createAsyncThunk(
       .get(`${serverUrl}/api/search?tab=collection&name=${keyword}`)
       .then((response) => {
         console.log(response.data);
-
         return response.data.data;
       })
       .catch((error) => {
@@ -153,12 +155,10 @@ const collectionSlice = createSlice({
   initialState: {},
   reducers: {},
   extraReducers: {
-    // [createCollection.fulfilled]: (state, { payload }) => [...payload],
     [loadCollection.fulfilled]: (state, action) => {
       state.collection = action.payload;
     },
     [loadCollectionDetail.fulfilled]: (state, action) => {
-      console.log(action);
       state.collectionDetail = action.payload;
     },
     [loadCollectionSearch.fulfilled]: (state, action) => {

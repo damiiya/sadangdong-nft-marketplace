@@ -1,29 +1,23 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/icon/logo.png";
-import { Avatar, Checkbox } from "@mui/material";
+import { Avatar } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import ButtonElement from "../elements/ButtonElement";
 import LoginModal from "../elements/LoginModal";
 import LogoutModal from "../elements/LogoutModal";
 import createitem from "../assets/icon/createitem.png";
 import createcollection from "../assets/icon/createcollection.png";
-import Search from "@mui/icons-material/Search";
 
-const Header = () => {
+const Header = (userProfile) => {
+  console.log(userProfile.profile_image);
+
   const navigate = useNavigate();
+
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
 
   const token = sessionStorage.getItem("auth_token");
-
-  const goMain = () => {
-    navigate("/");
-  };
-
-  const goItem = () => {
-    navigate("/createItem");
-  };
+  const profile = sessionStorage.getItem("user_profile");
 
   const search = (event) => {
     if (event.key === "Enter") {
@@ -46,7 +40,9 @@ const Header = () => {
         <div className="HeaderWrapper">
           <div className="HeaderLogSearchBarContainer">
             <div className="Logo">
-              <img className="LogoImage" src={logo} onClick={goMain} />
+              <a href="/">
+                <img className="LogoImage" src={logo} />
+              </a>
             </div>
             <div className="SearchBar">
               <input
@@ -59,7 +55,6 @@ const Header = () => {
               <SearchIcon className="IconButton" />
             </div>
           </div>
-
           <div className="ButtonBundle">
             <button className="HeaderButton">
               <a href="/list">All NFTs</a>
@@ -76,18 +71,18 @@ const Header = () => {
                 <div className="AccordionCreateitemContainer-1">
                   <img src={createitem} />
                   <button className="AccordionMenuButton-1">
-                    <a href="createitem">Create Item</a>
+                    <a href="/createitem">Create Item</a>
                   </button>
                 </div>
                 <div className="AccordionCreateitemContainer-2">
                   <img src={createcollection} />
                   <button className="AccordionMenuButton-2">
-                    <a href="createcollection">Create Collection</a>
+                    <a href="/createcollection">Create Collection</a>
                   </button>
                 </div>
               </div>
             </div>
-            {token ? (
+            {token && userProfile ? (
               <>
                 <button
                   className="HeaderDisconnectButton"
@@ -100,7 +95,7 @@ const Header = () => {
                 <Avatar
                   className="HeaderAvatar"
                   alt="User Name"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
+                  src={profile}
                   sx={{ width: 56, height: 56 }}
                 />
               </>
@@ -117,7 +112,7 @@ const Header = () => {
                 <Avatar
                   className="HiddenHeaderAvatar"
                   alt="User Name"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
+                  src=""
                   sx={{ width: 56, height: 56 }}
                 />
               </>
@@ -128,5 +123,4 @@ const Header = () => {
     </>
   );
 };
-
 export default Header;

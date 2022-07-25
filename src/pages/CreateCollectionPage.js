@@ -15,6 +15,8 @@ const CreateCollectionPage = () => {
   const navigate = useNavigate();
   const collectionId = params.collectionId;
 
+  const token = sessionStorage.getItem("auth_token");
+
   const [imageSrc, setImageSrc] = useState("");
 
   const encodeBannerImage = (fileBlob) => {
@@ -59,6 +61,7 @@ const CreateCollectionPage = () => {
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
+
     dispatch(
       createCollection({
         formData: formData,
@@ -68,6 +71,11 @@ const CreateCollectionPage = () => {
       })
     );
   };
+
+  if (!token) {
+    alert("로그인이 필요합니다!!");
+    window.location.href = "/";
+  }
 
   return (
     <>
@@ -167,12 +175,7 @@ const CreateCollectionPage = () => {
             </div>
           </div>
           <div className="CreateItemButtonContainer">
-            <button
-              className="CreateItemButton"
-              onClick={() => {
-                handleSubmit();
-              }}
-            >
+            <button className="CreateItemButton" onClick={handleSubmit}>
               Create
             </button>
           </div>

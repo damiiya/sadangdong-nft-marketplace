@@ -1,38 +1,40 @@
-import React, { useState } from "react";
+import React from "react";
+import { useParams } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import heart from "../assets/icon/heart.png";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import EditIcon from "@mui/icons-material/Edit";
 
-const ItemDetail = () => {
-  const [checkUser, SetCheckUser] = useState(true);
+const ItemDetail = (props) => {
+  const token = sessionStorage.getItem("auth_token");
+  const user = props.data[0].address;
+  const params = useParams();
+  const token_id = params.token_id;
+  console.log(props.data[0]);
 
   return (
     <>
       <div className="ItemContainer">
         <div className="ItemWrapper">
           <div className="ItemImageDiv">
-            <img
-              className="ItemImage"
-              src="https://www.cosmorning.com/data/photos/20210153/art_16095743571912_f2a3fc.jpg"
-            />
+            <img className="ItemImage" src={props.data[0].image} />
           </div>
           <div className="ItemInfoContainer">
             <div className="SellInfo">
               <div className="HeartWrap">
                 <img className="Heart" src={heart} />
-                <span className="HeartCount">9,999</span>
+                <span className="HeartCount">
+                  {props.data[0].favorites_count}
+                </span>
               </div>
               <div className="SellItemNameWrapper">
-                <span className="ItemDetailName">Item Name</span>
+                <span className="ItemDetailName">{props.data[0].name}</span>
               </div>
               <div className="SellCollectionInfo">
                 <span className="SellCollectionSpan">Collection</span>
-                <span className="ItemCollectionName"> Collection name</span>
-              </div>
-              <div className="SellOwnerInfo">
-                <span className="SellOwnerSpan">Owner</span>
-                <span className="SellOwnerName"> 10 Owner name</span>
+                <span className="ItemCollectionName">
+                  {props.data[0].collection_name}
+                </span>
               </div>
             </div>
             <div className="ItemDescriptionTittle">
@@ -41,37 +43,33 @@ const ItemDetail = () => {
                 <Avatar
                   className="SellDescriptionAvatar"
                   alt="User Name"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
+                  src={props.data[0].profile_image}
                 />
-                <span className="SellUserName">by username</span>
+                <span className="SellUserName">
+                  by {props.data[0].user_name}
+                </span>
               </div>
             </div>
             <div className="ItemDescriptionContent">
-              <p>Magnum 75 #11 by Bruno Barbey. Paris, France. 1966</p>
-              <p>Danish actor Anna Karina</p>
-              <p>
-                The Magnum 75 collection is the inaugural NFT collection by
-                Magnum
-              </p>
-              <p>
-                Photos. Created in 2022, the collection brings together works
-                by76
-              </p>
-              <p>photographers taken across seven decades.</p>
+              <p>{props.data[0].description}</p>
             </div>
             <div className="ItemButtons">
               <div className="ShareButtonAndIcon">
                 <button className="ShareButton">Share</button>
                 <IosShareIcon className="ShareIcon" />
               </div>
-              <div className="EditButtonAndIcon">
-                <button className="ItemEditButton">Items Edit</button>
-                <EditIcon className="EditIcon" />
-              </div>
-              {checkUser ? (
-                <button className="AuctionRegistration">경매 등록하기</button>
+              {token === user ? (
+                <>
+                  <a href={`/edititem/${token_id}`}>
+                    <div className="EditButtonAndIcon">
+                      <button className="ItemEditButton">Item Edit</button>
+                      <EditIcon className="EditIcon" />
+                    </div>
+                  </a>
+                  <button className="AuctionRegistration">경매 등록하기</button>
+                </>
               ) : (
-                ""
+                <></>
               )}
             </div>
           </div>
