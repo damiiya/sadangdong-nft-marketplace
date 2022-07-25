@@ -5,11 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadItemDetail } from "../redux/modules/itemSlice";
 
 const ItemPage = () => {
-  const [isLoad, setIsLoad] = useState(false);
-  const params = useParams();
   const dispatch = useDispatch();
+  const params = useParams();
   const token_id = params.token_id;
-
+  const [isLoad, setIsLoad] = useState(false);
   const itemDetail = useSelector((state) => state.item.itemDetail);
 
   useEffect(() => {
@@ -19,17 +18,18 @@ const ItemPage = () => {
   useEffect(() => {
     if (itemDetail) {
       setIsLoad(true);
+      console.log("done");
     }
   });
 
   if (!isLoad) {
     return null;
-  } else {
-    return (
-      <>
-        <ItemDetail data={itemDetail} />
-      </>
-    );
   }
+  return (
+    <>
+      <ItemDetail data={itemDetail} />
+    </>
+  );
 };
+
 export default ItemPage;

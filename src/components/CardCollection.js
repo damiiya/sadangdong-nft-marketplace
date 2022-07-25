@@ -6,7 +6,7 @@ const CardCollection = (props) => {
   return (
     <>
       {props.data.map((val, index) => (
-        <div key={val.id} className="CardCollectionContainer">
+        <div key={index} className="CardCollectionContainer">
           <div className="CardCollectionImageWrapper">
             <img className="CardCollectionImage" src={val.feature_image} />
           </div>

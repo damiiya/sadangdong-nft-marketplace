@@ -10,6 +10,7 @@ const ItemDetail = (props) => {
   const user = props.data[0].address;
   const params = useParams();
   const token_id = params.token_id;
+  console.log(props.data[0]);
 
   return (
     <>
@@ -61,7 +62,7 @@ const ItemDetail = (props) => {
                 <>
                   <a href={`/edititem/${token_id}`}>
                     <div className="EditButtonAndIcon">
-                      <button className="ItemEditButton">Items Edit</button>
+                      <button className="ItemEditButton">Item Edit</button>
                       <EditIcon className="EditIcon" />
                     </div>
                   </a>

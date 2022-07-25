@@ -57,7 +57,7 @@ const Header = (userProfile) => {
           </div>
           <div className="ButtonBundle">
             <button className="HeaderButton">
-              <a href="list">All NFTs</a>
+              <a href="/list">All NFTs</a>
             </button>
             <div className="Accordion">
               <input type="checkbox" id="answer01" />
@@ -71,13 +71,13 @@ const Header = (userProfile) => {
                 <div className="AccordionCreateitemContainer-1">
                   <img src={createitem} />
                   <button className="AccordionMenuButton-1">
-                    <a href="createitem">Create Item</a>
+                    <a href="/createitem">Create Item</a>
                   </button>
                 </div>
                 <div className="AccordionCreateitemContainer-2">
                   <img src={createcollection} />
                   <button className="AccordionMenuButton-2">
-                    <a href="createcollection">Create Collection</a>
+                    <a href="/createcollection">Create Collection</a>
                   </button>
                 </div>
               </div>

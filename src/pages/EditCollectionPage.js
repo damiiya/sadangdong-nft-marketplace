@@ -44,6 +44,7 @@ const EditCollectionPage = (props) => {
     });
   };
 
+  // 컬렉션 수정하기
   const handleSubmit = () => {
     let file1 = fileInputA.current.files[0];
     let file2 = fileInputB.current.files[0];
@@ -72,12 +73,14 @@ const EditCollectionPage = (props) => {
     );
   };
 
+  // 컬렉션 삭제하기
   const deleteSubmit = () => {
     dispatch(
       deleteCollection({ collectionId: collectionId, navigate: navigate })
     );
   };
 
+  // 기존 컬렉션 데이터 받아오기
   const [inputName, setInputName] = useState("");
   const [inputDescrition, setInputDescription] = useState("");
   const [inputCommission, setInputCommission] = useState("");

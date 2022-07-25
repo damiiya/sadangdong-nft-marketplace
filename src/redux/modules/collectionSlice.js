@@ -119,6 +119,37 @@ export const loadCollectionSearch = createAsyncThunk(
   }
 );
 
+export const loadFirstCollection = createAsyncThunk(
+  "LOAD_COLLECTION_FIRST_LIST",
+  async (setCollectionData) => {
+    return await axios
+      .get(`http://localhost:5001/collections?_page=1&_limit=12`)
+      .then((response) => {
+        console.log(response.data);
+        setCollectionData(response.data.data);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+export const loadAfterFirstCollection = createAsyncThunk(
+  "LOAD_COLLECTION_AFTER_FIRST_LIST",
+  async () => {
+    return await axios
+      .get(`http://localhost:5001/collections?_page=1&_limit=12`)
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
 const collectionSlice = createSlice({
   name: "Collection",
   initialState: {},
@@ -133,6 +164,9 @@ const collectionSlice = createSlice({
     [loadCollectionSearch.fulfilled]: (state, action) => {
       console.log(action);
       state.collectionSearch = action.payload;
+    },
+    [loadFirstCollection.fulfilled]: (state, action) => {
+      state.collectionFirst = action.payload;
     },
   },
 });

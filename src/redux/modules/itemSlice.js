@@ -12,7 +12,7 @@ export const getCollectionSelect = createAsyncThunk(
     try {
       const response = await axios({
         method: "get",
-        url: `${serverUrl}/api/items/minting`,
+        url: `${serverUrl}/api/items/collections`,
         headers: {
           authorization: `${token}`,
         },
@@ -24,6 +24,7 @@ export const getCollectionSelect = createAsyncThunk(
         alert("컬렉션을 먼저 생성해주세요!");
         window.location.href = "/createcollection";
       }
+      console.log(response.data.data);
       return response.data.data;
     } catch (error) {
       console.log(error.message);
@@ -82,7 +83,40 @@ export const loadItemDetail = createAsyncThunk(
 );
 
 // 아이템 수정하기
+export const editItem = createAsyncThunk("EDIT_ITEM", async (args) => {
+  const response = await axios
+    .put(`${serverUrl}/api/items/${args.token_id}`, args.itemInfo, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `${token}`,
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+      alert("아이템을 수정하였습니다!");
+      window.location.href = `/items/${args.token_id}`;
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+});
+
 // 아이템 삭제하기
+export const deleteItem = createAsyncThunk("Delete_ITEM", async (token_id) => {
+  return await axios
+    .delete(`${serverUrl}/api/items/${token_id}`, {
+      headers: { authorization: `${token}` },
+    })
+    .then((response) => {
+      console.log(response.data);
+      alert("아이템을 삭제하였습니다!");
+      window.location.href = "/";
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+});
+
 // 아이템 경매 등록하기
 // 경매중인 아이템 가져오기
 
