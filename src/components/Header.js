@@ -8,6 +8,10 @@ import LogoutModal from "../elements/LogoutModal";
 import createitem from "../assets/icon/createitem.png";
 import createcollection from "../assets/icon/createcollection.png";
 
+import cart from "../assets/icon/cart.png";
+import user from "../assets/icon/user.png";
+
+
 const Header = (userProfile) => {
   console.log(userProfile.profile_image);
 
@@ -15,15 +19,21 @@ const Header = (userProfile) => {
 
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
-
+  const [keyword, setKeyword] = useState("");
   const token = sessionStorage.getItem("auth_token");
+
   const profile = sessionStorage.getItem("user_profile");
+
 
   const search = (event) => {
     if (event.key === "Enter") {
-      let keyword = event.target.value;
+      setKeyword(event.target.value);
       navigate(`/search/${keyword}`);
     }
+  };
+
+  const iconSearch = () => {
+    navigate(`/search/${keyword}`);
   };
 
   return (
@@ -49,10 +59,15 @@ const Header = (userProfile) => {
                 className="SearchInput"
                 type="text"
                 placeholder="검색어를 입력하세요"
+                onChange={(event) => {
+                  setKeyword(event.target.value);
+                }}
                 onKeyPress={(event) => search(event)}
               />
               <button className="SearchButton" type="submit"></button>
-              <SearchIcon className="IconButton" />
+              <div className="SearchIconDiv" onClick={iconSearch}>
+                <SearchIcon className="IconButton" />
+              </div>
             </div>
           </div>
           <div className="ButtonBundle">
@@ -92,12 +107,34 @@ const Header = (userProfile) => {
                 >
                   Disconnect a Wallet
                 </button>
-                <Avatar
-                  className="HeaderAvatar"
-                  alt="User Name"
-                  src={profile}
-                  sx={{ width: 56, height: 56 }}
-                />
+
+
+                <div className="Accordion">
+                  <input type="checkbox" id="account01" />
+                  <label className="HeaderLabel" htmlFor="account01">
+                    <Avatar
+                      className="HeaderAvatar"
+                      alt="User Name"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
+                      sx={{ width: 56, height: 56 }}
+                    />
+                  </label>
+                  <div className="AccordionAccountMenu">
+                    <div className="AccordionCreateitemContainer-1">
+                      <img src={user} />
+                      <button className="AccordionMenuAccountButton-1">
+                        <a href="/myaccount">내 계정</a>
+                      </button>
+                    </div>
+                    <div className="AccordionCreateitemContainer-2">
+                      <img src={cart} />
+                      <button className="AccordionMenuButton-2">
+                        <a href="/myauction">내 경매목록</a>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
               </>
             ) : (
               <>
@@ -109,12 +146,21 @@ const Header = (userProfile) => {
                 >
                   Connect a Wallet
                 </button>
-                <Avatar
-                  className="HiddenHeaderAvatar"
-                  alt="User Name"
-                  src=""
-                  sx={{ width: 56, height: 56 }}
-                />
+
+                <div className="Accordion">
+                  <input type="checkbox" id="account01" />
+                  <Avatar
+                    className="HiddenHeaderAvatar"
+                    alt="User Name"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
+                    sx={{ width: 56, height: 56 }}
+                  />
+                  <div className="AccordionAccountMenu">
+                    <div className="AccordionCreateitemContainer-1"></div>
+                    <div className="AccordionCreateitemContainer-2"></div>
+                  </div>
+                </div>
+
               </>
             )}
           </div>

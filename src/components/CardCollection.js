@@ -2,7 +2,6 @@ import React from "react";
 import { Avatar } from "@mui/material";
 
 const CardCollection = (props) => {
-  console.log(props);
   return (
     <>
       {props.data.map((val, index) => (

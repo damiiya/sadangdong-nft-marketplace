@@ -19,6 +19,8 @@ import SearchListPage from "./pages/SearchListPage";
 import SellingItemPage from "./pages/SellingItemPage";
 import ApprovedAdminPage from "./pages/ApprovedAdminPage";
 import RejectedAdminPage from "./pages/RejectedAdminPage";
+import MyAccountPage from "./pages/MyAccountPage";
+import MyAuctionPage from "./pages/MyAuctionPage";
 import Footer from "./components/Footer";
 
 function App() {
@@ -49,6 +51,8 @@ function App() {
         <Route path="admin" element={<AdminPage />} />
         <Route path="approved" element={<ApprovedAdminPage />} />
         <Route path="rejected" element={<RejectedAdminPage />} />
+        <Route path="myaccount" element={<MyAccountPage />} />
+        <Route path="myauction" element={<MyAuctionPage />} />
       </Routes>
       <Footer />
     </div>

@@ -4,7 +4,11 @@ import { useParams } from "react-router-dom";
 import CardAuction from "../components/CardAuction";
 import CardCollection from "../components/CardCollection";
 import CardItem from "../components/CardItem";
-import { loadCollectionSearch } from "../redux/modules/collectionSlice";
+import {
+  loadSearchFirstCollection,
+  loadSearchAfterFirstCollection,
+} from "../redux/modules/collectionSlice";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const SearchListPage = () => {
   const dispatch = useDispatch();
@@ -12,17 +16,28 @@ const SearchListPage = () => {
   const params = useParams();
   const keyword = params.keyword;
 
-  const collectionSearch = useSelector(
-    (state) => state.collection.collectionSearch
-  );
+  const [collectionData, setCollectionData] = useState([]);
+  const [hasMore, sethasMore] = useState(true);
+  const [page, setpage] = useState(2);
 
   useEffect(() => {
-    dispatch(loadCollectionSearch(keyword));
-  }, [keyword]);
+    dispatch(loadSearchFirstCollection({ setCollectionData, keyword }));
+  }, []);
 
-  console.log(collectionSearch);
+  const collectionFetchData = () => {
+    dispatch(
+      loadSearchAfterFirstCollection({
+        keyword,
+        page,
+        collectionData,
+        setCollectionData,
+        sethasMore,
+        setpage,
+      })
+    );
+  };
 
-  if (!collectionSearch) {
+  if (!collectionData) {
     return null;
   }
 
@@ -55,11 +70,26 @@ const SearchListPage = () => {
           경매 진행중
         </button>
       </div>
-      <div className="CardWrapper">
-        {category === 0 && <CardCollection data={collectionSearch} />}
-        {category === 1 && <CardItem />}
-        {category === 2 && <CardAuction />}
-      </div>
+
+      {category === 0 && (
+        <InfiniteScroll
+          dataLength={collectionData.length} //This is important field to render the next data
+          next={collectionFetchData}
+          hasMore={hasMore}
+          loader={<h4>Loading...</h4>}
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+        >
+          <div className="CardWrapper">
+            <CardCollection data={collectionData} />
+          </div>
+        </InfiniteScroll>
+      )}
+      {category === 1 && <CardItem />}
+      {category === 2 && <CardAuction />}
     </div>
   );
 };
