@@ -129,6 +129,7 @@ a:active {
   font-size: 18px;
   font-weight: bold;
   margin-right: 40px;
+  cursor: pointer;
 }
 
 /* HeaderDropDown(Create부분)  */
@@ -712,7 +713,7 @@ input[id*="account"]:checked + label + div {
 .CardWrapper {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20%, auto));
-  gap: 2rem;
+  gap: 1rem;
   width: 100%;
   height: auto;
   margin: 40px 0 120px;
@@ -2562,6 +2563,12 @@ input[id*="CheckBox"] + label + div {
   align-items: center;
 }
 
+.ProfieImagePreivew {
+  width: 152px;
+  height: 152px;
+  border-radius: 200px;
+}
+
 .EditProfileImageCircle {
   width: 40px;
   height: 40px;
@@ -2572,6 +2579,7 @@ input[id*="CheckBox"] + label + div {
   position: relative;
   right: 55px;
   top: 100px;
+  cursor: pointer;
 }
 
 .UserIdwrapper {
@@ -2606,6 +2614,7 @@ input[id*="CheckBox"] + label + div {
   margin-top: 40px;
   justify-content: center;
   display: flex;
+  margin-bottom: 32px;
 }
 
 .MyAccountPageCacelButton {
@@ -2617,6 +2626,7 @@ input[id*="CheckBox"] + label + div {
   font-size: 18px;
   font-weight: bold;
   color: #649300;
+  cursor: pointer;
 }
 
 .MyAccountPageEditButton {
@@ -2628,6 +2638,7 @@ input[id*="CheckBox"] + label + div {
   border: none;
   font-size: 18px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 /* MyAuctionPage */
@@ -2636,43 +2647,171 @@ input[id*="CheckBox"] + label + div {
   border-top: #e5e5e5 4px solid;
 
   display: grid;
-  height: 1500px;
   grid-template-columns: 238px 1fr;
 }
 
 .MyAuctionPageMenuWrapper {
-  height: 1500px;
   justify-content: center;
   padding-top: 40px;
 }
 
-.MyAuctionPageMenuTitle_1 {
+.MyAuctionPageMenuCheckedTitle_1 {
   text-align: center;
-  margin-bottom: 24px;
   font-size: 18px;
   font-weight: bold;
   color: #86c500;
+  margin-bottom: 24px;
+  cursor: pointer;
 }
 
-.MyAuctionPageMenuTitle_2 {
+.MyAuctionPageMenuUncheckedTitle_2 {
   text-align: center;
   font-size: 18px;
   font-weight: bold;
   margin-right: 20px;
+  cursor: pointer;
 }
 
-.MyAuctionPageContentWrapper {
+.MyAuctionPageMenuUncheckedTitle_1 {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+
+.MyAuctionPageMenuCheckedTitle_2 {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #86c500;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.MyAuctionPageContentContainer {
   background-color: #e5e5e5;
-  height: 1500px;
 }
 
 .MyAuctionPageContentTitleWrapper {
-  margin-top: 40px;
   margin-left: 100px;
+  margin-top: 40px;
   font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.ContentTitleImage {
+  margin-right: 89px;
+}
+
+.ContentTitleItem {
+  margin-right: 122px;
+}
+
+.ContentTitleAuctionStart {
+  margin-right: 142px;
+}
+
+.ContentTitleAuctionEnd {
+  margin-right: 140px;
+}
+
+.ContentTitleAuctionHighestBid {
+  margin-right: 425px;
+}
+
+.MyAuctionPageContentWrapper {
+  width: 92.9%;
+  height: 104px;
+  border-radius: 16px;
+  background-color: #fff;
+  margin-bottom: 16px;
+  margin-left: 60px;
+
+  display: flex;
+  align-items: center;
+}
+
+.MyAuctionPageContentWrapper:hover {
+  border: solid 3px #c5ff49;
+}
+
+.MyAuctionPageContentImageWrapper {
+  width: 56px;
+  height: 56px;
+  background-color: #e5e5e5;
+  border-radius: 32px;
+  margin-left: 40px;
+  margin-right: 80px;
+}
+
+.ContentItemName {
+  margin-right: 80px;
+}
+
+.ContentAuctionStart {
+  margin-right: 80px;
+}
+
+.ContentAuctionEnd {
+  margin-right: 80px;
+}
+
+.ContentHighestBid {
+  margin-right: 25.5%;
+}
+
+.ContentMyBid {
+  width: 200px;
+  height: 56px;
+  border-radius: 60px;
+  background-color: #c5ff49;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
   font-weight: bold;
 }
 
-.MyAuctionPageContentTitleImage {
-  margin-right: 90px;
+.ContentMyBidSuccessResult {
+  width: 240px;
+  height: 56px;
+  border-radius: 60px;
+  background-color: #c5ff49;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.ContentMyBidFailureResult {
+  width: 240px;
+  height: 56px;
+  border-radius: 60px;
+  background-color: #e5e5e5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #666;
+}
+
+.ContentTitleAuctionWinningBid {
+  margin-right: 200px;
+}
+
+.ContentTitleAuctionMyBid {
+  margin-right: 190px;
+}
+
+.ContentWinningBid {
+  margin-right: 215px;
+}
+
+.ContentMyBidding {
+  margin-right: 80px;
 }

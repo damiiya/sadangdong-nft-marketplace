@@ -37,18 +37,14 @@ const ItemDetail = (props) => {
             </div>
             <div className="ItemDescriptionTittle">
               <span className="SellDescriptionSpan">Description</span>
-              <a href={`/author/${userId}`}>
-                <div className="AvatarWrapper">
-                  <Avatar
-                    className="SellDescriptionAvatar"
-                    alt="User Name"
-                    src={props.data.profile_image}
-                  />
-                  <span className="SellUserName">
-                    by {props.data.user_name}
-                  </span>
-                </div>
-              </a>
+              <div className="AvatarWrapper">
+                <Avatar
+                  className="SellDescriptionAvatar"
+                  alt="User Name"
+                  src={props.data.profile_image}
+                />
+                <span className="SellUserName">by {props.data.user_name}</span>
+              </div>
             </div>
             <div className="ItemDescriptionContent">
               <p>{props.data.description}</p>

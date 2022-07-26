@@ -7,7 +7,7 @@ const CardItem = (props) => {
     <>
       {props.data.map((val, i) => (
         <Link to={`/item/${val.token_id}`}>
-          <div key={val.id} className="CardItemContainer">
+          <div key={val.token_id} className="CardItemContainer">
             <div className="CardImageWrapper">
               <img className="CardCollectionImage" src={val.image} />
             </div>

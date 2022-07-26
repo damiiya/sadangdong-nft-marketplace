@@ -120,7 +120,7 @@ const Header = (userProfile) => {
                     <div className="AccordionCreateitemContainer-1">
                       <img src={user} />
                       <button className="AccordionMenuAccountButton-1">
-                        <a href="/myaccount">내 계정</a>
+                        <a href={`/account/${token}`}>내 계정</a>
                       </button>
                     </div>
                     <div className="AccordionCreateitemContainer-2">

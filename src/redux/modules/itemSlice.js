@@ -54,7 +54,47 @@ export const postMintedItem = createAsyncThunk(
   }
 );
 
-// 아이템 리스트 받아오기
+// 아이템 첫번째 목록 가져오기
+export const loadFirstItem = createAsyncThunk(
+  "LOAD_Item_FIRST_LIST",
+  async (setItemData) => {
+    return await axios
+      .get(`${serverUrl}/api/explore?tab=item&_page=1&_limit=12`)
+      .then((response) => {
+        setItemData(response.data.data);
+        console.log(response.data.data);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 아이템 첫번째 이후 목록 가져오기
+export const loadAfterFirstItem = createAsyncThunk(
+  "LOAD_Item_AFTER_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/explore?tab=item&_page=${value.itemPage}&_limit=12`
+      )
+      .then((response) => {
+        value.setItemData([...value.itemData, ...response.data.data]);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setItemnHasMore(false);
+        }
+        value.setItemPage(value.itemPage + 1);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 아이템 리스트 가져오기
 export const loadItemList = createAsyncThunk("LOAD_ITEM_LIST", async () => {
   return await axios
     .get(`${serverUrl}/api/explore?tab=item`)
