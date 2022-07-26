@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/icon/logo.png";
+import logo from "../../assets/icon/logo.png";
 import { Avatar } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import LoginModal from "../elements/LoginModal";
-import LogoutModal from "../elements/LogoutModal";
-import createitem from "../assets/icon/createitem.png";
-import createcollection from "../assets/icon/createcollection.png";
+import LoginModal from "../../elements/LoginModal";
+import LogoutModal from "../../elements/LogoutModal";
+import createitem from "../../assets/icon/createitem.png";
+import createcollection from "../../assets/icon/createcollection.png";
 
-import cart from "../assets/icon/cart.png";
-import user from "../assets/icon/user.png";
+import cart from "../../assets/icon/cart.png";
+import user from "../../assets/icon/user.png";
 
 const Header = (userProfile) => {
   console.log(userProfile.profile_image);
@@ -26,12 +26,12 @@ const Header = (userProfile) => {
   const search = (event) => {
     if (event.key === "Enter") {
       setKeyword(event.target.value);
-      navigate(`/search/${keyword}`);
+      navigate(`/list/search/${keyword}`);
     }
   };
 
   const iconSearch = () => {
-    navigate(`/search/${keyword}`);
+    navigate(`/list/search/${keyword}`);
   };
 
   return (
@@ -126,7 +126,7 @@ const Header = (userProfile) => {
                     <div className="AccordionCreateitemContainer-2">
                       <img src={cart} />
                       <button className="AccordionMenuButton-2">
-                        <a href="/myauction">내 경매목록</a>
+                        <a href="/account/myauction">내 경매목록</a>
                       </button>
                     </div>
                   </div>

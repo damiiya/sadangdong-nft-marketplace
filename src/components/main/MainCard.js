@@ -1,6 +1,6 @@
 import React from "react";
-import heartwhite from "../assets/icon/heartwhite.png";
-import timewhite from "../assets/icon/timewhite.png";
+import heartwhite from "../../assets/icon/heartwhite.png";
+import timewhite from "../../assets/icon/timewhite.png";
 
 const MainCard = () => {
   return (

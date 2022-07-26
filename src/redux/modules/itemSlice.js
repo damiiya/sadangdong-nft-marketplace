@@ -136,7 +136,7 @@ export const editItem = createAsyncThunk("EDIT_ITEM", async (args) => {
     .then((response) => {
       console.log(response.data);
       alert("아이템을 수정하였습니다!");
-      window.location.href = `/item/${args.token_id}`;
+      window.location.href = `/detail/item/${args.token_id}`;
     })
     .catch((error) => {
       console.log(error.message);
@@ -172,7 +172,7 @@ export const applyAuction = createAsyncThunk("APPLY_AUCTION", async (args) => {
     .then((response) => {
       console.log(response.data);
       alert("경매가 시작되었습니다!");
-      window.location.href = `/item/${args.token_id}`;
+      window.location.href = `/detail/item/${args.token_id}`;
     })
     .catch((error) => {
       console.log(error.message);

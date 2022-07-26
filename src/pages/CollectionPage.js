@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
 import share from "../assets/icon/share.png";
 import pencil from "../assets/icon/pencil.png";
-import CardAuction from "../components/CardAuction";
-import CardItem from "../components/CardItem";
+import CardAuction from "../components/card/CardAuction";
+import CardItem from "../components/card/CardItem";
 
 import { useParams } from "react-router-dom";
 
@@ -25,7 +25,7 @@ const CollectionPage = () => {
   console.log(collectionDetail);
 
   if (!collectionDetail) {
-    return <h1>hi</h1>;
+    return null;
   }
 
   return (
@@ -103,8 +103,8 @@ const CollectionPage = () => {
           </button>
         </div>
         <div className="CardWrapper">
-          {category === 0 && <CardAuction />}
-          {category === 1 && <CardItem />}
+          {/* {category === 0 && <CardAuction />}
+          {category === 1 && <CardItem />} */}
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { Avatar } from "@mui/material";
-import heart from "../assets/icon/heart.png";
+import heart from "../../assets/icon/heart.png";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import EditIcon from "@mui/icons-material/Edit";
 
@@ -62,7 +62,7 @@ const ItemDetail = (props) => {
                       <EditIcon className="EditIcon" />
                     </div>
                   </a>
-                  <a href={`/selling/${token_id}`}>
+                  <a href={`/account/sell/${token_id}`}>
                     <button className="AuctionRegistration">
                       경매 등록하기
                     </button>

@@ -1,27 +1,25 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
+import Header from "./components/main/Header";
 import AccountPage from "./pages/AccountPage";
 import AdminPage from "./pages/AdminPage";
 import AllListPage from "./pages/AllListPage";
 import AuctionListPage from "./pages/AuctionListPage";
-import AuctionPage from "./pages/AuctionPage";
 import AuthorPage from "./pages/AuthorPage";
 import CollectionPage from "./pages/CollectionPage";
 import CreateCollectionPage from "./pages/CreateCollectionPage";
 import CreateItemPage from "./pages/CreateItemPage";
 import EditItemPage from "./pages/EditItemPage";
 import EditCollectionPage from "./pages/EditCollectionPage";
-import ItemAuctionPage from "./pages/ItemAuctionPage";
 import ItemPage from "./pages/ItemPage";
 import MainPage from "./pages/MainPage";
 import SearchListPage from "./pages/SearchListPage";
 import SellingItemPage from "./pages/SellingItemPage";
 import ApprovedAdminPage from "./pages/ApprovedAdminPage";
 import RejectedAdminPage from "./pages/RejectedAdminPage";
-import MyAccountPage from "./pages/MyAccountPage";
+import EditAccountPage from "./pages/EditAccountPage";
 import MyAuctionPage from "./pages/MyAuctionPage";
-import Footer from "./components/Footer";
+import Footer from "./components/main/Footer";
 
 function App() {
   return (
@@ -29,30 +27,39 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<MainPage />} />
+        {/* 리스트 */}
         <Route path="list" element={<AllListPage />} />
-        <Route path="search/:keyword" element={<SearchListPage />} />
-        <Route path="auctionlist" element={<AuctionListPage />} />
-        <Route path="item/:token_id" element={<AuctionPage />} />
-        <Route path="author/:userId" element={<AuthorPage />} />
-        <Route path="collection/:collectionId" element={<CollectionPage />} />
-        <Route path="item" element={<ItemAuctionPage />} />
-        <Route path="item/:token_id" element={<ItemPage />} />
+        <Route path="list/search/:keyword" element={<SearchListPage />} />
+        <Route path="list/auctionlist" element={<AuctionListPage />} />
 
-        <Route path="account/:token_id" element={<AccountPage />} />
+        {/* 상세페이지 */}
+        <Route path="detail/author/:userId" element={<AuthorPage />} />
+        <Route
+          path="detail/collection/:collectionId"
+          element={<CollectionPage />}
+        />
+        <Route path="detail/item/:token_id" element={<ItemPage />} />
+
+        {/* 생성&수정&삭제 */}
         <Route path="createcollection" element={<CreateCollectionPage />} />
-        <Route path="createitem" element={<CreateItemPage />} />
-        <Route path="edititem/:token_id" element={<EditItemPage />} />
         <Route
           path="editcollection/:collectionId"
           element={<EditCollectionPage />}
         />
-        <Route path="selling/:token_id" element={<SellingItemPage />} />
 
+        <Route path="createitem" element={<CreateItemPage />} />
+        <Route path="edititem/:token_id" element={<EditItemPage />} />
+
+        {/* 유저페이지 */}
+        <Route path="account/:token_id" element={<AccountPage />} />
+        <Route path="account/edit/:token_id" element={<EditAccountPage />} />
+        <Route path="account/myauction" element={<MyAuctionPage />} />
+        <Route path="account/sell/:token_id" element={<SellingItemPage />} />
+
+        {/* 관리자페이지 */}
         <Route path="admin" element={<AdminPage />} />
         <Route path="approved" element={<ApprovedAdminPage />} />
         <Route path="rejected" element={<RejectedAdminPage />} />
-        <Route path="myaccount/:token_id" element={<MyAccountPage />} />
-        <Route path="myauction" element={<MyAuctionPage />} />
       </Routes>
       <Footer />
     </div>

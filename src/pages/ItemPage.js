@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import ItemDetail from "../components/ItemDetail";
-import JoinAuction from "../components/JoinAuction";
+import ItemDetail from "../components/itemauction/ItemDetail";
+import JoinAuction from "../components/itemauction/JoinAuction";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadItemDetail } from "../redux/modules/itemSlice";
-import Auction from "../components/Auction";
+import Auction from "../components/itemauction/Auction";
 
 const ItemPage = () => {
   const dispatch = useDispatch();

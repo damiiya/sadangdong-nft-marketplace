@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Avatar } from "@mui/material";
 import share from "../assets/icon/share.png";
-import CardAuction from "../components/CardAuction";
-import CardCollection from "../components/CardCollection";
-import CardItem from "../components/CardItem";
+import CardAuction from "../components/card/CardAuction";
+import CardCollection from "../components/card/CardCollection";
+import CardItem from "../components/card/CardItem";
 
 const AuthorPage = () => {
   const [category, setCategory] = useState(0);
