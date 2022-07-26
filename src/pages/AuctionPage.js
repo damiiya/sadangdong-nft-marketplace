@@ -1,5 +1,5 @@
 import React from "react";
-import ItemDetail from "../components/ItemDetail";
+import ItemDetail from "../components/Item&Auction/ItemDetail";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import uparrow from "../assets/icon/uparrow.png";
 

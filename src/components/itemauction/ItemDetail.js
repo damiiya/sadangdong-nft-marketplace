@@ -10,8 +10,6 @@ const ItemDetail = (props) => {
   const user = props.data.address;
   const params = useParams();
   const token_id = params.token_id;
-  const userId = params.userId;
-
   return (
     <>
       <div className="ItemContainer">

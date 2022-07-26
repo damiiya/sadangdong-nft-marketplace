@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import CardAuction from "../components/card/CardAuction";
 import CardCollection from "../components/card/CardCollection";
@@ -73,7 +73,7 @@ const SearchListPage = () => {
 
       {category === 0 && (
         <InfiniteScroll
-          dataLength={collectionData.length} //This is important field to render the next data
+          dataLength={collectionData.length}
           next={collectionFetchData}
           hasMore={hasMore}
           loader={<h4>Loading...</h4>}

@@ -7,6 +7,7 @@ import CardCollection from "../components/card/CardCollection";
 import CardItem from "../components/card/CardItem";
 import cart from "../assets/icon/cart.png";
 
+
 const AccountPage = () => {
   const [category, setCategory] = useState(0);
   const token = sessionStorage.getItem("auth_token");

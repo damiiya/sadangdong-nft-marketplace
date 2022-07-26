@@ -920,6 +920,15 @@ input[id*="account"]:checked + label + div {
   display: inline-block;
 }
 
+.CardAuctionContainerMain {
+  width: 342px;
+  height: 614px;
+  border-radius: 16px;
+  border: solid 2px #111;
+  display: inline-block;
+  background-color: #111;
+}
+
 .CardCollectionImageWrapper {
   width: 100%;
   height: 196px;
@@ -976,6 +985,15 @@ input[id*="account"]:checked + label + div {
   color: #111;
 }
 
+.TimeLimitMain {
+  margin-left: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.33;
+  text-align: center;
+  color: #fff;
+}
+
 .CardName {
   width: auto;
   height: auto;
@@ -987,6 +1005,17 @@ input[id*="account"]:checked + label + div {
   color: #111;
 }
 
+.CardNameMain {
+  width: auto;
+  height: auto;
+  margin-top: 16px;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.25;
+  text-align: center;
+  color: #fff;
+}
+
 .CardUserName {
   margin-bottom: 16px;
   font-size: 14px;
@@ -994,6 +1023,15 @@ input[id*="account"]:checked + label + div {
   line-height: 1.43;
   text-align: center;
   color: #111;
+}
+
+.CardUserNameMain {
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.43;
+  text-align: center;
+  color: #fff;
 }
 
 .CardCollectionDescription {
@@ -1027,12 +1065,28 @@ input[id*="account"]:checked + label + div {
   color: #666;
 }
 
+.CurrentAuctionMain {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.25;
+  text-align: left;
+  color: #fff;
+}
+
 .CurrentAuctionValue {
   font-size: 24px;
   font-weight: bold;
   line-height: 1.25;
   text-align: left;
   color: #111;
+}
+
+.CurrentAuctionValueMain {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.25;
+  text-align: left;
+  color: #60d329;
 }
 
 /* ItemDetail */
@@ -1087,6 +1141,17 @@ input[id*="account"]:checked + label + div {
   line-height: 1;
   text-align: center;
   color: #111;
+}
+
+.HeartCountMain {
+  width: 46px;
+  height: 16px;
+  flex-grow: 0;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  text-align: center;
+  color: #fff;
 }
 
 .SellItemNameWrapper {

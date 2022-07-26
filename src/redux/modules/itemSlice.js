@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import { serverUrl } from "../../shared/api";
 import axios from "axios";
-import { valueToPercent } from "@mui/base";
 
 const token = sessionStorage.getItem("auth_token");
 
@@ -83,7 +82,7 @@ export const loadAfterFirstItem = createAsyncThunk(
         value.setItemData([...value.itemData, ...response.data.data]);
 
         if (response.data.data.length === 0 || response.data.data.length < 12) {
-          value.setItemnHasMore(false);
+          value.setItemHasMore(false);
         }
         value.setItemPage(value.itemPage + 1);
         return response.data.data;
@@ -202,15 +201,15 @@ export const loadAfterAuctionList = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/explore?tab=auction&_page=${value.auctionpage}&_limit=12`
+        `${serverUrl}/api/explore?tab=auction&_page=${value.auctionPage}&_limit=12`
       )
       .then((response) => {
-        value.setAuctionData([...value.AuctionData, ...response.data.data]);
+        value.setAuctionData([...value.auctionData, ...response.data.data]);
 
         if (response.data.data.length === 0 || response.data.data.length < 12) {
-          value.setAuctionhaeMore(false);
+          value.setAuctionHaeMore(false);
         }
-        value.setAuctionpage(value.auctionpage + 1);
+        value.setAuctionPage(value.auctionPage + 1);
         return response.data.data;
       })
       .catch((error) => {

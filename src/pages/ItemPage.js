@@ -11,7 +11,7 @@ const ItemPage = () => {
   const params = useParams();
   const token_id = params.token_id;
   const [isLoad, setIsLoad] = useState(false);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const itemDetail = useSelector((state) => state.item.itemDetail);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const ItemPage = () => {
     <>
       <ItemDetail data={itemDetail} />
       {visible ? <JoinAuction data={itemDetail} /> : null}
-      {visible ? null : <Auction />}
+      {visible ? null : <Auction data={itemDetail} />}
     </>
   );
 };
