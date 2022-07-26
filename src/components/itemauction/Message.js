@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const Message = ({ message: { text, address } }) => {
   const userNick = sessionStorage.getItem("user_nickname");
   const token = sessionStorage.getItem("auth_token");

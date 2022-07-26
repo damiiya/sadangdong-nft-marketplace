@@ -35,9 +35,9 @@ export const createAccount = createAsyncThunk(
 // 유저 컬렉션 정보 가져오기
 export const loadAccountCollection = createAsyncThunk(
   "LOAD_ACCOUNT_COLLECTION",
-  async (value) => {
+  async (token_id) => {
     return await axios
-      .get(`${serverUrl}/api/${value.addressId}?tab=collection`, {
+      .get(`${serverUrl}/api/account/${token_id}?tab=collection`, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `${token}`,

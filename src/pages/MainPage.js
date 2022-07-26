@@ -21,7 +21,7 @@ import Marquee from "react-fast-marquee";
 const MainPage = () => {
   const navigate = useNavigate();
   const toAuction = () => {
-    navigate("list/auctionlist");
+    navigate("/list/auctionlist");
   };
 
   return (

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { editAccount, loadAccountCollection } from "../redux/modules/userSlice";
 import uploadimage from "../assets/uploadimage.png";
 
@@ -13,6 +13,9 @@ function MyAccountPage() {
   const token = sessionStorage.getItem("auth_token");
   const params = useParams();
   const token_id = params.token_id;
+  const userInfo = useSelector((state) => state.user.collection);
+  console.log(userInfo);
+
 
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -53,6 +56,10 @@ function MyAccountPage() {
     dispatch(loadAccountCollection(token_id));
   }, []);
 
+
+  if (!userInfo) {
+    return null;
+  }
   return (
     <>
       <div className="MyAccountPageContainer">
@@ -62,7 +69,14 @@ function MyAccountPage() {
             <div className="ProfileImageTitleWrapper">
               <span className="ProfileImageTitle">프로필 이미지</span>
               <div className="EditProfileImageWrapper">
-                {imageSrc && (
+
+                {!imageSrc ? (
+                  <img
+                    className="ProfieImagePreivew"
+                    src={userInfo[0] && userInfo[0].profile_image}
+                    alt="preview-img"
+                  />
+                ) : (
                   <img
                     className="ProfieImagePreivew"
                     src={imageSrc}
@@ -92,6 +106,7 @@ function MyAccountPage() {
                 className="UserIdInput"
                 placeholder="사용자 아이디를 입력해 주세요."
                 ref={name}
+                defaultValue={userInfo[0].user_name}
               />
             </div>
           </div>

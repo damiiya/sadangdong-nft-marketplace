@@ -93,16 +93,6 @@ const EditCollectionPage = (props) => {
     (state) => state.collection.collectionDetail
   );
 
-  console.log(collectionDetail);
-
-  useEffect(() => {
-    if (collectionDetail) {
-      setInputName(collectionDetail.name);
-      setInputDescription(collectionDetail.description);
-      setInputCommission(collectionDetail.commission);
-    }
-  }, [collectionDetail]);
-
   if (!collectionDetail) {
     return null;
   }
@@ -193,7 +183,7 @@ const EditCollectionPage = (props) => {
                   onChange={(e) => {
                     setInputName(e.currentTarget.value);
                   }}
-                  value={inputName}
+                  defaultValue={collectionDetail.name}
                 />
               </div>
             </div>
@@ -209,7 +199,7 @@ const EditCollectionPage = (props) => {
                   onChange={(e) => {
                     setInputDescription(e.target.value);
                   }}
-                  value={inputDescrition}
+                  defaultValue={collectionDetail.description}
                 />
               </div>
             </div>
@@ -225,7 +215,7 @@ const EditCollectionPage = (props) => {
                   onChange={(e) => {
                     setInputCommission(e.target.value);
                   }}
-                  value={inputCommission}
+                  defaultValue={collectionDetail.commission}
                 />
               </div>
             </div>

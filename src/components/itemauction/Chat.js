@@ -77,7 +77,6 @@ const Chat = (props) => {
 
   console.log(message, messages);
   // console.log(users, "users");
-
   // return <h1>Chat</h1>;
   // 1.roominfo
   // 2.messages

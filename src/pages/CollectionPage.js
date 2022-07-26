@@ -25,7 +25,7 @@ const CollectionPage = () => {
   console.log(collectionDetail);
 
   if (!collectionDetail) {
-    return <h1>hi</h1>;
+    return null;
   }
 
   return (
@@ -103,8 +103,8 @@ const CollectionPage = () => {
           </button>
         </div>
         <div className="CardWrapper">
-          {category === 0 && <CardAuction />}
-          {category === 1 && <CardItem />}
+          {/* {category === 0 && <CardAuction />}
+          {category === 1 && <CardItem />} */}
         </div>
       </div>
     </div>

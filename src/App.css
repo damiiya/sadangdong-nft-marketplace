@@ -2000,6 +2000,7 @@ input[id*="account"]:checked + label + div {
   position: relative;
   right: 45px;
   top: 110px;
+  cursor: pointer;
 }
 
 .CreateItemTittleInputContainer {
@@ -2163,6 +2164,7 @@ input[id*="account"]:checked + label + div {
   font-size: 18px;
   font-weight: bold;
   margin-right: 8px;
+  cursor: pointer;
 }
 
 .DeleteBuutton {
@@ -2172,6 +2174,7 @@ input[id*="account"]:checked + label + div {
   color: #fff;
   font-size: 18px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 /* CreateCollectionPage */
