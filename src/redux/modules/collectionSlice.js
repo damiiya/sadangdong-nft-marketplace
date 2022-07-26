@@ -29,11 +29,9 @@ export const createCollection = createAsyncThunk(
 export const loadFirstCollection = createAsyncThunk(
   "LOAD_COLLECTION_FIRST_LIST",
   async (setCollectionData) => {
-
     return await axios
       .get(`${serverUrl}/api/explore?tab=collection&_page=1&_limit=12`)
       .then((response) => {
-
         setCollectionData(response.data.data);
         return response.data.data;
       })
@@ -193,7 +191,6 @@ const collectionSlice = createSlice({
   initialState: {},
   reducers: {},
   extraReducers: {
-
     [loadCollectionDetail.fulfilled]: (state, action) => {
       state.collectionDetail = action.payload;
     },
