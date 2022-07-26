@@ -1,8 +1,10 @@
 import React from "react";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import Chat from "./Chat";
+import ItemDetail from "./ItemDetail";
 
-const Auction = () => {
+const Auction = (props) => {
+  console.log(props.data.auction_id);
   return (
     <>
       <div className="AuctionBottomContainer">
@@ -36,7 +38,7 @@ const Auction = () => {
                 </span>
               </section>
               <div className="AuctionChattingPriceListContainer">
-                <Chat />
+                <Chat data={props} />
                 <div className="AuctionPriceListContainer">
                   <div className="AuctionPriceContainer">
                     <div>

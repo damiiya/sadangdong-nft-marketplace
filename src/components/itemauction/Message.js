@@ -1,12 +1,13 @@
 import React from "react";
 
-const Message = ({ message: { text, user } }) => {
+const Message = ({ message: { text, address } }) => {
   const userNick = sessionStorage.getItem("user_nickname");
+  const token = sessionStorage.getItem("auth_token");
 
   const byCurrentUser = false;
 
-  const currentUser = userNick;
-  if (user === userNick) {
+  const currentUser = token;
+  if (address === token) {
     byCurrentUser = true;
   }
 
@@ -20,7 +21,7 @@ const Message = ({ message: { text, user } }) => {
   ) : (
     <li className="Received">
       <div className="ChatWrap">
-        <span className="ChatUser">{user}</span>
+        <span className="ChatUser">{address}</span>
         <span className="ChatMsg">{text}</span>
       </div>
     </li>

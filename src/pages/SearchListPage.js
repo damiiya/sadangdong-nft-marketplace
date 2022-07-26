@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import CardAuction from "../components/Card/CardAuction";
-import CardCollection from "../components/Card/CardCollection";
-import CardItem from "../components/Card/CardItem";
+import CardAuction from "../components/card/CardAuction";
+import CardCollection from "../components/card/CardCollection";
+import CardItem from "../components/card/CardItem";
 import {
   loadSearchFirstCollection,
   loadSearchAfterFirstCollection,

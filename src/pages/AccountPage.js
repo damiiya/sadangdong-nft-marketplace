@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Avatar } from "@mui/material";
 import share from "../assets/icon/share.png";
 import pencil from "../assets/icon/pencil.png";
-import CardAuction from "../components/Card/CardAuction";
-import CardCollection from "../components/Card/CardCollection";
-import CardItem from "../components/Card/CardItem";
+import CardAuction from "../components/card/CardAuction";
+import CardCollection from "../components/card/CardCollection";
+import CardItem from "../components/card/CardItem";
 
 const AccountPage = () => {
   const [category, setCategory] = useState(0);

@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
 import share from "../assets/icon/share.png";
 import pencil from "../assets/icon/pencil.png";
-import CardAuction from "../components/Card/CardAuction";
-import CardItem from "../components/Card/CardItem";
+import CardAuction from "../components/card/CardAuction";
+import CardItem from "../components/card/CardItem";
 
 import { useParams } from "react-router-dom";
 
