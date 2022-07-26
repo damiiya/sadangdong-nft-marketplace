@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import MainCard from "../components/Main/MainCard";
-import TeamInfo from "../components/Main/TeamInfo";
+import MainCard from "../components/main/MainCard";
+import TeamInfo from "../components/main/TeamInfo";
 import { Avatar } from "@mui/material";
 import s1 from "../assets/seller/s1.png";
 import s2 from "../assets/seller/s2.png";

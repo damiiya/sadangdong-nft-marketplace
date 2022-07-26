@@ -1,6 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Header from "./components/Main/Header";
+import Header from "./components/main/Header";
 import AccountPage from "./pages/AccountPage";
 import AdminPage from "./pages/AdminPage";
 import AllListPage from "./pages/AllListPage";
@@ -19,7 +19,7 @@ import ApprovedAdminPage from "./pages/ApprovedAdminPage";
 import RejectedAdminPage from "./pages/RejectedAdminPage";
 import EditAccountPage from "./pages/EditAccountPage";
 import MyAuctionPage from "./pages/MyAuctionPage";
-import Footer from "./components/Main/Footer";
+import Footer from "./components/main/Footer";
 
 function App() {
   return (

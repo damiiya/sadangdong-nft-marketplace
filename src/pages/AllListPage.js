@@ -11,9 +11,9 @@ import {
   loadAfterAuctionList,
 } from "../redux/modules/itemSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
-import CardCollection from "../components/Card/CardCollection";
-import CardItem from "../components/Card/CardItem";
-import CardAuction from "../components/Card/CardAuction";
+import CardCollection from "../components/card/CardCollection";
+import CardItem from "../components/card/CardItem";
+import CardAuction from "../components/card/CardAuction";
 
 const AllListPage = () => {
   const dispatch = useDispatch();
