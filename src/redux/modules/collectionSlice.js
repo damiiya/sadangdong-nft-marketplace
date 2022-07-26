@@ -16,7 +16,7 @@ export const createCollection = createAsyncThunk(
         },
       })
       .then((response) => {
-        value.navigate(`/collection/${value.fileInfo.name}`);
+        value.navigate(`/detail/collection/${value.fileInfo.name}`);
         return response.data;
       })
       .catch((error) => {
@@ -83,7 +83,7 @@ export const editCollection = createAsyncThunk(
         }
       )
       .then((response) => {
-        value.navigate(`/collection/${value.fileInfo.name}`);
+        value.navigate(`/detail/collection/${value.fileInfo.name}`);
         return response.data;
       })
       .catch((error) => {

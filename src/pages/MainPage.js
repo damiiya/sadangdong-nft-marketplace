@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import MainCard from "../components/MainCard";
-import TeamInfo from "../components/TeamInfo";
+import MainCard from "../components/Main/MainCard";
+import TeamInfo from "../components/Main/TeamInfo";
 import { Avatar } from "@mui/material";
 import s1 from "../assets/seller/s1.png";
 import s2 from "../assets/seller/s2.png";
@@ -21,7 +21,7 @@ import Marquee from "react-fast-marquee";
 const MainPage = () => {
   const navigate = useNavigate();
   const toAuction = () => {
-    navigate("/auctionlist");
+    navigate("list/auctionlist");
   };
 
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import admin from "../assets/admin.jpeg";
+import admin from "../../assets/admin.jpeg";
 
 const AdminListItem = () => {
   return (

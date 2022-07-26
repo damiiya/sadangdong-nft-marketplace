@@ -1,5 +1,5 @@
 import React from "react";
-import ItemDetail from "../components/ItemDetail";
+import ItemDetail from "../components/Item&Auction/ItemDetail";
 
 const ItemAuctionPage = () => {
   const [checkUser, SetCheckUser] = React.useState(false);

@@ -1,5 +1,5 @@
 import React from "react";
-import CardAuction from "../components/CardAuction";
+import CardAuction from "../components/Card/CardAuction";
 
 const AuctionListPage = () => {
   return (

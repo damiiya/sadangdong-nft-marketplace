@@ -1,12 +1,12 @@
 import React from "react";
 
 const Message = ({ message: { text, user } }) => {
-  const usernick = sessionStorage.getItem("user_nickname");
+  const userNick = sessionStorage.getItem("user_nickname");
 
   const byCurrentUser = false;
 
-  const currentUser = usernick;
-  if (user === usernick) {
+  const currentUser = userNick;
+  if (user === userNick) {
     byCurrentUser = true;
   }
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { RejectedItem } from "../components/AdminListItem";
+import { RejectedItem } from "../components/List/AdminListItem";
 
 const RejectedAdminPage = () => {
   const navigate = useNavigate();
