@@ -29,11 +29,9 @@ export const createCollection = createAsyncThunk(
 export const loadFirstCollection = createAsyncThunk(
   "LOAD_COLLECTION_FIRST_LIST",
   async (setCollectionData) => {
-
     return await axios
       .get(`${serverUrl}/api/explore?tab=collection&_page=1&_limit=12`)
       .then((response) => {
-
         setCollectionData(response.data.data);
         return response.data.data;
       })
@@ -49,7 +47,7 @@ export const loadAfterFirstCollection = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/explore?tab=collection&_page=${value.page}&_limit=12`
+        `${serverUrl}/api/explore?tab=collection&_page=${value.collectionPage}&_limit=12`
       )
       .then((response) => {
         value.setCollectionData([
@@ -58,9 +56,9 @@ export const loadAfterFirstCollection = createAsyncThunk(
         ]);
 
         if (response.data.data.length === 0 || response.data.data.length < 12) {
-          value.sethasMore(false);
+          value.setCollectionHasMore(false);
         }
-        value.setpage(value.page + 1);
+        value.setCollectionPage(value.collectionPage + 1);
         return response.data.data;
       })
       .catch((error) => {
@@ -153,6 +151,7 @@ export const loadSearchFirstCollection = createAsyncThunk(
         `${serverUrl}/api/search?tab=colleciton&name=${value.keyword}&_page=1&_limit=12`
       )
       .then((response) => {
+        console.log(response);
         value.setCollectionData(response.data.data);
         return response.data.data;
       })
@@ -193,7 +192,6 @@ const collectionSlice = createSlice({
   initialState: {},
   reducers: {},
   extraReducers: {
-
     [loadCollectionDetail.fulfilled]: (state, action) => {
       state.collectionDetail = action.payload;
     },

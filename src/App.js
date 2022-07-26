@@ -38,7 +38,7 @@ function App() {
         <Route path="itemauction" element={<ItemAuctionPage />} />
         <Route path="item/:token_id" element={<ItemPage />} />
 
-        <Route path="account" element={<AccountPage />} />
+        <Route path="account/:token_id" element={<AccountPage />} />
         <Route path="createcollection" element={<CreateCollectionPage />} />
         <Route path="createitem" element={<CreateItemPage />} />
         <Route path="edititem/:token_id" element={<EditItemPage />} />
@@ -51,7 +51,7 @@ function App() {
         <Route path="admin" element={<AdminPage />} />
         <Route path="approved" element={<ApprovedAdminPage />} />
         <Route path="rejected" element={<RejectedAdminPage />} />
-        <Route path="myaccount" element={<MyAccountPage />} />
+        <Route path="myaccount/:token_id" element={<MyAccountPage />} />
         <Route path="myauction" element={<MyAuctionPage />} />
       </Routes>
       <Footer />

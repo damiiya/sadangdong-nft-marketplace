@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { createAccount } from "../redux/modules/userSlice";
 import metamaskfox from "../assets/icon/metamaskfox.png";
 import Modal from "react-modal";
+import { style } from "@mui/system";
 
 const LoginModal = (props) => {
   const dispatch = useDispatch();
@@ -32,49 +33,49 @@ const LoginModal = (props) => {
 
   return (
     <>
-      <Modal
-        className="LoginModal"
-        overlayClassName="LoginOverLay"
-        isOpen={openLoginModal}
-      >
-        {account ? (
-          <>
-            <div className="LoginModalQuestionContainer">
-              <span className="LoginModalQuestion">지갑이 연결되었습니다!</span>
-            </div>
-            <>
-              <div className="LoginModalButtonContainer">
-                <button className="LoginModalButton" onClick={loadHome}>
-                  <div className="LoginModalButtonWrapper">
-                    <img className="LoginMetaMaskImg" src={metamaskfox} />
-                    <span className="ConnetWalletSpan">
-                      동물들을 보러갈까요?
-                    </span>
-                  </div>
-                </button>
+      {!account ? (
+        <Modal
+          className="LoginModal"
+          overlayClassName="LoginOverLay"
+          isOpen={openLoginModal}
+          onRequestClose={() => setOpenLoginModal(false)}
+        >
+          <div className="LoginModalQuestionContainer">
+            <span className="LoginModalQuestion">
+              메타마스크 지갑을 연결하시겠습니까?
+            </span>
+          </div>
+          <div className="LoginModalButtonContainer">
+            <button className="LoginModalButton" onClick={handleConnect}>
+              <div className="LoginModalButtonWrapper">
+                <img className="LoginMetaMaskImg" src={metamaskfox} />
+                <span className="ConnetWalletSpan">
+                  메타마스크 지갑 연결하기
+                </span>
               </div>
-            </>
-          </>
-        ) : (
-          <>
-            <div className="LoginModalQuestionContainer">
-              <span className="LoginModalQuestion">
-                메타마스크 지갑을 연결하시겠습니까?
-              </span>
-            </div>
-            <div className="LoginModalButtonContainer">
-              <button className="LoginModalButton" onClick={handleConnect}>
-                <div className="LoginModalButtonWrapper">
-                  <img className="LoginMetaMaskImg" src={metamaskfox} />
-                  <span className="ConnetWalletSpan">
-                    메타마스크 지갑 연결하기
-                  </span>
-                </div>
-              </button>
-            </div>
-          </>
-        )}
-      </Modal>
+            </button>
+          </div>
+        </Modal>
+      ) : (
+        <Modal
+          className="LoginModal"
+          overlayClassName="LoginOverLay"
+          isOpen={openLoginModal}
+        >
+          <div className="LoginModalQuestionContainer">
+            <span className="LoginModalQuestion">지갑이 연결되었습니다!</span>
+          </div>
+
+          <div className="LoginModalButtonContainer">
+            <button className="LoginModalButton" onClick={loadHome}>
+              <div className="LoginModalButtonWrapper">
+                <img className="LoginMetaMaskImg" src={metamaskfox} />
+                <span className="ConnetWalletSpan">동물들을 보러갈까요?</span>
+              </div>
+            </button>
+          </div>
+        </Modal>
+      )}
     </>
   );
 };

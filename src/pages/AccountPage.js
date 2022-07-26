@@ -8,7 +8,7 @@ import CardItem from "../components/CardItem";
 
 const AccountPage = () => {
   const [category, setCategory] = useState(0);
-
+  const token = sessionStorage.getItem("auth_token");
   return (
     <div className="MainContainer">
       <div className="AuthorBanner">
@@ -22,7 +22,9 @@ const AccountPage = () => {
           </div>
           <div className="NameWrap">
             <span className="AuthorName">@username</span>
-            <img className="Icon" src={pencil} />
+            <a href={`/myaccount/${token}`}>
+              <img className="Icon" src={pencil} />
+            </a>
           </div>
         </div>
       </div>

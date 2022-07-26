@@ -4,7 +4,7 @@ import {
   loadFirstCollection,
   loadAfterFirstCollection,
 } from "../redux/modules/collectionSlice";
-import { loadItemList } from "../redux/modules/itemSlice";
+import { loadFirstItem, loadAfterFirstItem } from "../redux/modules/itemSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CardAuction from "../components/CardAuction";
 import CardCollection from "../components/CardCollection";
@@ -13,46 +13,46 @@ import CardItem from "../components/CardItem";
 const AllListPage = () => {
   const dispatch = useDispatch();
   const [category, setCategory] = useState(0);
-  const [item, setItem] = useState(null);
-  const collectionList = useSelector((state) => state.collection.collection);
-  const itemList = useSelector((state) => state.item.itemList);
 
-  // const handleSelect = (e) => {
-  //   setItem(e.target.value);
-  // };
   const [collectionData, setCollectionData] = useState([]);
-  const [hasMore, sethasMore] = useState(true);
-  const [page, setpage] = useState(2);
+  const [collectionHasMore, setCollectionHasMore] = useState(true);
+  const [collectionPage, setCollectionPage] = useState(2);
+  const [itemData, setItemData] = useState([]);
+  const [itemHasMore, setItemnHasMore] = useState(true);
+  const [itemPage, setItemPage] = useState(2);
 
   useEffect(() => {
     dispatch(loadFirstCollection(setCollectionData));
+    dispatch(loadFirstItem(setItemData));
   }, []);
 
   const collectionFetchData = () => {
     dispatch(
       loadAfterFirstCollection({
-        page,
+        collectionPage,
         collectionData,
         setCollectionData,
-        sethasMore,
-        setpage,
+        setCollectionHasMore,
+        setCollectionPage,
       })
     );
   };
 
-  useEffect(() => {
-    dispatch(loadCollection());
-    dispatch(loadItemList());
-  }, []);
-
-  // if (!collectionList) {
-  //   return null;
-  // }
+  const itemFetchData = () => {
+    dispatch(
+      loadAfterFirstItem({
+        itemPage,
+        itemData,
+        setItemData,
+        setItemnHasMore,
+        setItemPage,
+      })
+    );
+  };
 
   if (!collectionData) {
     return null;
   }
-  console.log(collectionData);
 
   return (
     <div className="Container">
@@ -60,48 +60,77 @@ const AllListPage = () => {
         className="CategoryWrapper"
         // onClick={handleSelect}
       >
-        <button
-          className="SelectedBigButton"
-          // value={0}
-          onClick={() => {
-            setCategory(0);
-          }}
-        >
-          컬렉션
-        </button>
-        <button
-          className="UnSelectedBigButton"
-          // value={1}
-          onClick={() => {
-            setCategory(1);
-          }}
-        >
-          아이템
-        </button>
-        <button
-          className="UnSelectedBigButton"
-          // value={2}
-          onClick={() => {
-            setCategory(2);
-          }}
-        >
-          경매 진행중
-        </button>
-      </div>
-      <div className="CardWrapper">
-        {/* <CardCollection value={0} data={collectionList} />
-        <CardItem value={1} data={itemList} />
-        <CardAuction value={2} /> */}
-        {/* {category === 0 && <CardCollection value={0} data={collectionList} />}
-        {category === 1 && <CardItem value={1} data={itemList} />}
-        {category === 2 && <CardAuction value={2} />} */}
+        {category === 0 ? (
+          <button
+            className="SelectedBigButton"
+            // value={0}
+            onClick={() => {
+              setCategory(0);
+            }}
+          >
+            컬렉션
+          </button>
+        ) : (
+          <button
+            className="UnSelectedBigButton"
+            // value={0}
+            onClick={() => {
+              setCategory(0);
+            }}
+          >
+            컬렉션
+          </button>
+        )}
+
+        {category === 1 ? (
+          <button
+            className="SelectedBigButton"
+            // value={1}
+            onClick={() => {
+              setCategory(1);
+            }}
+          >
+            아이템
+          </button>
+        ) : (
+          <button
+            className="UnSelectedBigButton"
+            // value={1}
+            onClick={() => {
+              setCategory(1);
+            }}
+          >
+            아이템
+          </button>
+        )}
+        {category === 2 ? (
+          <button
+            className="SelectedBigButton"
+            // value={2}
+            onClick={() => {
+              setCategory(2);
+            }}
+          >
+            경매 진행중
+          </button>
+        ) : (
+          <button
+            className="UnSelectedBigButton"
+            // value={2}
+            onClick={() => {
+              setCategory(2);
+            }}
+          >
+            경매 진행중
+          </button>
+        )}
       </div>
 
       {category === 0 && (
         <InfiniteScroll
           dataLength={collectionData.length} //This is important field to render the next data
           next={collectionFetchData}
-          hasMore={hasMore}
+          hasMore={collectionHasMore}
           loader={<h4>Loading...</h4>}
           endMessage={
             <p style={{ textAlign: "center" }}>
@@ -114,8 +143,28 @@ const AllListPage = () => {
           </div>
         </InfiniteScroll>
       )}
-      {category === 1 && <CardItem data={itemList} />}
-      {category === 2 && <CardAuction />}
+      {category === 1 && (
+        <InfiniteScroll
+          dataLength={itemData.length} //This is important field to render the next data
+          next={itemFetchData}
+          hasMore={itemHasMore}
+          loader={<h4>Loading...</h4>}
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+        >
+          <div className="CardWrapper">
+            <CardItem data={itemData} />
+          </div>
+        </InfiniteScroll>
+      )}
+      {category === 2 && (
+        <>
+          <CardAuction />
+        </>
+      )}
     </div>
   );
 };

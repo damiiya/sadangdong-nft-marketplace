@@ -1,9 +1,18 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { editAccount, loadAccountCollection } from "../redux/modules/userSlice";
 import uploadimage from "../assets/uploadimage.png";
 
 function MyAccountPage() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [imageSrc, setImageSrc] = useState(null);
   const fileInput = useRef();
+  const name = useRef();
+  const token = sessionStorage.getItem("auth_token");
+  const params = useParams();
+  const token_id = params.token_id;
 
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -16,6 +25,34 @@ function MyAccountPage() {
     });
   };
 
+  const handleSubmit = () => {
+    let file = fileInput.current.files[0];
+
+    const fileInfo = {
+      name: name.current.value,
+    };
+
+    const formData = new FormData();
+    formData.append("fileInfo", JSON.stringify(fileInfo));
+    formData.append("files", file, "profile_Img");
+
+    console.log(formData);
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+
+    dispatch(
+      editAccount({
+        formData: formData,
+        navigate: navigate,
+      })
+    );
+  };
+
+  useEffect(() => {
+    dispatch(loadAccountCollection(token_id));
+  }, []);
+
   return (
     <>
       <div className="MyAccountPageContainer">
@@ -27,7 +64,7 @@ function MyAccountPage() {
               <div className="EditProfileImageWrapper">
                 {imageSrc && (
                   <img
-                    className="ImagePreivew"
+                    className="ProfieImagePreivew"
                     src={imageSrc}
                     alt="preview-img"
                   />
@@ -54,12 +91,18 @@ function MyAccountPage() {
               <input
                 className="UserIdInput"
                 placeholder="사용자 아이디를 입력해 주세요."
+                ref={name}
               />
             </div>
           </div>
           <div className="MyAccountPageButtonBundles">
-            <button className="MyAccountPageCacelButton">취소</button>
-            <button className="MyAccountPageEditButton">프로필 수정하기</button>
+            <a href={`/account/${token}`}>
+              <button className="MyAccountPageCacelButton">취소</button>
+            </a>
+
+            <button className="MyAccountPageEditButton" onClick={handleSubmit}>
+              프로필 수정하기
+            </button>
           </div>
         </div>
       </div>
