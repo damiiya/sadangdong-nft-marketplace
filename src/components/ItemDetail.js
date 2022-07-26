@@ -10,7 +10,7 @@ const ItemDetail = (props) => {
   const user = props.data.address;
   const params = useParams();
   const token_id = params.token_id;
-  console.log(props.data[0]);
+  const userId = params.userId;
 
   return (
     <>
@@ -62,7 +62,11 @@ const ItemDetail = (props) => {
                       <EditIcon className="EditIcon" />
                     </div>
                   </a>
-                  <button className="AuctionRegistration">경매 등록하기</button>
+                  <a href={`/selling/${token_id}`}>
+                    <button className="AuctionRegistration">
+                      경매 등록하기
+                    </button>
+                  </a>
                 </>
               ) : (
                 <></>

@@ -5,6 +5,10 @@ import {
   loadAfterFirstCollection,
 } from "../redux/modules/collectionSlice";
 import { loadFirstItem, loadAfterFirstItem } from "../redux/modules/itemSlice";
+import {
+  loadFirstAuctionList,
+  loadAfterAuctionList,
+} from "../redux/modules/itemSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CardAuction from "../components/CardAuction";
 import CardCollection from "../components/CardCollection";
@@ -13,7 +17,6 @@ import CardItem from "../components/CardItem";
 const AllListPage = () => {
   const dispatch = useDispatch();
   const [category, setCategory] = useState(0);
-
   const [collectionData, setCollectionData] = useState([]);
   const [collectionHasMore, setCollectionHasMore] = useState(true);
   const [collectionPage, setCollectionPage] = useState(2);
@@ -21,9 +24,17 @@ const AllListPage = () => {
   const [itemHasMore, setItemnHasMore] = useState(true);
   const [itemPage, setItemPage] = useState(2);
 
+  // 아이템
+
+  // 경매 진행 중인 아이템
+  const [auctionData, setAuctionData] = useState([]);
+  const [auctionhasMore, setAuctionhasMore] = useState(true);
+  const [auctionpage, setAuctionpage] = useState(2);
+
   useEffect(() => {
     dispatch(loadFirstCollection(setCollectionData));
     dispatch(loadFirstItem(setItemData));
+    dispatch(loadFirstAuctionList(setAuctionData));
   }, []);
 
   const collectionFetchData = () => {
@@ -46,6 +57,17 @@ const AllListPage = () => {
         setItemData,
         setItemnHasMore,
         setItemPage,
+      })
+    );
+  };
+  const auctionFetchData = () => {
+    dispatch(
+      loadAfterAuctionList({
+        auctionpage,
+        auctionData,
+        setAuctionData,
+        setAuctionhasMore,
+        setAuctionpage,
       })
     );
   };
@@ -161,9 +183,21 @@ const AllListPage = () => {
         </InfiniteScroll>
       )}
       {category === 2 && (
-        <>
-          <CardAuction />
-        </>
+        <InfiniteScroll
+          dataLength={auctionData.length}
+          next={auctionFetchData}
+          auctionhasMore={auctionhasMore}
+          loader={<h4>Loding...</h4>}
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+        >
+          <div className="CardWrapper">
+            <CardAuction data={auctionData} />
+          </div>
+        </InfiniteScroll>
       )}
     </div>
   );

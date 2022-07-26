@@ -1047,7 +1047,7 @@ input[id*="account"]:checked + label + div {
 
 .ItemWrapper {
   width: 75%;
-  height: 828px;
+  height: 100%;
   display: flex;
   justify-content: space-between;
 }
@@ -1553,10 +1553,10 @@ input[id*="account"]:checked + label + div {
 
 .AuctionBottomContainer {
   width: 100%;
-  height: 1000px;
+  height: auto;
   display: flex;
   justify-content: center;
-  margin-top: 80px;
+  margin: 80px 0 40px 0;
 }
 
 .AuctionBottomAllContainer {
@@ -1713,20 +1713,78 @@ input[id*="account"]:checked + label + div {
   display: flex;
 }
 
+/* Chat */
 .AuctionChattingContainer {
-  width: 52.5%;
+  width: 420px;
   height: 640px;
-  background-color: #e5e5e5;
+  background-color: #4b4d48;
   border-radius: 16px;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: center;
   margin-right: 40px;
+  border: solid 1px #e5e5e5;
+}
+
+.AuctionDisplayContainer {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: hidden;
+}
+
+.ChatLists {
+  padding-inline-end: 40px;
+}
+
+.ChatLists li {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 24px 0;
+}
+
+.ChatWrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.ChatUser {
+  display: flex;
+  font-size: 14px;
+  text-align: left;
+  color: #fff;
+}
+
+.ChatMsg {
+  border-radius: 16px;
+  padding: 12px 16px;
+  max-width: 90%;
+  font-size: 16px;
+  margin-top: 8px;
+  text-align: left;
+  color: #111;
+}
+
+/* .sent {
+  align-items: flex-end;
+} */
+
+.Sent .ChatMsg {
+  background-color: #c5ff49;
+}
+
+.Received .ChatMsg {
+  background-color: #fff;
 }
 
 .AuctionChattingInputWrapper {
-  width: 100%;
+  width: 420px;
   height: 80px;
-  background-color: #fff;
+  background-color: #f7f7f7;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   border: 1px solid #e5e5e5;
@@ -1741,7 +1799,7 @@ input[id*="account"]:checked + label + div {
   height: 48px;
   border-radius: 32px;
   border: solid 1px #e5e5e5;
-  background-color: #f7f7f7;
+  background-color: #fff;
   margin: 16px auto;
 }
 
@@ -1752,6 +1810,12 @@ input[id*="account"]:checked + label + div {
   font-weight: bold;
   color: #111;
   margin-left: 15px;
+}
+
+.AuctionChattingInput::placeholder {
+  font-size: 16px;
+  color: #e5e5e5;
+  font-weight: 500;
 }
 
 .UpArrowImg {

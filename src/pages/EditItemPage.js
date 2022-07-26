@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
@@ -24,19 +24,15 @@ const EditItemPage = () => {
   const handleDelete = () => {
     dispatch(deleteItem(token_id));
   };
-  // formDate로 요청하기
+
+  // 수정 요청하기
   const handleSubmit = async (tokenURI) => {
     const itemInfo = {
       token_id: token_id,
-      ipfsJson: tokenURI,
       name: name,
       description: description,
       collection_id: selected,
     };
-    // console.log(itemInfo);
-    // const formData = new FormData();
-    // formData.append("itemInfo", JSON.stringify(itemInfo));
-    // console.log(formData);
 
     dispatch(editItem({ itemInfo: itemInfo, token_id: token_id }));
   };
@@ -45,9 +41,8 @@ const EditItemPage = () => {
   const editJsontoIPFS = async (e) => {
     try {
       const editData = {
-        ipfsPinHash: "QmfA6j6zsPDWKYTeePNTLziy7BCWEYPg8JvBMMuAPmZq2S",
-        name: "damlee",
-        // itemDetail[0].ipfsJson,
+        ipfsPinHash: itemDetail.ipfsJson,
+        name: name,
         keyvalues: {
           name: name,
           description: description,
@@ -63,14 +58,11 @@ const EditItemPage = () => {
           "content-type": "application/json",
         },
       });
+      console.log(resJSON);
+      console.log("okay");
 
-      console.log("final ", `ipfs://${resJSON.data.IpfsHash}`);
-      const tokenURI = `ipfs://${resJSON.data.IpfsHash}`;
-      console.log("Token URI", tokenURI);
-
-      handleSubmit(tokenURI);
+      handleSubmit();
     } catch (error) {
-      console.log("JSON to IPFS: ");
       console.log(error);
     }
   };
@@ -106,7 +98,7 @@ const EditItemPage = () => {
               <div className="CreateItemImageWrapper">
                 <img
                   className="CollectionImagePreview"
-                  src={itemDetail[0].image}
+                  src={itemDetail.image}
                   alt="preview_img"
                 />
               </div>
@@ -122,8 +114,7 @@ const EditItemPage = () => {
                 <input
                   className="CreateItemTittleInput"
                   placeholder="아이템 이름을 입력해 주세요."
-                  defaultValue={itemDetail[0].name}
-                  // value={name}
+                  defaultValue={itemDetail.name}
                   onChange={(e) => {
                     setName(e.target.value);
                   }}
@@ -136,8 +127,7 @@ const EditItemPage = () => {
                 <textarea
                   className="CreateItemDescriptionTextArea"
                   placeholder="아이템 설명글을 작성해 주세요."
-                  defaultValue={itemDetail[0].description}
-                  // value={description}
+                  defaultValue={itemDetail.description}
                   onChange={(e) => {
                     setDescription(e.target.value);
                   }}
@@ -150,9 +140,8 @@ const EditItemPage = () => {
               </span>
               <select
                 className="CreateItemSelectCollection"
-                // value={selected}
-                key={itemDetail[0].collection_name}
-                defaultValue={itemDetail[0].collection_name}
+                key={itemDetail.collection_name}
+                defaultValue={itemDetail.collection_name}
                 onChange={(e) => {
                   setSelected(e.target.value);
                 }}

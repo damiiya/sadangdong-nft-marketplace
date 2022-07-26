@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import { serverUrl } from "../../shared/api";
 import axios from "axios";
+import { valueToPercent } from "@mui/base";
 
 const token = sessionStorage.getItem("auth_token");
 
-// 아이템 생성페이지 컬렉션 리스트 가져오기
+// 아이템 생성페이지 컬렉션 리스트 받아오기
 export const getCollectionSelect = createAsyncThunk(
   "COLLECTION_SELECT",
   async () => {
@@ -106,7 +107,7 @@ export const loadItemList = createAsyncThunk("LOAD_ITEM_LIST", async () => {
     });
 });
 
-// 아이템 상세페이지 정보 가져오기
+// 아이템 상세페이지 정보 받아오기
 export const loadItemDetail = createAsyncThunk(
   "LOAD_ITEM_DETAIL",
   async (token_id) => {
@@ -124,6 +125,7 @@ export const loadItemDetail = createAsyncThunk(
 
 // 아이템 수정하기
 export const editItem = createAsyncThunk("EDIT_ITEM", async (args) => {
+  console.log(args.itemInfo);
   const response = await axios
     .put(`${serverUrl}/api/items/${args.token_id}`, args.itemInfo, {
       headers: {
@@ -134,7 +136,7 @@ export const editItem = createAsyncThunk("EDIT_ITEM", async (args) => {
     .then((response) => {
       console.log(response.data);
       alert("아이템을 수정하였습니다!");
-      window.location.href = `/items/${args.token_id}`;
+      window.location.href = `/item/${args.token_id}`;
     })
     .catch((error) => {
       console.log(error.message);
@@ -158,7 +160,80 @@ export const deleteItem = createAsyncThunk("Delete_ITEM", async (token_id) => {
 });
 
 // 아이템 경매 등록하기
-// 경매중인 아이템 가져오기
+export const applyAuction = createAsyncThunk("APPLY_AUCTION", async (args) => {
+  const priceData = { price: args.price };
+  return await axios
+    .post(`${serverUrl}/api/auction/${args.token_id}`, priceData, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `${token}`,
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+      alert("경매가 시작되었습니다!");
+      window.location.href = `/item/${args.token_id}`;
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+});
+
+// 경매중인 아이템 첫번째 리스트 받아오기
+export const loadFirstAuctionList = createAsyncThunk(
+  "LOAD_FIRST_AUCTION_LIST",
+  async (setAuctionData) => {
+    return await axios
+      .get(`${serverUrl}/api/explore?tab=auction&_page=1&_limit=12`)
+      .then((response) => {
+        console.log(response.data.data);
+        setAuctionData(response.data.data);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 경매중인 아이템 첫번째 이후 리스트 받아오기
+export const loadAfterAuctionList = createAsyncThunk(
+  "LOAD_AFTER_FIRST_AUCTION_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/explore?tab=auction&_page=${value.auctionpage}&_limit=12`
+      )
+      .then((response) => {
+        value.setAuctionData([...value.AuctionData, ...response.data.data]);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setAuctionhaeMore(false);
+        }
+        value.setAuctionpage(value.auctionpage + 1);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 경매중인 아이템 상세페이지 정보 받아오기
+export const AuctionDetail = createAsyncThunk(
+  "AUCTION_DETAIL",
+  async (token_id) => {
+    return await axios
+      .get(`${serverUrl}/api/items/${token_id}`)
+      .then((response) => {
+        console.log(response.data.data);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
 
 const itemSlice = createSlice({
   name: "itemSlice",
