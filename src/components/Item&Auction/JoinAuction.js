@@ -59,7 +59,7 @@ const JoinAuction = (props) => {
               </div>
             </div>
             <div className="AuctionJoinContent">
-              <a href={`/item/${token_id}`}>
+              <a href={`/detail/item/${token_id}`}>
                 <button className="AuctionJoinButton">경매 참여하기</button>
               </a>
             </div>

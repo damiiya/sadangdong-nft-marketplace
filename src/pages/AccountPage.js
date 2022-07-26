@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Avatar } from "@mui/material";
 import share from "../assets/icon/share.png";
 import pencil from "../assets/icon/pencil.png";
-import CardAuction from "../components/CardAuction";
-import CardCollection from "../components/CardCollection";
-import CardItem from "../components/CardItem";
+import CardAuction from "../components/Card/CardAuction";
+import CardCollection from "../components/Card/CardCollection";
+import CardItem from "../components/Card/CardItem";
 
 const AccountPage = () => {
   const [category, setCategory] = useState(0);
@@ -22,7 +22,7 @@ const AccountPage = () => {
           </div>
           <div className="NameWrap">
             <span className="AuthorName">@username</span>
-            <a href={`/myaccount/${token}`}>
+            <a href={`/account/edit/${token}`}>
               <img className="Icon" src={pencil} />
             </a>
           </div>

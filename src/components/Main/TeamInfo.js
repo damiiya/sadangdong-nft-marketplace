@@ -1,10 +1,10 @@
 import React from "react";
-import t1 from "../assets/team/t1.png";
-import t2 from "../assets/team/t2.png";
-import t3 from "../assets/team/t3.png";
-import t4 from "../assets/team/t4.png";
-import t5 from "../assets/team/t5.png";
-import t6 from "../assets/team/t6.png";
+import t1 from "../../assets/team/t1.png";
+import t2 from "../../assets/team/t2.png";
+import t3 from "../../assets/team/t3.png";
+import t4 from "../../assets/team/t4.png";
+import t5 from "../../assets/team/t5.png";
+import t6 from "../../assets/team/t6.png";
 
 const TeamInfo = () => {
   return (

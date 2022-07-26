@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Message from "./Message";
-import uparrow from "../assets/icon/uparrow.png";
+import uparrow from "../../assets/icon/uparrow.png";
 import { io } from "socket.io-client";
-import { serverUrl } from "../shared/api";
+import { serverUrl } from "../../shared/api";
 // import axios from "axios";
 
 const token = sessionStorage.getItem("auth_token");

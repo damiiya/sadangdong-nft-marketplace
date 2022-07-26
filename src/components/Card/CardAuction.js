@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import heart from "../assets/icon/heart.png";
-import time from "../assets/icon/time.png";
+import heart from "../../assets/icon/heart.png";
+import time from "../../assets/icon/time.png";
 
 const CardAuction = (props) => {
   const clock = props.data.ended_at.split(":");

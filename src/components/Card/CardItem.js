@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import heart from "../assets/icon/heart.png";
+import heart from "../../assets/icon/heart.png";
 
 const CardItem = (props) => {
   return (
     <>
       {props.data.map((val, i) => (
-        <Link to={`/item/${val.token_id}`}>
+        <Link to={`/detail/item/${val.token_id}`}>
           <div key={val.token_id} className="CardItemContainer">
             <div className="CardImageWrapper">
               <img className="CardCollectionImage" src={val.image} />

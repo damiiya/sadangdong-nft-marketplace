@@ -1,35 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   loadFirstCollection,
   loadAfterFirstCollection,
 } from "../redux/modules/collectionSlice";
-import { loadFirstItem, loadAfterFirstItem } from "../redux/modules/itemSlice";
 import {
+  loadFirstItem,
+  loadAfterFirstItem,
   loadFirstAuctionList,
   loadAfterAuctionList,
 } from "../redux/modules/itemSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
-import CardAuction from "../components/CardAuction";
-import CardCollection from "../components/CardCollection";
-import CardItem from "../components/CardItem";
+import CardCollection from "../components/Card/CardCollection";
+import CardItem from "../components/Card/CardItem";
+import CardAuction from "../components/Card/CardAuction";
 
 const AllListPage = () => {
   const dispatch = useDispatch();
   const [category, setCategory] = useState(0);
+
+  // 컬렉션
   const [collectionData, setCollectionData] = useState([]);
   const [collectionHasMore, setCollectionHasMore] = useState(true);
   const [collectionPage, setCollectionPage] = useState(2);
-  const [itemData, setItemData] = useState([]);
-  const [itemHasMore, setItemnHasMore] = useState(true);
-  const [itemPage, setItemPage] = useState(2);
 
   // 아이템
+  const [itemData, setItemData] = useState([]);
+  const [itemHasMore, setItemHasMore] = useState(true);
+  const [itemPage, setItemPage] = useState(2);
 
   // 경매 진행 중인 아이템
   const [auctionData, setAuctionData] = useState([]);
-  const [auctionhasMore, setAuctionhasMore] = useState(true);
-  const [auctionpage, setAuctionpage] = useState(2);
+  const [auctionHasMore, setAuctionHasMore] = useState(true);
+  const [auctionPage, setAuctionPage] = useState(2);
 
   useEffect(() => {
     dispatch(loadFirstCollection(setCollectionData));
@@ -55,19 +58,20 @@ const AllListPage = () => {
         itemPage,
         itemData,
         setItemData,
-        setItemnHasMore,
+        setItemHasMore,
         setItemPage,
       })
     );
   };
+
   const auctionFetchData = () => {
     dispatch(
       loadAfterAuctionList({
-        auctionpage,
+        auctionPage,
         auctionData,
         setAuctionData,
-        setAuctionhasMore,
-        setAuctionpage,
+        setAuctionHasMore,
+        setAuctionPage,
       })
     );
   };
@@ -78,14 +82,10 @@ const AllListPage = () => {
 
   return (
     <div className="Container">
-      <div
-        className="CategoryWrapper"
-        // onClick={handleSelect}
-      >
+      <div className="CategoryWrapper">
         {category === 0 ? (
           <button
             className="SelectedBigButton"
-            // value={0}
             onClick={() => {
               setCategory(0);
             }}
@@ -95,7 +95,6 @@ const AllListPage = () => {
         ) : (
           <button
             className="UnSelectedBigButton"
-            // value={0}
             onClick={() => {
               setCategory(0);
             }}
@@ -107,7 +106,6 @@ const AllListPage = () => {
         {category === 1 ? (
           <button
             className="SelectedBigButton"
-            // value={1}
             onClick={() => {
               setCategory(1);
             }}
@@ -117,7 +115,6 @@ const AllListPage = () => {
         ) : (
           <button
             className="UnSelectedBigButton"
-            // value={1}
             onClick={() => {
               setCategory(1);
             }}
@@ -128,7 +125,6 @@ const AllListPage = () => {
         {category === 2 ? (
           <button
             className="SelectedBigButton"
-            // value={2}
             onClick={() => {
               setCategory(2);
             }}
@@ -138,7 +134,6 @@ const AllListPage = () => {
         ) : (
           <button
             className="UnSelectedBigButton"
-            // value={2}
             onClick={() => {
               setCategory(2);
             }}
@@ -150,7 +145,7 @@ const AllListPage = () => {
 
       {category === 0 && (
         <InfiniteScroll
-          dataLength={collectionData.length} //This is important field to render the next data
+          dataLength={collectionData.length}
           next={collectionFetchData}
           hasMore={collectionHasMore}
           loader={<h4>Loading...</h4>}
@@ -167,7 +162,7 @@ const AllListPage = () => {
       )}
       {category === 1 && (
         <InfiniteScroll
-          dataLength={itemData.length} //This is important field to render the next data
+          dataLength={itemData.length}
           next={itemFetchData}
           hasMore={itemHasMore}
           loader={<h4>Loading...</h4>}
@@ -186,7 +181,7 @@ const AllListPage = () => {
         <InfiniteScroll
           dataLength={auctionData.length}
           next={auctionFetchData}
-          auctionhasMore={auctionhasMore}
+          auctionHasMore={auctionHasMore}
           loader={<h4>Loding...</h4>}
           endMessage={
             <p style={{ textAlign: "center" }}>

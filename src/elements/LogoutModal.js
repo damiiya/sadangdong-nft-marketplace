@@ -26,6 +26,7 @@ const LogoutModal = (props) => {
               sessionStorage.removeItem("user_profile");
               setOpenLogoutModal(false);
               window.location.reload();
+              sessionStorage.removeItem("user_nickname");
             }}
           >
             <div className="LoginModalButtonWrapper">
