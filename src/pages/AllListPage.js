@@ -4,7 +4,11 @@ import {
   loadFirstCollection,
   loadAfterFirstCollection,
 } from "../redux/modules/collectionSlice";
-import { loadItemList } from "../redux/modules/itemSlice";
+import {
+  loadItemList,
+  loadFirstAuctionList,
+  loadAfterAuctionList,
+} from "../redux/modules/itemSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import CardAuction from "../components/CardAuction";
 import CardCollection from "../components/CardCollection";
@@ -13,19 +17,23 @@ import CardItem from "../components/CardItem";
 const AllListPage = () => {
   const dispatch = useDispatch();
   const [category, setCategory] = useState(0);
-  const [item, setItem] = useState(null);
-  const collectionList = useSelector((state) => state.collection.collection);
   const itemList = useSelector((state) => state.item.itemList);
 
-  // const handleSelect = (e) => {
-  //   setItem(e.target.value);
-  // };
+  // 컬렉션
   const [collectionData, setCollectionData] = useState([]);
   const [hasMore, sethasMore] = useState(true);
   const [page, setpage] = useState(2);
 
+  // 아이템
+
+  // 경매 진행 중인 아이템
+  const [auctionData, setAuctionData] = useState([]);
+  const [auctionhasMore, setAuctionhasMore] = useState(true);
+  const [auctionpage, setAuctionpage] = useState(2);
+
   useEffect(() => {
     dispatch(loadFirstCollection(setCollectionData));
+    dispatch(loadFirstAuctionList(setAuctionData));
   }, []);
 
   const collectionFetchData = () => {
@@ -40,14 +48,21 @@ const AllListPage = () => {
     );
   };
 
+  const auctionFetchData = () => {
+    dispatch(
+      loadAfterAuctionList({
+        auctionpage,
+        auctionData,
+        setAuctionData,
+        setAuctionhasMore,
+        setAuctionpage,
+      })
+    );
+  };
+
   useEffect(() => {
-    dispatch(loadCollection());
     dispatch(loadItemList());
   }, []);
-
-  // if (!collectionList) {
-  //   return null;
-  // }
 
   if (!collectionData) {
     return null;
@@ -56,13 +71,9 @@ const AllListPage = () => {
 
   return (
     <div className="Container">
-      <div
-        className="CategoryWrapper"
-        // onClick={handleSelect}
-      >
+      <div className="CategoryWrapper">
         <button
           className="SelectedBigButton"
-          // value={0}
           onClick={() => {
             setCategory(0);
           }}
@@ -71,7 +82,6 @@ const AllListPage = () => {
         </button>
         <button
           className="UnSelectedBigButton"
-          // value={1}
           onClick={() => {
             setCategory(1);
           }}
@@ -80,21 +90,12 @@ const AllListPage = () => {
         </button>
         <button
           className="UnSelectedBigButton"
-          // value={2}
           onClick={() => {
             setCategory(2);
           }}
         >
           경매 진행중
         </button>
-      </div>
-      <div className="CardWrapper">
-        {/* <CardCollection value={0} data={collectionList} />
-        <CardItem value={1} data={itemList} />
-        <CardAuction value={2} /> */}
-        {/* {category === 0 && <CardCollection value={0} data={collectionList} />}
-        {category === 1 && <CardItem value={1} data={itemList} />}
-        {category === 2 && <CardAuction value={2} />} */}
       </div>
 
       {category === 0 && (
@@ -114,8 +115,26 @@ const AllListPage = () => {
           </div>
         </InfiniteScroll>
       )}
+
       {category === 1 && <CardItem data={itemList} />}
-      {category === 2 && <CardAuction />}
+
+      {category === 2 && (
+        <InfiniteScroll
+          dataLength={auctionData.length}
+          next={auctionFetchData}
+          auctionhasMore={auctionhasMore}
+          loader={<h4>Loding...</h4>}
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+        >
+          <div className="CardWrapper">
+            <CardAuction data={auctionData} />
+          </div>
+        </InfiniteScroll>
+      )}
     </div>
   );
 };

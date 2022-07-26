@@ -7,51 +7,51 @@ import EditIcon from "@mui/icons-material/Edit";
 
 const ItemDetail = (props) => {
   const token = sessionStorage.getItem("auth_token");
-  const user = props.data[0].address;
+  const user = props.data.address;
   const params = useParams();
   const token_id = params.token_id;
-  console.log(props.data[0]);
+  const userId = params.userId;
 
   return (
     <>
       <div className="ItemContainer">
         <div className="ItemWrapper">
           <div className="ItemImageDiv">
-            <img className="ItemImage" src={props.data[0].image} />
+            <img className="ItemImage" src={props.data.image} />
           </div>
           <div className="ItemInfoContainer">
             <div className="SellInfo">
               <div className="HeartWrap">
                 <img className="Heart" src={heart} />
-                <span className="HeartCount">
-                  {props.data[0].favorites_count}
-                </span>
+                <span className="HeartCount">{props.data.favorites_count}</span>
               </div>
               <div className="SellItemNameWrapper">
-                <span className="ItemDetailName">{props.data[0].name}</span>
+                <span className="ItemDetailName">{props.data.name}</span>
               </div>
               <div className="SellCollectionInfo">
                 <span className="SellCollectionSpan">Collection</span>
                 <span className="ItemCollectionName">
-                  {props.data[0].collection_name}
+                  {props.data.collection_name}
                 </span>
               </div>
             </div>
             <div className="ItemDescriptionTittle">
               <span className="SellDescriptionSpan">Description</span>
-              <div className="AvatarWrapper">
-                <Avatar
-                  className="SellDescriptionAvatar"
-                  alt="User Name"
-                  src={props.data[0].profile_image}
-                />
-                <span className="SellUserName">
-                  by {props.data[0].user_name}
-                </span>
-              </div>
+              <a href={`/author/${userId}`}>
+                <div className="AvatarWrapper">
+                  <Avatar
+                    className="SellDescriptionAvatar"
+                    alt="User Name"
+                    src={props.data.profile_image}
+                  />
+                  <span className="SellUserName">
+                    by {props.data.user_name}
+                  </span>
+                </div>
+              </a>
             </div>
             <div className="ItemDescriptionContent">
-              <p>{props.data[0].description}</p>
+              <p>{props.data.description}</p>
             </div>
             <div className="ItemButtons">
               <div className="ShareButtonAndIcon">
@@ -66,7 +66,11 @@ const ItemDetail = (props) => {
                       <EditIcon className="EditIcon" />
                     </div>
                   </a>
-                  <button className="AuctionRegistration">경매 등록하기</button>
+                  <a href={`/selling/${token_id}`}>
+                    <button className="AuctionRegistration">
+                      경매 등록하기
+                    </button>
+                  </a>
                 </>
               ) : (
                 <></>

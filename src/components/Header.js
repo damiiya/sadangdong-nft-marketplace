@@ -11,7 +11,6 @@ import createcollection from "../assets/icon/createcollection.png";
 import cart from "../assets/icon/cart.png";
 import user from "../assets/icon/user.png";
 
-
 const Header = (userProfile) => {
   console.log(userProfile.profile_image);
 
@@ -23,7 +22,6 @@ const Header = (userProfile) => {
   const token = sessionStorage.getItem("auth_token");
 
   const profile = sessionStorage.getItem("user_profile");
-
 
   const search = (event) => {
     if (event.key === "Enter") {
@@ -108,14 +106,13 @@ const Header = (userProfile) => {
                   Disconnect a Wallet
                 </button>
 
-
                 <div className="Accordion">
                   <input type="checkbox" id="account01" />
                   <label className="HeaderLabel" htmlFor="account01">
                     <Avatar
                       className="HeaderAvatar"
                       alt="User Name"
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
+                      src={profile}
                       sx={{ width: 56, height: 56 }}
                     />
                   </label>
@@ -134,7 +131,6 @@ const Header = (userProfile) => {
                     </div>
                   </div>
                 </div>
-
               </>
             ) : (
               <>
@@ -152,7 +148,7 @@ const Header = (userProfile) => {
                   <Avatar
                     className="HiddenHeaderAvatar"
                     alt="User Name"
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
+                    src=""
                     sx={{ width: 56, height: 56 }}
                   />
                   <div className="AccordionAccountMenu">
@@ -160,7 +156,6 @@ const Header = (userProfile) => {
                     <div className="AccordionCreateitemContainer-2"></div>
                   </div>
                 </div>
-
               </>
             )}
           </div>

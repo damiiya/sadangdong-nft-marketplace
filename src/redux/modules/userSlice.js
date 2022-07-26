@@ -22,6 +22,7 @@ export const createAccount = createAsyncThunk(
           "user_profile",
           response.data.data.profile_image
         );
+        sessionStorage.setItem("user_nickname", response.data.data.name);
         console.log(response.data.data);
         window.location.href = "";
       })
