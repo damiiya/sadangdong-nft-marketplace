@@ -15,6 +15,7 @@ import {
   loadSearchAfterFirstAuctionItem,
 } from "../redux/modules/itemSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
+import searchfailed from "../assets/icon/searchfailed.png";
 
 const SearchListPage = () => {
   const dispatch = useDispatch();
@@ -105,7 +106,21 @@ const SearchListPage = () => {
 
   return (
     <div className="Container">
-      <div className="SearchText">'{keyword}'에 대한 검색 결과입니다.</div>
+      {category === 0 && collectionData.length === 0 && null}
+      {category === 0 && collectionData.length > 0 && (
+        <div className="SearchText">'{keyword}'에 대한 검색 결과입니다.</div>
+      )}
+
+      {category === 1 && itemData.length === 0 && null}
+      {category === 1 && itemData.length > 0 && (
+        <div className="SearchText">'{keyword}'에 대한 검색 결과입니다.</div>
+      )}
+
+      {category === 2 && auctionData.length === 0 && null}
+      {category === 2 && auctionData.length > 0 && (
+        <div className="SearchText">'{keyword}'에 대한 검색 결과입니다.</div>
+      )}
+
       <div className="CategoryWrapper">
         {category === 0 ? (
           <button
@@ -166,52 +181,64 @@ const SearchListPage = () => {
           </button>
         )}
       </div>
-
+      {category === 0 && collectionData.length === 0 && (
+        <div className="SearchFailedContainer">
+          <div className="SearchFailedWrapper">
+            <img className="SearchFailed" src={searchfailed} />
+            <div className="SearchFailedText">
+              '{keyword}'와 일치하는 검색 결과가 없습니다.
+            </div>
+          </div>
+        </div>
+      )}
       {category === 0 && (
         <InfiniteScroll
           dataLength={collectionData.length}
           next={collectionFetchData}
           hasMore={collectionHasMore}
-          loader={<h4>Loading...</h4>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
         >
           <div className="CardWrapper">
             <CardCollection data={collectionData} />
           </div>
         </InfiniteScroll>
       )}
+
+      {category === 1 && itemData.length === 0 && (
+        <div className="SearchFailedContainer">
+          <div className="SearchFailedWrapper">
+            <img className="SearchFailed" src={searchfailed} />
+            <div className="SearchFailedText">
+              '{keyword}'와 일치하는 검색 결과가 없습니다.
+            </div>
+          </div>
+        </div>
+      )}
       {category === 1 && (
         <InfiniteScroll
           dataLength={itemData.length}
           next={itemFetchData}
           hasMore={itemHasMore}
-          loader={<h4>Loading...</h4>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
         >
           <div className="CardWrapper">
             <CardItem data={itemData} />
           </div>
         </InfiniteScroll>
       )}
+      {category === 2 && auctionData.length === 0 && (
+        <div className="SearchFailedContainer">
+          <div className="SearchFailedWrapper">
+            <img className="SearchFailed" src={searchfailed} />
+            <div className="SearchFailedText">
+              '{keyword}'와 일치하는 검색 결과가 없습니다.
+            </div>
+          </div>
+        </div>
+      )}
       {category === 2 && (
         <InfiniteScroll
           dataLength={auctionData.length}
           next={auctionFetchData}
           auctionHasMore={auctionHasMore}
-          loader={<h4>Loding...</h4>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
         >
           <div className="CardWrapper">
             <CardAuction data={auctionData} />

@@ -729,6 +729,31 @@ input[id*="account"]:checked + label + div {
   margin: 40px 0 120px;
 }
 
+.SearchFailedContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.SearchFailedWrapper {
+  margin-top: 200px;
+  margin-left: 100px;
+}
+
+.SearchFailed {
+  width: 180px;
+  height: 180px;
+}
+
+.SearchFailedText {
+  margin-top: 55px;
+  position: relative;
+  right: 120px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
 /* AuctionListPage */
 .AuctionListText {
   width: 100%;
