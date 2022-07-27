@@ -13,7 +13,7 @@ const CardCollection = (props) => {
             <div className="CardCollectionContentWrapper">
               <Avatar
                 alt="username"
-                src=""
+                src={val.profile_image}
                 sx={{ width: 64, height: 64 }}
                 style={{
                   border: "solid 1px #e5e5e5",
