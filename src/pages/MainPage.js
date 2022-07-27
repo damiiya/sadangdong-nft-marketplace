@@ -82,10 +82,10 @@ const MainPage = () => {
         <MainCard />
         <MainCard />
       </div>
-      <div className="MainContainer" style={{ backgroundColor: "#60D329" }}>
+      <div className="MainContainer2">
         <div className="TitleWrapper" style={{ justifyContent: "center" }}>
           <span className="TitleLetter" style={{ marginTop: "120px" }}>
-            Weekly Top seller
+            Weekly Top seller🏆
           </span>
         </div>
         <div className="MainWrapper">

@@ -1,35 +1,20 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { AdminListItem } from "../components/list/AdminListItem";
 
 const AdminPage = () => {
-  const navigate = useNavigate();
-
-  const toAdmin = () => {
-    navigate("/admin");
-  };
-
-  const toApproved = () => {
-    navigate("/approved");
-  };
-
-  const toRejected = () => {
-    navigate("/rejected");
-  };
-
   return (
     <div className="AdminContainer">
       <div className="AdminSidebar">
         <div className="AdminList">
-          <span className="SelectedList" onClick={toAdmin}>
-            승인대기중 아이템
-          </span>
-          <span className="UnSelectedList" onClick={toApproved}>
-            승인된 아이템
-          </span>
-          <span className="UnSelectedList" onClick={toRejected}>
-            거절된 아이템
-          </span>
+          <a href="/admin">
+            <span className="SelectedList">승인대기중 아이템</span>
+          </a>
+          <a href="/approved">
+            <span className="UnSelectedList">승인된 아이템</span>
+          </a>
+          <a href="/rejected">
+            <span className="UnSelectedList">거절된 아이템</span>
+          </a>
         </div>
       </div>
       <div className="AdminContentWrap">

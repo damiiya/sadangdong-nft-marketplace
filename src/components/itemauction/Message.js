@@ -1,30 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
+const Message = ({ message: { text, user }, name }) => {
+  const [byUser, setByUser] = useState(false);
+  const nickname = sessionStorage.getItem("user_nickname");
 
-const Message = ({ message: { text, address } }) => {
-  const userNick = sessionStorage.getItem("user_nickname");
-  const token = sessionStorage.getItem("auth_token");
+  useEffect(() => {
+    if (name == nickname) {
+      setByUser(true);
+    }
+  }, []);
 
-  const byCurrentUser = false;
-
-  const currentUser = token;
-  if (address === token) {
-    byCurrentUser = true;
-  }
-
-  return byCurrentUser ? (
+  return byUser ? (
     <li className="Sent">
-      <div className="ChatWrap">
-        <span className="ChatUser">{currentUser}</span>
-        <span className="ChatMsg">{text}</span>
-      </div>
+      <p className="ChatUser">{name}</p>
+      <p className="ChatMsg">{text}</p>
     </li>
   ) : (
     <li className="Received">
-      <div className="ChatWrap">
-        <span className="ChatUser">{address}</span>
-        <span className="ChatMsg">{text}</span>
-      </div>
+      <p className="ChatUser">{user}</p>
+      <p className="ChatMsg">{text}</p>
     </li>
   );
 };
