@@ -10,6 +10,7 @@ import {
   getCollectionSelect,
   postMintedItem,
 } from "../redux/modules/itemSlice";
+import Spinner from "../elements/Spinner";
 
 const CreateItemPage = () => {
   const [isLoad, setIsLoad] = useState(false);
@@ -79,11 +80,7 @@ const CreateItemPage = () => {
       );
 
       const txn = await contract.mintNFT(tokenURI);
-      console.log(txn.hash);
-
       const tx = await provider.getTransaction(txn.hash);
-      console.log(tx);
-
       const receipt = await tx.wait();
       console.log(receipt);
 
@@ -91,7 +88,6 @@ const CreateItemPage = () => {
       console.log(getmintItem);
 
       const tokensOwned = await contract.balanceOf(account);
-
       const tokenIds = [];
 
       for (let i = 0; i < tokensOwned; i++) {
@@ -155,7 +151,6 @@ const CreateItemPage = () => {
             "Content-Type": "multipart/form-data",
           },
         });
-
         const ImgHash = `ipfs://${resFile.data.IpfsHash}`;
         sendJsontoIPFS(ImgHash);
       } catch (error) {
@@ -179,6 +174,7 @@ const CreateItemPage = () => {
   } else {
     return (
       <>
+        <Spinner />
         <div className="CreateItemContainer">
           <div className="CreateItemWrapper">
             <span className="CreateItemTittle">아이템 생성</span>

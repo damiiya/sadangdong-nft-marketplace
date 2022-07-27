@@ -3,7 +3,8 @@ import heart from "../../assets/icon/heart.png";
 import time from "../../assets/icon/time.png";
 
 const CardAuction = (props) => {
-  const clock = props.data.ended_at.split(":");
+  console.log(props.data[0].ended_at);
+  const clock = props.data[0].ended_at.split(":");
   const hour = clock[0];
   const minute = clock[1];
   const second = clock[2];

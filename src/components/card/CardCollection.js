@@ -5,7 +5,7 @@ const CardCollection = (props) => {
   return (
     <>
       {props.data.map((val, index) => (
-        <a href={`detail/collection/${val.name}`}>
+        <a href={`/detail/collection/${val.name}`}>
           <div key={index} className="CardCollectionContainer">
             <div className="CardCollectionImageWrapper">
               <img className="CardCollectionImage" src={val.feature_image} />

@@ -121,7 +121,7 @@ a:active {
 }
 
 .HeaderDisconnectButton {
-  width: 192px;
+  width: 204px;
   height: 42px;
   border-radius: 8px;
   background-color: #111;
@@ -414,6 +414,12 @@ input[id*="account"]:checked + label + div {
   height: auto;
 }
 
+.MainContainer2 {
+  width: 100%;
+  height: auto;
+  background-color: #c9f943;
+}
+
 .MainBanner1 {
   width: 100%;
   height: 400px;
@@ -549,7 +555,7 @@ input[id*="account"]:checked + label + div {
   height: 64px;
   border-radius: 50%;
   border: 2px solid #111111;
-  background-color: #7ef744;
+  background-color: #ffffff;
   font-weight: 700;
   font-size: 32px;
   line-height: 48px;
@@ -1233,7 +1239,7 @@ input[id*="account"]:checked + label + div {
   box-sizing: border-box;
   padding-left: 20px;
 
-  background-color: #f7f7f7;
+  background-color: #f7fced;
   flex-grow: 0;
   font-size: 16px;
   font-weight: bold;
@@ -1302,8 +1308,9 @@ input[id*="account"]:checked + label + div {
   height: 56px;
 
   border-radius: 16px;
-  background-color: #111;
-  color: #fff;
+  background-color: #c5ff49;
+  color: #111;
+  border: none;
 
   flex-grow: 0;
   font-size: 18px;
