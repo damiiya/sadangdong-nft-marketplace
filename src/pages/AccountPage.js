@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { loadAccountCollection } from "../redux/modules/userSlice";
+import {
+  loadAccountCollection,
+  loadAccountFirstItem,
+  loadAccountAfterFirstItem,
+  loadAccountFirstAuctionItem,
+  loadAccountAfterFirstAuctionItem,
+} from "../redux/modules/userSlice";
+
+import InfiniteScroll from "react-infinite-scroll-component";
 import { Avatar } from "@mui/material";
 import share from "../assets/icon/share.png";
 import pencil from "../assets/icon/pencil.png";
@@ -18,9 +26,52 @@ const AccountPage = () => {
   const token_id = params.token_id;
   const userCollectionData = useSelector((state) => state.user.collection);
 
+  // 아이템
+  const [itemData, setItemData] = useState([]);
+  const [itemHasMore, setItemHasMore] = useState(true);
+  const [itemPage, setItemPage] = useState(2);
+
+  // 경매 진행 중인 아이템
+  const [auctionData, setAuctionData] = useState([]);
+  const [auctionHasMore, setAuctionHasMore] = useState(true);
+  const [auctionPage, setAuctionPage] = useState(2);
+
   useEffect(() => {
+    dispatch(
+      loadAccountFirstAuctionItem({
+        token_id,
+        setAuctionData,
+        setAuctionHasMore,
+      })
+    );
+    dispatch(loadAccountFirstItem({ token_id, setItemData, setItemHasMore }));
     dispatch(loadAccountCollection(token_id));
   }, []);
+
+  const itemFetchData = () => {
+    dispatch(
+      loadAccountAfterFirstItem({
+        token_id,
+        itemPage,
+        itemData,
+        setItemData,
+        setItemHasMore,
+        setItemPage,
+      })
+    );
+  };
+
+  const auctionFetchData = () => {
+    dispatch(
+      loadAccountAfterFirstAuctionItem({
+        auctionPage,
+        auctionData,
+        setAuctionData,
+        setAuctionHasMore,
+        setAuctionPage,
+      })
+    );
+  };
 
   if (!userCollectionData) {
     return null;
@@ -39,7 +90,7 @@ const AccountPage = () => {
           </div>
           <div className="NameWrap">
             <span className="AuthorName">
-              @{userCollectionData[0].user_name}
+              {userCollectionData[0].user_name}
             </span>
             <a href={`/account/edit/${token}`}>
               <img className="Icon" src={pencil} />
@@ -122,11 +173,48 @@ const AccountPage = () => {
             </a>
           </div>
         </div>
-        <div className="CardWrapper">
-          {/* {category === 0 && <CardAuction />} */}
-          {/* {category === 1 && <CardItem />} */}
-          {category === 2 && <CardCollection data={userCollectionData} />}
-        </div>
+
+        {category === 0 && auctionData.length > 0 ? (
+          <InfiniteScroll
+            dataLength={auctionData.length}
+            next={auctionFetchData}
+            auctionHasMore={auctionHasMore}
+            loader={<h4>Loding...</h4>}
+            endMessage={
+              <p style={{ textAlign: "center" }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+          >
+            <div className="CardWrapper">
+              <CardAuction data={auctionData} />
+            </div>
+          </InfiniteScroll>
+        ) : null}
+
+        {category === 1 && (
+          <InfiniteScroll
+            dataLength={itemData.length}
+            next={itemFetchData}
+            hasMore={itemHasMore}
+            loader={<h4>Loading...</h4>}
+            endMessage={
+              <p style={{ textAlign: "center" }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+          >
+            <div className="CardWrapper">
+              <CardItem data={itemData} />
+            </div>
+          </InfiniteScroll>
+        )}
+
+        {category === 2 && (
+          <div className="CardWrapper">
+            <CardCollection data={userCollectionData} />
+          </div>
+        )}
       </div>
     </div>
   );

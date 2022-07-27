@@ -22,7 +22,7 @@ const CardCollection = (props) => {
 
               <span className="CardName">{val.name}</span>
 
-              <span className="CardUserName">by User name</span>
+              <span className="CardUserName">{val.user_name}</span>
               <span className="CardCollectionDescription">
                 {val.description}
               </span>

@@ -127,22 +127,6 @@ export const loadCollectionDetail = createAsyncThunk(
   }
 );
 
-// 컬렉션 검색하기
-export const loadCollectionSearch = createAsyncThunk(
-  "LOAD_COLLECTION_Search",
-  async (keyword) => {
-    return await axios
-      .get(`${serverUrl}/api/search?tab=collection&name=${keyword}`)
-      .then((response) => {
-        console.log(response.data);
-        return response.data.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-);
-
 // 컬렉션 검색 첫번째 목록 가져오기
 export const loadSearchFirstCollection = createAsyncThunk(
   "LOAD_COLLECTION_FIRST_LIST",
@@ -199,10 +183,6 @@ const collectionSlice = createSlice({
   extraReducers: {
     [loadCollectionDetail.fulfilled]: (state, action) => {
       state.collectionDetail = action.payload;
-    },
-    [loadCollectionSearch.fulfilled]: (state, action) => {
-      console.log(action);
-      state.collectionSearch = action.payload;
     },
   },
 });
