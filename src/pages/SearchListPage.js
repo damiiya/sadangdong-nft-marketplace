@@ -185,9 +185,9 @@ const SearchListPage = () => {
         <div className="SearchFailedContainer">
           <div className="SearchFailedWrapper">
             <img className="SearchFailed" src={searchfailed} />
-            <div className="SearchFailedText">
+            <span className="SearchFailedText">
               '{keyword}'와 일치하는 검색 결과가 없습니다.
-            </div>
+            </span>
           </div>
         </div>
       )}
@@ -207,9 +207,9 @@ const SearchListPage = () => {
         <div className="SearchFailedContainer">
           <div className="SearchFailedWrapper">
             <img className="SearchFailed" src={searchfailed} />
-            <div className="SearchFailedText">
+            <span className="SearchFailedText">
               '{keyword}'와 일치하는 검색 결과가 없습니다.
-            </div>
+            </span>
           </div>
         </div>
       )}
@@ -228,8 +228,10 @@ const SearchListPage = () => {
         <div className="SearchFailedContainer">
           <div className="SearchFailedWrapper">
             <img className="SearchFailed" src={searchfailed} />
-            <div className="SearchFailedText">
-              '{keyword}'와 일치하는 검색 결과가 없습니다.
+            <div>
+              <span className="SearchFailedText">
+                '{keyword}'와 일치하는 검색 결과가 없습니다.
+              </span>
             </div>
           </div>
         </div>
