@@ -851,13 +851,33 @@ input[id*="account"]:checked + label + div {
   cursor: pointer;
 }
 
+.ShareCartWrap {
+  display: flex;
+}
+
 .ShareWrap {
   margin-bottom: 10px;
   border: none;
+  margin-right: 1rem;
 }
 
 .ButtonIcon {
   margin-right: 8px;
+}
+
+.CartCircle {
+  width: 42px;
+  height: 42px;
+  border-radius: 24px;
+  background-color: #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CartImg {
+  width: 20px;
+  height: 20px;
 }
 
 .CollectionDescriptionWrapper {

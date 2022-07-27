@@ -27,11 +27,13 @@ const Header = (userProfile) => {
     if (event.key === "Enter") {
       setKeyword(event.target.value);
       navigate(`/list/search/${keyword}`);
+      window.location.reload();
     }
   };
 
   const iconSearch = () => {
     navigate(`/list/search/${keyword}`);
+    window.location.reload();
   };
 
   return (

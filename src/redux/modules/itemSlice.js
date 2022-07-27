@@ -234,6 +234,52 @@ export const AuctionDetail = createAsyncThunk(
   }
 );
 
+// 아이템 검색 첫번째 목록 가져오기
+export const loadSearchFirstItem = createAsyncThunk(
+  "LOAD_ITEM_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/search?tab=item&name=${value.keyword}&_page=1&_limit=12`
+      )
+      .then((response) => {
+        console.log(response);
+        value.setItemData(response.data.data);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setItemHasMore(false);
+        }
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 아이템 검색 첫번째 이후 목록 가져오기
+export const loadSearchAfterFirstItem = createAsyncThunk(
+  "LOAD_ITEM_AFTER_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/search?tab=item&name=${value.keyword}&_page=${value.itemPage}&_limit=12`
+      )
+      .then((response) => {
+        value.setItemData([...value.itemData, ...response.data.data]);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setItemHasMore(false);
+        }
+        value.setItemPage(value.itemPage + 1);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
 const itemSlice = createSlice({
   name: "itemSlice",
   initialState: {

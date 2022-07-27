@@ -33,6 +33,7 @@ export const loadFirstCollection = createAsyncThunk(
       .get(`${serverUrl}/api/explore?tab=collection&_page=1&_limit=12`)
       .then((response) => {
         setCollectionData(response.data.data);
+
         return response.data.data;
       })
       .catch((error) => {
@@ -148,11 +149,15 @@ export const loadSearchFirstCollection = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/search?tab=colleciton&name=${value.keyword}&_page=1&_limit=12`
+        `${serverUrl}/api/search?tab=collection&name=${value.keyword}&_page=1&_limit=12`
       )
       .then((response) => {
         console.log(response);
         value.setCollectionData(response.data.data);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setCollectionHasMore(false);
+        }
         return response.data.data;
       })
       .catch((error) => {
@@ -167,7 +172,7 @@ export const loadSearchAfterFirstCollection = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/search?tab=colleciton&name=${value.keyword}&_page=${value.page}&_limit=12`
+        `${serverUrl}/api/search?tab=collection&name=${value.keyword}&_page=${value.collectionPage}&_limit=12`
       )
       .then((response) => {
         value.setCollectionData([
@@ -176,9 +181,9 @@ export const loadSearchAfterFirstCollection = createAsyncThunk(
         ]);
 
         if (response.data.data.length === 0 || response.data.data.length < 12) {
-          value.sethasMore(false);
+          value.setCollectionHasMore(false);
         }
-        value.setpage(value.page + 1);
+        value.setCollectionPage(value.collectionPage + 1);
         return response.data.data;
       })
       .catch((error) => {
