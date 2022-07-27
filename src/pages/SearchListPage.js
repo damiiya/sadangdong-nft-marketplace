@@ -11,6 +11,8 @@ import {
 import {
   loadSearchFirstItem,
   loadSearchAfterFirstItem,
+  loadSearchFirstAuctionItem,
+  loadSearchAfterFirstAuctionItem,
 } from "../redux/modules/itemSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -30,6 +32,11 @@ const SearchListPage = () => {
   const [itemHasMore, setItemHasMore] = useState(true);
   const [itemPage, setItemPage] = useState(2);
 
+  // 경매 진행 중인 아이템
+  const [auctionData, setAuctionData] = useState([]);
+  const [auctionHasMore, setAuctionHasMore] = useState(true);
+  const [auctionPage, setAuctionPage] = useState(2);
+
   useEffect(() => {
     dispatch(
       loadSearchFirstCollection({
@@ -43,6 +50,13 @@ const SearchListPage = () => {
         keyword,
         setItemData,
         setItemHasMore,
+      })
+    );
+    dispatch(
+      loadSearchFirstAuctionItem({
+        keyword,
+        setAuctionData,
+        setAuctionHasMore,
       })
     );
   }, []);
@@ -69,6 +83,18 @@ const SearchListPage = () => {
         setItemData,
         setItemHasMore,
         setItemPage,
+      })
+    );
+  };
+
+  const auctionFetchData = () => {
+    dispatch(
+      loadSearchAfterFirstAuctionItem({
+        auctionPage,
+        auctionData,
+        setAuctionData,
+        setAuctionHasMore,
+        setAuctionPage,
       })
     );
   };
@@ -175,7 +201,23 @@ const SearchListPage = () => {
           </div>
         </InfiniteScroll>
       )}
-      {category === 2 && <CardAuction />}
+      {category === 2 && (
+        <InfiniteScroll
+          dataLength={auctionData.length}
+          next={auctionFetchData}
+          auctionHasMore={auctionHasMore}
+          loader={<h4>Loding...</h4>}
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+        >
+          <div className="CardWrapper">
+            <CardAuction data={auctionData} />
+          </div>
+        </InfiniteScroll>
+      )}
     </div>
   );
 };
