@@ -280,6 +280,51 @@ export const loadSearchAfterFirstItem = createAsyncThunk(
   }
 );
 
+// 경매중인 아이템 검색 첫번째 목록 가져오기
+export const loadSearchFirstAuctionItem = createAsyncThunk(
+  "LOAD_SEARCH_AUCTION_ITEM_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/search?tab=auction&name=${value.keyword}&_page=1&_limit=12`
+      )
+      .then((response) => {
+        console.log(response);
+        value.setAuctionData(response.data.data);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setAuctionHasMore(false);
+        }
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 경매중인 아이템 검색 첫번째 이후 목록 가져오기
+export const loadSearchAfterFirstAuctionItem = createAsyncThunk(
+  "LOAD_SEARCH_AUCTION_ITEM_AFTER_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/search?tab=auction&name=${value.keyword}&_page=${value.auctionPage}&_limit=12`
+      )
+      .then((response) => {
+        value.setAuctionData([...value.auctionData, ...response.data.data]);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setAuctionHasMore(false);
+        }
+        value.setAuctionPage(value.auctionPage + 1);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
 const itemSlice = createSlice({
   name: "itemSlice",
   initialState: {
