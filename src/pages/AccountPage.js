@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
@@ -24,6 +24,7 @@ const AccountPage = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const token_id = params.token_id;
+  const copyLinkRef = useRef();
   const userCollectionData = useSelector((state) => state.user.collection);
 
   // 아이템
@@ -48,6 +49,7 @@ const AccountPage = () => {
     dispatch(loadAccountCollection(token_id));
   }, []);
 
+  // 아이템 추가 데이터 가져오기
   const itemFetchData = () => {
     dispatch(
       loadAccountAfterFirstItem({
@@ -61,6 +63,7 @@ const AccountPage = () => {
     );
   };
 
+  // 실시간 경매 추가 데이터 가져오기
   const auctionFetchData = () => {
     dispatch(
       loadAccountAfterFirstAuctionItem({
@@ -72,6 +75,16 @@ const AccountPage = () => {
       })
     );
   };
+
+  // Url 복사 함수
+  function copyTextUrl() {
+    copyLinkRef.current.focus();
+    copyLinkRef.current.select();
+
+    navigator.clipboard.writeText(copyLinkRef.current.value).then(() => {
+      alert("링크를 복사했습니다.");
+    });
+  }
 
   if (!userCollectionData) {
     return null;
@@ -161,16 +174,17 @@ const AccountPage = () => {
           </div>
           <div className="ShareCartWrap">
             <div className="ShareWrap">
-              <button className="CollectionTitleButton">
+              <input
+                style={{ visibility: "hidden" }}
+                type="text"
+                ref={copyLinkRef}
+                value={`http:localhost3000/account/${token_id}`}
+              ></input>
+              <button className="CollectionTitleButton" onClick={copyTextUrl}>
                 <img className="ButtonIcon" src={share} />
                 share
               </button>
             </div>
-            <a href="/account/myauction">
-              <div className="CartCircle">
-                <img className="CartImg" src={cart2} />
-              </div>
-            </a>
           </div>
         </div>
 

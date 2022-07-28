@@ -890,7 +890,8 @@ input[id*="account"]:checked + label + div {
 .ShareWrap {
   margin-bottom: 10px;
   border: none;
-  margin-right: 1rem;
+
+  display: flex;
 }
 
 .ButtonIcon {
