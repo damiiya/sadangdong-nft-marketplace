@@ -135,7 +135,7 @@ const Header = (userProfile) => {
                       <button className="AccordionMenuButton-2">
                         <a
                           className="AccordionMyMenu"
-                          href="/account/myauction"
+                          href={`/account/myactivity/${token}`}
                         >
                           나의 활동
                         </a>

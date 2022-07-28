@@ -99,13 +99,15 @@ const AccountPage = () => {
           <div className="AuthorImage">
             <Avatar
               alt="User Name"
-              src={userCollectionData[0].profile_image}
+              src={
+                userCollectionData.data && userCollectionData.data.profile_image
+              }
               sx={{ width: 152, height: 152 }}
             />
           </div>
           <div className="NameWrap">
             <span className="AuthorName">
-              @{userCollectionData[0].user_name}
+              @{userCollectionData.data && userCollectionData.data.name}
             </span>
             {/* {token === walletAddress && (
               <a href={`/account/edit/${token}`}>
@@ -205,7 +207,7 @@ const AccountPage = () => {
           </InfiniteScroll>
         ) : null}
 
-        {category === 1 && (
+        {category === 1 && itemData.length > 0 ? (
           <InfiniteScroll
             dataLength={itemData.length}
             next={itemFetchData}
@@ -216,11 +218,11 @@ const AccountPage = () => {
               <CardItem data={itemData} />
             </div>
           </InfiniteScroll>
-        )}
+        ) : null}
 
         {category === 2 && (
           <div className="CardWrapper">
-            <CardCollection data={userCollectionData} />
+            <CardCollection data={userCollectionData.information} />
           </div>
         )}
       </div>

@@ -16,7 +16,6 @@ function MyAccountPage() {
   const userInfo = useSelector((state) => state.user.collection);
   console.log(userInfo);
 
-
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
@@ -56,7 +55,6 @@ function MyAccountPage() {
     dispatch(loadAccountCollection(token_id));
   }, []);
 
-
   if (!userInfo) {
     return null;
   }
@@ -69,7 +67,6 @@ function MyAccountPage() {
             <div className="ProfileImageTitleWrapper">
               <span className="ProfileImageTitle">프로필 이미지</span>
               <div className="EditProfileImageWrapper">
-
                 {!imageSrc ? (
                   <img
                     className="ProfieImagePreivew"
@@ -106,7 +103,7 @@ function MyAccountPage() {
                 className="UserIdInput"
                 placeholder="사용자 아이디를 입력해 주세요."
                 ref={name}
-                defaultValue={userInfo[0].user_name}
+                defaultValue={userInfo[0] && userInfo[0].user_name}
               />
             </div>
           </div>

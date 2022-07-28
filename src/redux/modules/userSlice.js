@@ -42,12 +42,15 @@ export const loadAccountFirstAuctionItem = createAsyncThunk(
       )
       .then((response) => {
         console.log(response);
-        value.setAuctionData(response.data.data);
+        value.setAuctionData(response.data.information);
 
-        if (response.data.data.length === 0 || response.data.data.length < 12) {
+        if (
+          response.data.information.length === 0 ||
+          response.data.information.length < 12
+        ) {
           value.setAuctionHasMore(false);
         }
-        return response.data.data;
+        return response.data.information;
       })
       .catch((error) => {
         console.log(error.message);
@@ -64,13 +67,19 @@ export const loadAccountAfterFirstAuctionItem = createAsyncThunk(
         `${serverUrl}/api/account/${value.walletAddress}?tab=auction&_page=${value.auctionPage}&_limit=12`
       )
       .then((response) => {
-        value.setAuctionData([...value.auctionData, ...response.data.data]);
+        value.setAuctionData([
+          ...value.auctionData,
+          ...response.data.information,
+        ]);
 
-        if (response.data.data.length === 0 || response.data.data.length < 12) {
+        if (
+          response.data.information.length === 0 ||
+          response.data.information.length < 12
+        ) {
           value.setAuctionHasMore(false);
         }
         value.setAuctionPage(value.auctionPage + 1);
-        return response.data.data;
+        return response.data.information;
       })
       .catch((error) => {
         console.log(error.message);
@@ -88,12 +97,15 @@ export const loadAccountFirstItem = createAsyncThunk(
       )
       .then((response) => {
         console.log(response);
-        value.setItemData(response.data.data);
+        value.setItemData(response.data.information);
 
-        if (response.data.data.length === 0 || response.data.data.length < 12) {
+        if (
+          response.data.information.length === 0 ||
+          response.data.information.length < 12
+        ) {
           value.setItemHasMore(false);
         }
-        return response.data.data;
+        return response.data.information;
       })
       .catch((error) => {
         console.log(error.message);
@@ -110,13 +122,16 @@ export const loadAccountAfterFirstItem = createAsyncThunk(
         `${serverUrl}/api/account/${value.walletAddress}?tab=item&_page=${value.itemPage}&_limit=12`
       )
       .then((response) => {
-        value.setItemData([...value.itemData, ...response.data.data]);
+        value.setItemData([...value.itemData, ...response.data.information]);
 
-        if (response.data.data.length === 0 || response.data.data.length < 12) {
+        if (
+          response.data.information.length === 0 ||
+          response.data.information.length < 12
+        ) {
           value.setItemHasMore(false);
         }
         value.setItemPage(value.itemPage + 1);
-        return response.data.data;
+        return response.data.information;
       })
       .catch((error) => {
         console.log(error.message);
@@ -136,8 +151,8 @@ export const loadAccountCollection = createAsyncThunk(
         },
       })
       .then((response) => {
-        console.log(response.data.data);
-        return response.data.data;
+        console.log(response.data);
+        return response.data;
       })
       .catch((error) => {
         console.log(error.message);
