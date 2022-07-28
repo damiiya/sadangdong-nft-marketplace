@@ -236,17 +236,23 @@ const SearchListPage = () => {
           </div>
         </div>
       )}
-      {category === 2 && (
+      {category === 2 && auctionData.length > 0 ? (
         <InfiniteScroll
           dataLength={auctionData.length}
           next={auctionFetchData}
           auctionHasMore={auctionHasMore}
+          loader={<h4>Loding...</h4>}
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
         >
           <div className="CardWrapper">
             <CardAuction data={auctionData} />
           </div>
         </InfiniteScroll>
-      )}
+      ) : null}
     </div>
   );
 };
