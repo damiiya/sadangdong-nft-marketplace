@@ -91,6 +91,7 @@ const SearchListPage = () => {
   const auctionFetchData = () => {
     dispatch(
       loadSearchAfterFirstAuctionItem({
+        keyword,
         auctionPage,
         auctionData,
         setAuctionData,

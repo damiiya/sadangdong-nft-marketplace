@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { loadCollectionDetail } from "../redux/modules/collectionSlice";
+import {
+  loadFirstCollectionDetailItem,
+  loadAfterFirstCollectionDetailItem,
+  loadFirstCollectionDetailAuctionItem,
+  loadAfterFirstCollectionDetailAuctionItem,
+} from "../redux/modules/itemSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
 import share from "../assets/icon/share.png";
 import pencil from "../assets/icon/pencil.png";
 import CardAuction from "../components/card/CardAuction";
 import CardItem from "../components/card/CardItem";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import { useParams } from "react-router-dom";
 
@@ -13,17 +20,66 @@ const CollectionPage = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const collectionId = params.collectionId;
-  const [category, setCategory] = useState(0);
-
-  useEffect(() => {
-    dispatch(loadCollectionDetail(collectionId));
-  }, []);
 
   const collectionDetail = useSelector(
     (state) => state.collection.collectionDetail
   );
-  console.log(collectionDetail);
+  const [category, setCategory] = useState(0);
 
+  // 경매 진행 중인 아이템
+  const [auctionData, setAuctionData] = useState([]);
+  const [auctionHasMore, setAuctionHasMore] = useState(true);
+  const [auctionPage, setAuctionPage] = useState(2);
+
+  // 아이템
+  const [itemData, setItemData] = useState([]);
+  const [itemHasMore, setItemHasMore] = useState(true);
+  const [itemPage, setItemPage] = useState(2);
+
+  useEffect(() => {
+    dispatch(loadCollectionDetail(collectionId));
+    dispatch(
+      loadFirstCollectionDetailItem({
+        collectionId,
+        setItemData,
+        setItemHasMore,
+      })
+    );
+    dispatch(
+      loadFirstCollectionDetailAuctionItem({
+        collectionId,
+        setAuctionData,
+        setAuctionHasMore,
+      })
+    );
+  }, []);
+
+  const auctionFetchData = () => {
+    dispatch(
+      loadAfterFirstCollectionDetailAuctionItem({
+        collectionId,
+        auctionPage,
+        auctionData,
+        setAuctionData,
+        setAuctionHasMore,
+        setAuctionPage,
+      })
+    );
+  };
+
+  const itemFetchData = () => {
+    dispatch(
+      loadAfterFirstCollectionDetailItem({
+        collectionId,
+        itemPage,
+        itemData,
+        setItemData,
+        setItemHasMore,
+        setItemPage,
+      })
+    );
+  };
+  console.log(collectionDetail);
   if (!collectionDetail) {
     return null;
   }
@@ -41,7 +97,7 @@ const CollectionPage = () => {
         <div className="UserImageWrap">
           <Avatar
             alt="User Name"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHxLdpyffNGzkCT6HRbqlPMdjlT5PzWRqzw&usqp=CAU"
+            src={collectionDetail.profile_image}
             sx={{ width: 152, height: 152 }}
           />
         </div>
@@ -67,7 +123,9 @@ const CollectionPage = () => {
           <span className="CollectionTitleLetter">
             {collectionDetail && collectionDetail.name}
           </span>
-          <span className="CollectionUerLetter">by User name</span>
+          <span className="CollectionUerLetter">
+            by {collectionDetail.user_name}
+          </span>
         </div>
         <div className="CollectionButtonBundle">
           <button className="CollectionTitleButton">
@@ -102,10 +160,36 @@ const CollectionPage = () => {
             아이템
           </button>
         </div>
-        <div className="CardWrapper">
-          {/* {category === 0 && <CardAuction />}
-          {category === 1 && <CardItem />} */}
-        </div>
+
+        {category === 0 && auctionData.length > 0 ? (
+          <InfiniteScroll
+            dataLength={auctionData.length}
+            next={auctionFetchData}
+            auctionHasMore={auctionHasMore}
+            loader={<h4>Loding...</h4>}
+            endMessage={
+              <p style={{ textAlign: "center" }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+          >
+            <div className="CardWrapper">
+              <CardAuction data={auctionData} />
+            </div>
+          </InfiniteScroll>
+        ) : null}
+
+        {category === 1 && (
+          <InfiniteScroll
+            dataLength={itemData.length}
+            next={itemFetchData}
+            hasMore={itemHasMore}
+          >
+            <div className="CardWrapper">
+              <CardItem data={itemData} />
+            </div>
+          </InfiniteScroll>
+        )}
       </div>
     </div>
   );

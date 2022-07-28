@@ -105,7 +105,7 @@ const AccountPage = () => {
           </div>
           <div className="NameWrap">
             <span className="AuthorName">
-              {userCollectionData[0].user_name}
+              @{userCollectionData[0].user_name}
             </span>
             {/* {token === walletAddress && (
               <a href={`/account/edit/${token}`}>
@@ -198,11 +198,6 @@ const AccountPage = () => {
             next={auctionFetchData}
             auctionHasMore={auctionHasMore}
             loader={<h4>Loding...</h4>}
-            endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
-              </p>
-            }
           >
             <div className="CardWrapper">
               <CardAuction data={auctionData} />
@@ -216,11 +211,6 @@ const AccountPage = () => {
             next={itemFetchData}
             hasMore={itemHasMore}
             loader={<h4>Loading...</h4>}
-            endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
-              </p>
-            }
           >
             <div className="CardWrapper">
               <CardItem data={itemData} />

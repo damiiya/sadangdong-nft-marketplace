@@ -325,6 +325,102 @@ export const loadSearchAfterFirstAuctionItem = createAsyncThunk(
       });
   }
 );
+
+// 컬렉션 상세페이지 아이템 첫번째 목록 가져오기
+export const loadFirstCollectionDetailItem = createAsyncThunk(
+  "LOAD_COLLECTION_DETAIL_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/collections/${value.collectionId}?tab=item&_page=1&_limit=12`
+      )
+      .then((response) => {
+        console.log(response);
+        value.setCollectionData(response.data.data);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setCollectionHasMore(false);
+        }
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 컬렉션 상세페이지 아이템 첫번째 이후 목록 가져오기
+export const loadAfterFirstCollectionDetailItem = createAsyncThunk(
+  "LOAD_COLLECTION_DETAIL_AFTER_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/collections/${value.collectionId}?tab=item&_page=${value.collectionPage}&_limit=12`
+      )
+      .then((response) => {
+        value.setCollectionData([
+          ...value.collectionData,
+          ...response.data.data,
+        ]);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setCollectionHasMore(false);
+        }
+        value.setCollectionPage(value.collectionPage + 1);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 컬렉션 상세페이지 경매진행중 첫번째 목록 가져오기
+export const loadFirstCollectionDetailAuctionItem = createAsyncThunk(
+  "LOAD_COLLECTION_DETAIL_AUCTION_ITEM_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/collections/${value.collectionId}?tab=auction&_page=1&_limit=12`
+      )
+      .then((response) => {
+        console.log(response);
+        value.setAuctionData(response.data.data);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setAuctionHasMore(false);
+        }
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 컬렉션 상세페이지 경매진행중 첫번째 이후 목록 가져오기
+export const loadAfterFirstCollectionDetailAuctionItem = createAsyncThunk(
+  "LOAD_COLLECTION_DETAIL_AUCTION_ITEM_AFTER_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/collections/${value.collectionId}?tab=auction&_page=${value.collectionPage}&_limit=12`
+      )
+      .then((response) => {
+        value.setAuctionData([...value.auctionData, ...response.data.data]);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setAuctionHasMore(false);
+        }
+        value.setAuctionPage(value.auctionPage + 1);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
 const itemSlice = createSlice({
   name: "itemSlice",
   initialState: {

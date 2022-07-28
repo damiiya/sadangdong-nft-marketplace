@@ -113,9 +113,9 @@ export const deleteCollection = createAsyncThunk(
 // 컬렉션 상세페이지 가져오기
 export const loadCollectionDetail = createAsyncThunk(
   "LOAD_COLLECTION_DETAIL",
-  async (keyword) => {
+  async (collectionId) => {
     return await axios
-      .get(`${serverUrl}/api/collections/${keyword}`, {
+      .get(`${serverUrl}/api/collections/${collectionId}`, {
         headers: { auth_token: `${token}` },
       })
       .then((response) => {
