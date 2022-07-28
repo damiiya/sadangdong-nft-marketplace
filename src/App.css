@@ -253,6 +253,10 @@ input[id*="answer"]:checked + label + div {
   padding-right: 20px;
 }
 
+.AccordionMyMenu {
+  margin-right: 10px;
+}
+
 .AccordionMenuButton-2 {
   width: 100%;
   height: 4.5rem;
@@ -265,7 +269,6 @@ input[id*="answer"]:checked + label + div {
   white-space: nowrap;
   text-align: center;
   box-sizing: border-box;
-  padding-left: 28px;
 }
 
 /* HeaderDropDown(Avatar부분)  */
@@ -1051,6 +1054,14 @@ input[id*="account"]:checked + label + div {
   line-height: 1.33;
   text-align: center;
   color: #fff;
+}
+
+.CardItemNameRouting {
+  margin-top: 16px;
+}
+
+.CardItemUserRouting {
+  margin-bottom: 8px;
 }
 
 .CardName {

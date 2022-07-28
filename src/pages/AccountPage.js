@@ -19,11 +19,11 @@ import CardItem from "../components/card/CardItem";
 import cart2 from "../assets/icon/cart2.png";
 
 const AccountPage = () => {
+  const dispatch = useDispatch();
   const [category, setCategory] = useState(0);
   const token = sessionStorage.getItem("auth_token");
-  const dispatch = useDispatch();
   const params = useParams();
-  const token_id = params.token_id;
+  const walletAddress = params.token_id;
   const copyLinkRef = useRef();
   const userCollectionData = useSelector((state) => state.user.collection);
 
@@ -40,20 +40,22 @@ const AccountPage = () => {
   useEffect(() => {
     dispatch(
       loadAccountFirstAuctionItem({
-        token_id,
+        walletAddress,
         setAuctionData,
         setAuctionHasMore,
       })
     );
-    dispatch(loadAccountFirstItem({ token_id, setItemData, setItemHasMore }));
-    dispatch(loadAccountCollection(token_id));
+    dispatch(
+      loadAccountFirstItem({ walletAddress, setItemData, setItemHasMore })
+    );
+    dispatch(loadAccountCollection(walletAddress));
   }, []);
 
   // 아이템 추가 데이터 가져오기
   const itemFetchData = () => {
     dispatch(
       loadAccountAfterFirstItem({
-        token_id,
+        walletAddress,
         itemPage,
         itemData,
         setItemData,
@@ -105,9 +107,11 @@ const AccountPage = () => {
             <span className="AuthorName">
               {userCollectionData[0].user_name}
             </span>
-            <a href={`/account/edit/${token}`}>
-              <img className="Icon" src={pencil} />
-            </a>
+            {/* {token === walletAddress && (
+              <a href={`/account/edit/${token}`}>
+                <img className="Icon" src={pencil} />
+              </a>
+            )} */}
           </div>
         </div>
       </div>
@@ -178,7 +182,7 @@ const AccountPage = () => {
                 style={{ visibility: "hidden" }}
                 type="text"
                 ref={copyLinkRef}
-                value={`http:localhost3000/account/${token_id}`}
+                value={`http:localhost3000/account/${walletAddress}`}
               ></input>
               <button className="CollectionTitleButton" onClick={copyTextUrl}>
                 <img className="ButtonIcon" src={share} />

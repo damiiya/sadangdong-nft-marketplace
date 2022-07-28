@@ -33,7 +33,7 @@ export const loadFirstCollection = createAsyncThunk(
       .get(`${serverUrl}/api/explore?tab=collection&_page=1&_limit=12`)
       .then((response) => {
         setCollectionData(response.data.data);
-
+        console.log(response.data.data);
         return response.data.data;
       })
       .catch((error) => {

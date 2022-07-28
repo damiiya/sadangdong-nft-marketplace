@@ -121,14 +121,24 @@ const Header = (userProfile) => {
                   <div className="AccordionAccountMenu">
                     <div className="AccordionCreateitemContainer-1">
                       <img src={user} />
-                      <button className="AccordionMenuAccountButton-1">
-                        <a href={`/account/${token}`}>내 계정</a>
+                      <button className="AccordionMenuButton-2">
+                        <a
+                          className="AccordionMyMenu"
+                          href={`/account/${token}`}
+                        >
+                          나의 NFT
+                        </a>
                       </button>
                     </div>
                     <div className="AccordionCreateitemContainer-2">
                       <img src={cart} />
                       <button className="AccordionMenuButton-2">
-                        <a href="/account/myauction">내 경매목록</a>
+                        <a
+                          className="AccordionMyMenu"
+                          href="/account/myauction"
+                        >
+                          나의 활동
+                        </a>
                       </button>
                     </div>
                   </div>

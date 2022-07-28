@@ -38,7 +38,7 @@ export const loadAccountFirstAuctionItem = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/account/${value.token_id}?tab=auction&_page=1&_limit=12`
+        `${serverUrl}/api/account/${value.walletAddress}?tab=auction&_page=1&_limit=12`
       )
       .then((response) => {
         console.log(response);
@@ -61,7 +61,7 @@ export const loadAccountAfterFirstAuctionItem = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/account/${value.token_id}?tab=auction&_page=${value.auctionPage}&_limit=12`
+        `${serverUrl}/api/account/${value.walletAddress}?tab=auction&_page=${value.auctionPage}&_limit=12`
       )
       .then((response) => {
         value.setAuctionData([...value.auctionData, ...response.data.data]);
@@ -84,7 +84,7 @@ export const loadAccountFirstItem = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/account/${value.token_id}?tab=item&_page=1&_limit=12`
+        `${serverUrl}/api/account/${value.walletAddress}?tab=item&_page=1&_limit=12`
       )
       .then((response) => {
         console.log(response);
@@ -107,7 +107,7 @@ export const loadAccountAfterFirstItem = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/account/${value.token_id}?tab=item&_page=${value.itemPage}&_limit=12`
+        `${serverUrl}/api/account/${value.walletAddress}?tab=item&_page=${value.itemPage}&_limit=12`
       )
       .then((response) => {
         value.setItemData([...value.itemData, ...response.data.data]);
@@ -127,9 +127,9 @@ export const loadAccountAfterFirstItem = createAsyncThunk(
 // 유저 컬렉션 정보 가져오기
 export const loadAccountCollection = createAsyncThunk(
   "LOAD_ACCOUNT_COLLECTION",
-  async (token_id) => {
+  async (walletAddress) => {
     return await axios
-      .get(`${serverUrl}/api/account/${token_id}?tab=collection`, {
+      .get(`${serverUrl}/api/account/${walletAddress}?tab=collection`, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `${token}`,
