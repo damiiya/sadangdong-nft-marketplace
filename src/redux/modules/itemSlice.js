@@ -76,7 +76,10 @@ export const loadAfterFirstItem = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/explore?tab=item&_page=${value.itemPage}&_limit=12`
+        `${serverUrl}/api/explore?tab=item&_page=${value.itemPage}&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
       )
       .then((response) => {
         value.setItemData([...value.itemData, ...response.data.data]);
@@ -96,7 +99,9 @@ export const loadAfterFirstItem = createAsyncThunk(
 // 아이템 리스트 가져오기
 export const loadItemList = createAsyncThunk("LOAD_ITEM_LIST", async () => {
   return await axios
-    .get(`${serverUrl}/api/explore?tab=item`)
+    .get(`${serverUrl}/api/explore?tab=item`, {
+      headers: { authorization: `${token}` },
+    })
     .then((response) => {
       console.log(response.data.data);
       return response.data.data;
@@ -112,9 +117,7 @@ export const loadItemDetail = createAsyncThunk(
   async (token_id) => {
     return await axios
       .get(`${serverUrl}/api/items/${token_id}`, {
-        headers: {
-          authorization: `${token}`,
-        },
+        headers: { authorization: `${token}` },
       })
       .then((response) => {
         console.log(response.data.data);
@@ -187,7 +190,9 @@ export const loadFirstAuctionList = createAsyncThunk(
   "LOAD_FIRST_AUCTION_LIST",
   async (setAuctionData) => {
     return await axios
-      .get(`${serverUrl}/api/explore?tab=auction&_page=1&_limit=12`)
+      .get(`${serverUrl}/api/explore?tab=auction&_page=1&_limit=12`, {
+        headers: { authorization: `${token}` },
+      })
       .then((response) => {
         console.log(response.data.data);
         setAuctionData(response.data.data);
@@ -205,7 +210,10 @@ export const loadAfterAuctionList = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/explore?tab=auction&_page=${value.auctionPage}&_limit=12`
+        `${serverUrl}/api/explore?tab=auction&_page=${value.auctionPage}&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
       )
       .then((response) => {
         value.setAuctionData([...value.auctionData, ...response.data.data]);
@@ -227,7 +235,9 @@ export const AuctionDetail = createAsyncThunk(
   "AUCTION_DETAIL",
   async (token_id) => {
     return await axios
-      .get(`${serverUrl}/api/items/${token_id}`)
+      .get(`${serverUrl}/api/items/${token_id}`, {
+        headers: { authorization: `${token}` },
+      })
       .then((response) => {
         console.log(response.data.data);
         return response.data.data;
@@ -237,6 +247,7 @@ export const AuctionDetail = createAsyncThunk(
       });
   }
 );
+
 
 // 아이템 좋아요 요청 보내기
 export const likeItem = createAsyncThunk("LIKE_ITEM", async (args) => {
@@ -274,6 +285,251 @@ export const loadMain = createAsyncThunk("LOAD_MAIN", async () => {
     });
 });
 
+// 아이템 검색 첫번째 목록 가져오기
+export const loadSearchFirstItem = createAsyncThunk(
+  "LOAD_ITEM_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/search?tab=item&name=${value.keyword}&_page=1&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        value.setItemData(response.data.data);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setItemHasMore(false);
+        }
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 아이템 검색 첫번째 이후 목록 가져오기
+export const loadSearchAfterFirstItem = createAsyncThunk(
+  "LOAD_ITEM_AFTER_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/search?tab=item&name=${value.keyword}&_page=${value.itemPage}&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
+      )
+      .then((response) => {
+        value.setItemData([...value.itemData, ...response.data.data]);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setItemHasMore(false);
+        }
+        value.setItemPage(value.itemPage + 1);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 경매중인 아이템 검색 첫번째 목록 가져오기
+export const loadSearchFirstAuctionItem = createAsyncThunk(
+  "LOAD_SEARCH_AUCTION_ITEM_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/search?tab=auction&name=${value.keyword}&_page=1&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        value.setAuctionData(response.data.data);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setAuctionHasMore(false);
+        }
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 경매중인 아이템 검색 첫번째 이후 목록 가져오기
+export const loadSearchAfterFirstAuctionItem = createAsyncThunk(
+  "LOAD_SEARCH_AUCTION_ITEM_AFTER_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/search?tab=auction&name=${value.keyword}&_page=${value.auctionPage}&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
+      )
+      .then((response) => {
+        value.setAuctionData([...value.auctionData, ...response.data.data]);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setAuctionHasMore(false);
+        }
+        value.setAuctionPage(value.auctionPage + 1);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 컬렉션 상세페이지 아이템 전체 목록 가져오기
+export const loadCollectionDetailItem = createAsyncThunk(
+  "LOAD_COLLECTION_DETAIL_ITEM_LIST",
+  async (collectionId) => {
+    return await axios
+      .get(`${serverUrl}/api/collections/info/${collectionId}?tab=item`, {
+        headers: { authorization: `${token}` },
+      })
+      .then((response) => {
+        console.log(response);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 컬렉션 상세페이지 아이템 첫번째 목록 가져오기
+export const loadFirstCollectionDetailItem = createAsyncThunk(
+  "LOAD_COLLECTION_DETAIL_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/collections/info/${value.collectionId}?tab=item&_page=1&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        value.setItemData(response.data.data);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setItemHasMore(false);
+        }
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 컬렉션 상세페이지 아이템 첫번째 이후 목록 가져오기
+export const loadAfterFirstCollectionDetailItem = createAsyncThunk(
+  "LOAD_COLLECTION_DETAIL_AFTER_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/collections/info/${value.collectionId}?tab=item&_page=${value.itemPage}&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
+      )
+      .then((response) => {
+        value.setItemData([...value.itemData, ...response.data.data]);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setItemHasMore(false);
+        }
+        value.setItemPage(value.itemPage + 1);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 컬렉션 상세페이지 경매진행중 전체목록 가져오기
+export const loadCollectionDetailAuction = createAsyncThunk(
+  "LOAD_COLLECTION_DETAIL_AUCTION_LIST",
+  async (collectionId) => {
+    return await axios
+      .get(`${serverUrl}/api/collections/info/${collectionId}?tab=auction`, {
+        headers: { authorization: `${token}` },
+      })
+      .then((response) => {
+        console.log(response);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 컬렉션 상세페이지 경매진행중 첫번째 목록 가져오기
+export const loadFirstCollectionDetailAuctionItem = createAsyncThunk(
+  "LOAD_COLLECTION_DETAIL_AUCTION_ITEM_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/collections/info/${value.collectionId}?tab=auction&_page=1&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        value.setAuctionData(response.data.data);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setAuctionHasMore(false);
+        }
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 컬렉션 상세페이지 경매진행중 첫번째 이후 목록 가져오기
+export const loadAfterFirstCollectionDetailAuctionItem = createAsyncThunk(
+  "LOAD_COLLECTION_DETAIL_AUCTION_ITEM_AFTER_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/collections/info/${value.collectionId}?tab=auction&_page=${value.collectionPage}&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
+      )
+      .then((response) => {
+        value.setAuctionData([...value.auctionData, ...response.data.data]);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setAuctionHasMore(false);
+        }
+        value.setAuctionPage(value.auctionPage + 1);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+
 const itemSlice = createSlice({
   name: "itemSlice",
   initialState: {
@@ -290,9 +546,17 @@ const itemSlice = createSlice({
     [loadItemDetail.fulfilled]: (state, action) => {
       state.itemDetail = action.payload;
     },
+
     [loadMain.fulfilled]: (state, action) => {
       state.mainAuction = action.payload.auction_item;
       state.mainSeller = action.payload.ranking;
+
+    [loadCollectionDetailItem.fulfilled]: (state, action) => {
+      state.collectionitem = action.payload;
+    },
+    [loadCollectionDetailAuction.fulfilled]: (state, action) => {
+      state.collectionauction = action.payload;
+
     },
   },
 });

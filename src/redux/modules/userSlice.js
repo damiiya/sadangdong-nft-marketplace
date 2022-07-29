@@ -32,19 +32,165 @@ export const createAccount = createAsyncThunk(
   }
 );
 
-// 유저 컬렉션 정보 가져오기
-export const loadAccountCollection = createAsyncThunk(
-  "LOAD_ACCOUNT_COLLECTION",
-  async (token_id) => {
+// 유저페이지 유저 정보 가져오기
+export const loadAccountInfo = createAsyncThunk(
+  "LOAD_ACCOUNT_INFO",
+  async (walletAddress) => {
     return await axios
-      .get(`${serverUrl}/api/account/${token_id}?tab=collection`, {
+      .get(`${serverUrl}/api/account/info/${walletAddress}`, {
         headers: {
           "Content-Type": "multipart/form-data",
           authorization: `${token}`,
         },
       })
       .then((response) => {
-        console.log(response.data.data);
+        console.log(response.data);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 컬렉션페이지 유저 정보 가져오기
+export const loadAccountInfoCollection = createAsyncThunk(
+  "LOAD_ACCOUNT_INFO_COLLECTION",
+  async (collectionId) => {
+    return await axios
+      .get(`${serverUrl}/api/collections/${collectionId}`, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: `${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 유저 경매중인 아이템 첫번째 목록 가져오기
+export const loadAccountFirstAuctionItem = createAsyncThunk(
+  "LOAD_ACCOUNT_AUCTION_ITEM_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/account/${value.walletAddress}?tab=auction&_page=1&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        value.setAuctionData(response.data.data);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setAuctionHasMore(false);
+        }
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 유저 경매중인 아이템 첫번째 이후 목록 가져오기
+export const loadAccountAfterFirstAuctionItem = createAsyncThunk(
+  "LOAD_ACCOUNT_AUCTION_ITEM_AFTER_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/account/${value.walletAddress}?tab=auction&_page=${value.auctionPage}&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
+      )
+      .then((response) => {
+        value.setAuctionData([...value.auctionData, ...response.data.data]);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setAuctionHasMore(false);
+        }
+        value.setAuctionPage(value.auctionPage + 1);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 유저 아이템 첫번째 목록 가져오기
+export const loadAccountFirstItem = createAsyncThunk(
+  "LOAD_ACCOUNT_ITEM_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/account/${value.walletAddress}?tab=item&_page=1&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        value.setItemData(response.data.data);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setItemHasMore(false);
+        }
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 유저 아이템 첫번째 이후 목록 가져오기
+export const loadAccountAfterFirstItem = createAsyncThunk(
+  "LOAD_ACCOUNT_ITEM_AFTER_FIRST_LIST",
+  async (value) => {
+    return await axios
+      .get(
+        `${serverUrl}/api/account/${value.walletAddress}?tab=item&_page=${value.itemPage}&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
+      )
+      .then((response) => {
+        value.setItemData([...value.itemData, ...response.data.data]);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setItemHasMore(false);
+        }
+        value.setItemPage(value.itemPage + 1);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 유저 컬렉션 정보 가져오기
+export const loadAccountCollection = createAsyncThunk(
+  "LOAD_ACCOUNT_COLLECTION",
+  async (walletAddress) => {
+    return await axios
+      .get(`${serverUrl}/api/account/${walletAddress}?tab=collection`, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: `${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
         return response.data.data;
       })
       .catch((error) => {
@@ -77,11 +223,17 @@ const userSlice = createSlice({
   initialState: {},
   reducers: [],
   extraReducers: {
-    [createAccount.fulfilled]: (state, action) => {
-      state.account = action.payload;
-    },
+    // [createAccount.fulfilled]: (state, action) => {
+    //   state.account = action.payload;
+    // },
     [loadAccountCollection.fulfilled]: (state, action) => {
       state.collection = action.payload;
+    },
+    [loadAccountInfo.fulfilled]: (state, action) => {
+      state.account = action.payload;
+    },
+    [loadAccountInfoCollection.fulfilled]: (state, action) => {
+      state.userInfo = action.payload;
     },
   },
 });

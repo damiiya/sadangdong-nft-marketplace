@@ -18,7 +18,7 @@ import SellingItemPage from "./pages/SellingItemPage";
 import ApprovedAdminPage from "./pages/ApprovedAdminPage";
 import RejectedAdminPage from "./pages/RejectedAdminPage";
 import EditAccountPage from "./pages/EditAccountPage";
-import MyAuctionPage from "./pages/MyAuctionPage";
+import MyActivityPage from "./pages/MyActivityPage";
 import Footer from "./components/main/Footer";
 
 function App() {
@@ -53,7 +53,10 @@ function App() {
         {/* 유저페이지 */}
         <Route path="account/:token_id" element={<AccountPage />} />
         <Route path="account/edit/:token_id" element={<EditAccountPage />} />
-        <Route path="account/myauction" element={<MyAuctionPage />} />
+        <Route
+          path="account/myactivity/:token_id"
+          element={<MyActivityPage />}
+        />
         <Route path="account/sell/:token_id" element={<SellingItemPage />} />
 
         {/* 관리자페이지 */}

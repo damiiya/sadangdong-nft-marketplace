@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef } from "react";
+import { clientUrl } from "../../shared/api";
+
 import { useParams } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import heartoff from "../../assets/icon/heartoff.png";
@@ -14,6 +16,7 @@ const ItemDetail = (props) => {
   const user = props.data.address;
   const params = useParams();
   const token_id = params.token_id;
+
   const dispatch = useDispatch();
 
   const [like, setLike] = useState(props.data.favorites);
@@ -34,6 +37,19 @@ const ItemDetail = (props) => {
       setLikeCount(props.data.favorites_count);
     }
   }, []);
+
+
+  const copyLinkRef = useRef();
+
+  // Url 복사 함수
+  const copyTextUrl = () => {
+    copyLinkRef.current.focus();
+    copyLinkRef.current.select();
+
+    navigator.clipboard.writeText(copyLinkRef.current.value).then(() => {
+      alert("링크를 복사했습니다.");
+    });
+  };
 
   return (
     <>
@@ -82,9 +98,17 @@ const ItemDetail = (props) => {
             </div>
             <div className="ItemButtons">
               <div className="ShareButtonAndIcon">
-                <button className="ShareButton">Share</button>
+                <button className="ShareButton" onClick={copyTextUrl}>
+                  Share
+                </button>
                 <IosShareIcon className="ShareIcon" />
               </div>
+              <input
+                style={{ visibility: "hidden", width: "0", height: "0" }}
+                type="text"
+                ref={copyLinkRef}
+                value={`${clientUrl}/detail/item/${token_id}`}
+              ></input>
               {token === user ? (
                 <>
                   <a href={`/edititem/${token_id}`}>

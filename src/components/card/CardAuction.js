@@ -8,7 +8,12 @@ const CardAuction = (props) => {
       {props.data.map((val, i) => (
         <div className="CardAuctionContainer" key={i}>
           <div className="CardImageWrapper">
-            <img className="CardCollectionImage" src={val.image} />
+            <a
+              className="CardItemNameRouting"
+              href={`/detail/item/${val.token_id}`}
+            >
+              <img className="CardCollectionImage" src={val.image} />
+            </a>
           </div>
           <div className="CardItemWrapper">
             <div className="CardAuctionTime">
@@ -17,8 +22,15 @@ const CardAuction = (props) => {
                 <span className="TimeLimit">경매 종료 시간 {val.ended_at}</span>
               </div>
             </div>
-            <span className="CardName">{val.name}</span>
-            <span className="CardUserName">by {val.user_name}</span>
+            <a
+              className="CardItemNameRouting"
+              href={`/detail/item/${val.token_id}`}
+            >
+              <span className="CardName">{val.name}</span>
+            </a>
+            <a className="CardItemUserRouting" href={`/account/${val.address}`}>
+              <span className="CardUserName">by {val.user_name}</span>
+            </a>
             <div className="HeartWrap">
               <img className="Heart" src={heart} />
               <span className="HeartCount">{val.count}</span>

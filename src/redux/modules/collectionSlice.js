@@ -25,7 +25,7 @@ export const createCollection = createAsyncThunk(
   }
 );
 
-// 컬렉션 첫번째 목록 가져오기
+// All NFT 컬렉션 첫번째 목록 가져오기
 export const loadFirstCollection = createAsyncThunk(
   "LOAD_COLLECTION_FIRST_LIST",
   async (setCollectionData) => {
@@ -35,6 +35,7 @@ export const loadFirstCollection = createAsyncThunk(
       .then((response) => {
         console.log(3);
         setCollectionData(response.data.data);
+        console.log(response.data.data);
         return response.data.data;
       })
       .catch((error) => {
@@ -43,7 +44,7 @@ export const loadFirstCollection = createAsyncThunk(
   }
 );
 
-// 컬렉션 첫번째 이후 목록 가져오기
+// All NFT 컬렉션 첫번째 이후 목록 가져오기
 export const loadAfterFirstCollection = createAsyncThunk(
   "LOAD_COLLECTION_AFTER_FIRST_LIST",
   async (value) => {
@@ -114,9 +115,9 @@ export const deleteCollection = createAsyncThunk(
 // 컬렉션 상세페이지 가져오기
 export const loadCollectionDetail = createAsyncThunk(
   "LOAD_COLLECTION_DETAIL",
-  async (keyword) => {
+  async (collectionId) => {
     return await axios
-      .get(`${serverUrl}/api/collections/${keyword}`, {
+      .get(`${serverUrl}/api/collections/${collectionId}`, {
         headers: { auth_token: `${token}` },
       })
       .then((response) => {
@@ -128,33 +129,21 @@ export const loadCollectionDetail = createAsyncThunk(
   }
 );
 
-// 컬렉션 검색하기
-export const loadCollectionSearch = createAsyncThunk(
-  "LOAD_COLLECTION_Search",
-  async (keyword) => {
-    return await axios
-      .get(`${serverUrl}/api/search?tab=collection&name=${keyword}`)
-      .then((response) => {
-        console.log(response.data);
-        return response.data.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-);
-
 // 컬렉션 검색 첫번째 목록 가져오기
 export const loadSearchFirstCollection = createAsyncThunk(
   "LOAD_COLLECTION_FIRST_LIST",
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/search?tab=colleciton&name=${value.keyword}&_page=1&_limit=12`
+        `${serverUrl}/api/search?tab=collection&name=${value.keyword}&_page=1&_limit=12`
       )
       .then((response) => {
         console.log(response);
         value.setCollectionData(response.data.data);
+
+        if (response.data.data.length === 0 || response.data.data.length < 12) {
+          value.setCollectionHasMore(false);
+        }
         return response.data.data;
       })
       .catch((error) => {
@@ -169,7 +158,7 @@ export const loadSearchAfterFirstCollection = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/search?tab=colleciton&name=${value.keyword}&_page=${value.page}&_limit=12`
+        `${serverUrl}/api/search?tab=collection&name=${value.keyword}&_page=${value.collectionPage}&_limit=12`
       )
       .then((response) => {
         value.setCollectionData([
@@ -178,9 +167,9 @@ export const loadSearchAfterFirstCollection = createAsyncThunk(
         ]);
 
         if (response.data.data.length === 0 || response.data.data.length < 12) {
-          value.sethasMore(false);
+          value.setCollectionHasMore(false);
         }
-        value.setpage(value.page + 1);
+        value.setCollectionPage(value.collectionPage + 1);
         return response.data.data;
       })
       .catch((error) => {
@@ -196,10 +185,6 @@ const collectionSlice = createSlice({
   extraReducers: {
     [loadCollectionDetail.fulfilled]: (state, action) => {
       state.collectionDetail = action.payload;
-    },
-    [loadCollectionSearch.fulfilled]: (state, action) => {
-      console.log(action);
-      state.collectionSearch = action.payload;
     },
   },
 });

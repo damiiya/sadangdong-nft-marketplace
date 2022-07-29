@@ -6,21 +6,29 @@ const CardItem = (props) => {
   return (
     <>
       {props.data.map((val, i) => (
-        <Link to={`/detail/item/${val.token_id}`}>
-          <div key={val.token_id} className="CardItemContainer">
-            <div className="CardImageWrapper">
+        <div key={val.token_id} className="CardItemContainer">
+          <div className="CardImageWrapper">
+            <a href={`/detail/item/${val.token_id}`}>
               <img className="CardCollectionImage" src={val.image} />
-            </div>
-            <div className="CardItemWrapper">
+            </a>
+          </div>
+          <div className="CardItemWrapper">
+            <a
+              className="CardItemNameRouting"
+              href={`/detail/item/${val.token_id}`}
+            >
               <span className="CardName">{val.name}</span>
+            </a>
+            <a className="CardItemUserRouting" href={`/account/${val.address}`}>
               <span className="CardUserName">by {val.user_name}</span>
               <div className="HeartWrap">
                 <img className="Heart" src={heart} />
                 <span className="HeartCount">{val.count}</span>
               </div>
+
             </div>
           </div>
-        </Link>
+        </div>
       ))}
     </>
   );
