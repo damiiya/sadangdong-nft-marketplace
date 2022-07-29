@@ -25,7 +25,7 @@ export const createCollection = createAsyncThunk(
   }
 );
 
-// 컬렉션 첫번째 목록 가져오기
+// All NFT 컬렉션 첫번째 목록 가져오기
 export const loadFirstCollection = createAsyncThunk(
   "LOAD_COLLECTION_FIRST_LIST",
   async (setCollectionData) => {
@@ -42,7 +42,7 @@ export const loadFirstCollection = createAsyncThunk(
   }
 );
 
-// 컬렉션 첫번째 이후 목록 가져오기
+// All NFT 컬렉션 첫번째 이후 목록 가져오기
 export const loadAfterFirstCollection = createAsyncThunk(
   "LOAD_COLLECTION_AFTER_FIRST_LIST",
   async (value) => {
