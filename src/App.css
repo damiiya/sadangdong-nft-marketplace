@@ -2963,7 +2963,13 @@ input[id*="CheckBox"] + label + div {
   margin-right: 80px;
 } */
 
-/* myactivity */
+/* MyActivity */
+
+.MyActivityCategoryContainer {
+  width: 75%;
+  height: auto;
+  margin: 80px 240px 40px 240px;
+}
 
 .MyAuctionPageContentTitleWrapper {
   width: 75%;
