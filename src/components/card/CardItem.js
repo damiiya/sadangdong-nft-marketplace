@@ -16,7 +16,7 @@ const CardItem = (props) => {
               <span className="CardUserName">by {val.user_name}</span>
               <div className="HeartWrap">
                 <img className="Heart" src={heart} />
-                <span className="HeartCount">{val.favorites_count}</span>
+                <span className="HeartCount">{val.count}</span>
               </div>
             </div>
           </div>

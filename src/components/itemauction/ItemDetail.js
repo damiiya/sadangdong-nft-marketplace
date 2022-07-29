@@ -1,15 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Avatar } from "@mui/material";
-import heart from "../../assets/icon/heart.png";
+import heartoff from "../../assets/icon/heartoff.png";
+import hearton from "../../assets/icon/hearton.png";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import EditIcon from "@mui/icons-material/Edit";
+import { likeItem } from "../../redux/modules/itemSlice";
+import { useDispatch } from "react-redux";
 
 const ItemDetail = (props) => {
+  console.log(props.data.data);
   const token = sessionStorage.getItem("auth_token");
   const user = props.data.address;
   const params = useParams();
   const token_id = params.token_id;
+  const dispatch = useDispatch();
+
+  const [like, setLike] = useState(props.data.favorites);
+  const [likeCount, setLikeCount] = useState(props.data.favorites_count);
+
+  const handleLike = () => {
+    console.log(like);
+    if (token) {
+      setLike((like) => !like);
+      setLikeCount((likeCount) => (like ? likeCount - 1 : likeCount + 1));
+      dispatch(likeItem({ token_id: token_id, like: like }));
+    }
+  };
+
+  useEffect(() => {
+    if (props.data.favorites == 1) {
+      setLike(true);
+      setLikeCount(props.data.favorites_count);
+    }
+  }, []);
+
   return (
     <>
       <div className="ItemContainer">
@@ -19,9 +44,11 @@ const ItemDetail = (props) => {
           </div>
           <div className="ItemInfoContainer">
             <div className="SellInfo">
-              <div className="HeartWrap">
-                <img className="Heart" src={heart} />
-                <span className="HeartCount">{props.data.favorites_count}</span>
+              <div className="HeartWrap" onClick={handleLike}>
+                <img className="Heart" src={like ? hearton : heartoff} />
+                <span className="HeartCount">
+                  {likeCount == 1 ? likeCount : likeCount}
+                </span>
               </div>
               <div className="SellItemNameWrapper">
                 <span className="ItemDetailName">{props.data.name}</span>
@@ -30,6 +57,12 @@ const ItemDetail = (props) => {
                 <span className="SellCollectionSpan">Collection</span>
                 <span className="ItemCollectionName">
                   {props.data.collection_name}
+                </span>
+              </div>
+              <div className="SellCollectionInfo">
+                <span className="SellCollectionSpan">owned by</span>
+                <span className="ItemCollectionName">
+                  {/* {props.data.owner} */}
                 </span>
               </div>
             </div>

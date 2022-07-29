@@ -16,9 +16,6 @@ const address = sessionStorage.getItem("auth_token");
 const name = sessionStorage.getItem("user_nickname");
 const server = `${serverUrl}/hello`;
 
-// const server = `${serverUrl}/chat`;
-// const socket = io.connect("http://3.88.21.23:3001/chat");
-
 const Chat = (props) => {
   const auction_id = props.data.data.auction_id;
   const [message, setMessage] = useState("");
@@ -28,6 +25,7 @@ const Chat = (props) => {
 
   // 1.auction_id로 채팅창 생성
   useEffect(() => {
+    console.log(10);
     socket = io(server);
     socket.emit("joinRoom", `${auction_id}`, (error) => {
       console.log("error");
@@ -35,30 +33,30 @@ const Chat = (props) => {
         alert(error);
       }
     });
-  }, [socket]);
+  }, []);
 
   // 3. data 받아오기
   useEffect(() => {
+    console.log(3);
     socket.on("recMessage", (data) => {
       console.log(data);
-      setMessages([...messages, message]);
+      setMessages((list) => [...list, data]);
     });
-  }, []);
+  }, [socket]);
 
   // 2. data 보내기
-  const sendMessage = (e) => {
-    console.log(auction_id);
-    console.log(address);
-    console.log(name);
-    console.log(message);
-
-    if (message && address) {
-      socket.emit("sendMessage", {
+  const sendMessage = async (e) => {
+    if (message !== "") {
+      const data = {
         auction_id: auction_id,
         address: address,
         name: name,
         message: message,
-      });
+      };
+      console.log(1);
+      await socket.emit("sendMessage", data);
+      console.log(2);
+      setMessage("");
     }
   };
 
@@ -66,8 +64,10 @@ const Chat = (props) => {
     <div className="AuctionChattingContainer">
       <div className="AuctionDisplayContainer">
         <ul className="ChatLists">
-          {messages.map((msg, i) => (
-            <Message key={i} message={message} name={name} />
+          {messages.map((list, i) => (
+            <div key={i}>
+              <Message message={list.message} name={list.name} />
+            </div>
           ))}
         </ul>
       </div>
@@ -76,12 +76,13 @@ const Chat = (props) => {
           <input
             className="AuctionChattingInput"
             placeholder="메세지를 입력해주세요."
+            type="text"
             value={message}
             onChange={(e) => {
               setMessage(e.target.value);
             }}
-            onKeyDown={(e) => {
-              e.key === "Enter" && sendMessage();
+            onKeyDown={(event) => {
+              event.key === "Enter" && sendMessage();
             }}
           />
           <img className="UpArrowImg" src={uparrow} onClick={sendMessage} />

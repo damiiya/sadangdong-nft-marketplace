@@ -111,7 +111,11 @@ export const loadItemDetail = createAsyncThunk(
   "LOAD_ITEM_DETAIL",
   async (token_id) => {
     return await axios
-      .get(`${serverUrl}/api/items/${token_id}`)
+      .get(`${serverUrl}/api/items/${token_id}`, {
+        headers: {
+          authorization: `${token}`,
+        },
+      })
       .then((response) => {
         console.log(response.data.data);
         return response.data.data;
@@ -234,6 +238,42 @@ export const AuctionDetail = createAsyncThunk(
   }
 );
 
+// 아이템 좋아요 요청 보내기
+export const likeItem = createAsyncThunk("LIKE_ITEM", async (args) => {
+  const response = await axios
+    .put(`${serverUrl}/api/favorites/${args.token_id}`, args.like, {
+      headers: {
+        // "Content-Type": "application/json",
+        authorization: `${token}`,
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+});
+
+// 메인 페이지 요청 보내기
+export const loadMain = createAsyncThunk("LOAD_MAIN", async () => {
+  return await axios
+    .get(`${serverUrl}/api/main`, {
+      headers: {
+        authorization: `${token}`,
+      },
+    })
+    .then((response) => {
+      console.log(response.data.data);
+      console.log("메인페이지 불러오기");
+      return response.data.data;
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+});
+
 const itemSlice = createSlice({
   name: "itemSlice",
   initialState: {
@@ -249,6 +289,10 @@ const itemSlice = createSlice({
     },
     [loadItemDetail.fulfilled]: (state, action) => {
       state.itemDetail = action.payload;
+    },
+    [loadMain.fulfilled]: (state, action) => {
+      state.mainAuction = action.payload.auction_item;
+      state.mainSeller = action.payload.ranking;
     },
   },
 });

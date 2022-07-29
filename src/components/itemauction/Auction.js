@@ -11,6 +11,7 @@ import Offer from "./Offer";
 // "recOffer": 서버에서 데이터 받아오기
 // "sendOffer": 서버에 요청 보내기
 // address, price, mycoin, auction_id
+// time, name, price, bidding
 
 // 경매용 소켓연결
 let socket;
@@ -32,15 +33,16 @@ const Auction = (props) => {
         alert(error);
       }
     });
-  }, [socket]);
+  }, []);
 
   // 3. data 받아오기
   useEffect(() => {
+    console.log(3);
     socket.on("recOffer", (data) => {
       console.log(data);
-      setOffers([...offers, price]);
+      setOffers((list) => [...list, data]);
     });
-  }, []);
+  }, [socket]);
 
   // 2. data 보내기
   const sendOffer = async (e) => {
@@ -57,12 +59,13 @@ const Auction = (props) => {
       console.log(mycoin);
 
       if (price && address) {
-        socket.emit("sendOffer", {
+        const data = {
           auction_id: auction_id,
           address: address,
           price: price,
           mycoin: mycoin,
-        });
+        };
+        await socket.emit("sendOffer", data);
       }
     } catch (err) {
       console.log(err);
@@ -96,18 +99,17 @@ const Auction = (props) => {
                 <input
                   className="ItemAuctionPriceInput"
                   placeholder="0.00"
+                  type="number"
+                  max="100"
+                  min="0"
+                  step="any"
                   value={price}
                   onChange={(e) => {
                     setPrice(e.target.value);
                   }}
                 />
                 <span className="AuctionBidInputEth">ETH</span>
-                <button
-                  className="AuctionBidButton"
-                  onClick={() => {
-                    sendOffer();
-                  }}
-                >
+                <button className="AuctionBidButton" onClick={sendOffer}>
                   입찰
                 </button>
               </div>
