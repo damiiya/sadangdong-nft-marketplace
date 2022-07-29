@@ -528,6 +528,24 @@ export const loadAfterFirstCollectionDetailAuctionItem = createAsyncThunk(
   }
 );
 
+// 나의 활동페이지 찜한 아이템 목록 가져오기
+export const loadMyLikeItem = createAsyncThunk(
+  "LOAD_MY_LIKE_ITEM",
+  async (token) => {
+    return await axios
+      .get(`${serverUrl}/api/account/${token}?tab=favorites`, {
+        headers: { authorization: `${token}` },
+      })
+      .then((response) => {
+        console.log(response.data.data);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
 const itemSlice = createSlice({
   name: "itemSlice",
   initialState: {
@@ -554,6 +572,10 @@ const itemSlice = createSlice({
     },
     [loadCollectionDetailAuction.fulfilled]: (state, action) => {
       state.collectionauction = action.payload;
+    },
+    [loadMyLikeItem.fulfilled]: (state, action) => {
+      console.log(action);
+      state.mylikeitem = action.payload;
     },
   },
 });
