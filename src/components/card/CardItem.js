@@ -21,10 +21,11 @@ const CardItem = (props) => {
             </a>
             <a className="CardItemUserRouting" href={`/account/${val.address}`}>
               <span className="CardUserName">by {val.user_name}</span>
-            </a>
-            <div className="HeartWrap">
-              <img className="Heart" src={heart} />
-              <span className="HeartCount">{val.favorites_count}</span>
+              <div className="HeartWrap">
+                <img className="Heart" src={heart} />
+                <span className="HeartCount">{val.count}</span>
+              </div>
+
             </div>
           </div>
         </div>

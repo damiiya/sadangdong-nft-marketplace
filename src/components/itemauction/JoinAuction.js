@@ -5,7 +5,7 @@ const JoinAuction = (props) => {
   const params = useParams();
   const token_id = params.token_id;
 
-  const clock = props.data.ended_at.split(":");
+  const clock = props.data.remained_at.split(":");
   const hour = clock[0];
   const minute = clock[1];
   const second = clock[2];

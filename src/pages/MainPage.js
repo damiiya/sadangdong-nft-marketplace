@@ -1,5 +1,6 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import MainCard from "../components/main/MainCard";
 import TeamInfo from "../components/main/TeamInfo";
 import { Avatar } from "@mui/material";
@@ -15,14 +16,29 @@ import i4 from "../assets/itemsample/i4.png";
 import i5 from "../assets/itemsample/i5.png";
 import i6 from "../assets/itemsample/i6.png";
 import viewarrow from "../assets/icon/viewarrow.png";
+import { loadMain } from "../redux/modules/itemSlice";
 
 import Marquee from "react-fast-marquee";
 
 const MainPage = () => {
-  const navigate = useNavigate();
-  const toAuction = () => {
-    navigate("/list/auctionlist");
-  };
+  const dispatch = useDispatch();
+  const [isLoad, setIsLoad] = useState(false);
+  const mainAuction = useSelector((state) => state.item.mainAuction);
+  const mainSeller = useSelector((state) => state.item.mainSeller);
+
+  useEffect(() => {
+    dispatch(loadMain());
+  }, []);
+
+  useEffect(() => {
+    if (mainAuction && mainSeller) {
+      setIsLoad(true);
+    }
+  }, [mainAuction, mainSeller]);
+
+  if (!isLoad) {
+    return null;
+  }
 
   return (
     <div className="MainContainer">
@@ -71,16 +87,27 @@ const MainPage = () => {
 
       <div className="TitleWrapper">
         <span className="TitleLetter">경매 진행중 아이템</span>
-        <div className="ButtonWrap" onClick={toAuction}>
-          <span className="View">View All</span>
-          <img className="Arrow" src={viewarrow}></img>
-        </div>
+        <Link to={"/list/auctionlist"}>
+          <div className="ButtonWrap">
+            <span className="View">View All</span>
+            <img className="Arrow" src={viewarrow}></img>
+          </div>
+        </Link>
       </div>
       <div className="MainCardWrapper">
-        <MainCard />
-        <MainCard />
-        <MainCard />
-        <MainCard />
+        {mainAuction.map((list, i) => (
+          <div key={i}>
+            <MainCard
+              image={list.image}
+              ended_at={list.ended_at}
+              name={list.name}
+              user_name={list.user_name}
+              count={list.count}
+              price={list.price}
+              token_id={list.token_id}
+            />
+          </div>
+        ))}
       </div>
       <div className="MainContainer2">
         <div className="TitleWrapper" style={{ justifyContent: "center" }}>

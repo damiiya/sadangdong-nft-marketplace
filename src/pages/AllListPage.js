@@ -35,6 +35,7 @@ const AllListPage = () => {
   const [auctionPage, setAuctionPage] = useState(2);
 
   useEffect(() => {
+    console.log(1);
     dispatch(loadFirstCollection(setCollectionData));
     dispatch(loadFirstItem(setItemData));
     dispatch(loadFirstAuctionList(setAuctionData));

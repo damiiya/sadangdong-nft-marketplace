@@ -169,6 +169,12 @@ const CreateItemPage = () => {
     }
   }, [collectionName]);
 
+  // useEffect(() => {
+  //   if (!tokenID && tokenURI && ImgHash) {
+  //     return <Spinner />;
+  //   }
+  // }, [tokenID, tokenURI, ImgHash]);
+
   if (!isLoad) {
     return null;
   } else {

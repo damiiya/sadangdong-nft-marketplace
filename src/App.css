@@ -29,6 +29,15 @@ button {
   padding-bottom: 40px;
 }
 
+/* spinner */
+.Spinner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* header */
 .HeaderContainer {
   width: 100%;
@@ -413,8 +422,6 @@ input[id*="account"]:checked + label + div {
   color: #111;
 }
 
-/* Banner */
-
 /* MainPage */
 .MainContainer {
   width: 100%;
@@ -597,29 +604,29 @@ input[id*="account"]:checked + label + div {
 .TeamBackground {
   width: 100%;
   height: 883px;
-  object-fit: cover;
-  background-image: url(assets/team/teambackground.png);
+  background-color: #001c96;
 }
 
-.TeamImageWrap {
-  margin-bottom: 24px;
+.TitleWrapperTeam {
+  width: 75%;
+  margin: 0 240px 100px;
+  display: flex;
+  justify-content: center;
 }
 
-.TeamImageBack {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background-color: #dcd2d8;
-  margin: -170px 0 0 0;
+.TitleLetterTeam {
+  width: auto;
+  height: auto;
+  margin: 200px 0 0 0;
+  font-size: 56px;
+  font-weight: bold;
+  line-height: 1;
+  text-align: left;
+  color: #fff;
 }
 
-.TeamPosition {
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 1.5;
-  text-align: center;
-  color: #111;
-  margin-bottom: 120px;
+.TeamWrap {
+  margin: 0 240px;
 }
 
 /* SearchListPage */
@@ -986,9 +993,10 @@ input[id*="account"]:checked + label + div {
   width: 342px;
   height: 614px;
   border-radius: 16px;
-  border: solid 2px #111;
+  border: solid 2px #001c96;
   display: inline-block;
-  background-color: #111;
+  background-color: #fff;
+  box-shadow: #001c96 10px 10px;
 }
 
 .CardCollectionImageWrapper {
@@ -1035,7 +1043,7 @@ input[id*="account"]:checked + label + div {
   height: auto;
   display: flex;
   justify-content: center;
-  margin: 15px 63px;
+  margin: 15px 0px;
 }
 
 .TimeLimit {
@@ -1053,7 +1061,7 @@ input[id*="account"]:checked + label + div {
   font-weight: bold;
   line-height: 1.33;
   text-align: center;
-  color: #fff;
+  color: #001c96;
 }
 
 .CardItemNameRouting {
@@ -1083,7 +1091,7 @@ input[id*="account"]:checked + label + div {
   font-weight: bold;
   line-height: 1.25;
   text-align: center;
-  color: #fff;
+  color: #001c96;
 }
 
 .CardUserName {
@@ -1101,7 +1109,7 @@ input[id*="account"]:checked + label + div {
   font-weight: normal;
   line-height: 1.43;
   text-align: center;
-  color: #fff;
+  color: #001c96;
 }
 
 .CardCollectionDescription {
@@ -1140,7 +1148,7 @@ input[id*="account"]:checked + label + div {
   font-weight: bold;
   line-height: 1.25;
   text-align: left;
-  color: #fff;
+  color: #60d329;
 }
 
 .CurrentAuctionValue {
@@ -1184,6 +1192,8 @@ input[id*="account"]:checked + label + div {
 .ItemImage {
   max-width: 100%;
   max-height: 560px;
+  border-radius: 16px;
+  object-fit: cover;
 }
 
 .ItemInfoContainer {
@@ -1221,7 +1231,7 @@ input[id*="account"]:checked + label + div {
   font-weight: bold;
   line-height: 1;
   text-align: center;
-  color: #fff;
+  color: #001c96;
 }
 
 .SellItemNameWrapper {
@@ -1277,7 +1287,7 @@ input[id*="account"]:checked + label + div {
   display: flex;
   align-items: center;
   position: relative;
-  right: 30px;
+  right: 60px;
 }
 
 .SellDescriptionAvatar {
@@ -1868,24 +1878,21 @@ input[id*="account"]:checked + label + div {
   background: transparent;
   display: flex;
   flex-direction: column-reverse;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 .ChatLists {
-  padding-inline-end: 40px;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
 }
 
 .ChatLists li {
   width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  margin: 24px 0;
-}
-
-.ChatWrap {
-  display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .ChatUser {
@@ -1893,6 +1900,7 @@ input[id*="account"]:checked + label + div {
   font-size: 14px;
   text-align: left;
   color: #fff;
+  margin-top: 16px;
 }
 
 .ChatMsg {
@@ -1900,14 +1908,14 @@ input[id*="account"]:checked + label + div {
   padding: 12px 16px;
   max-width: 90%;
   font-size: 16px;
-  margin-top: 8px;
+  margin-top: 4px;
   text-align: left;
   color: #111;
 }
 
-/* .sent {
-  align-items: flex-end;
-} */
+.sent {
+  align-self: flex-end;
+}
 
 .Sent .ChatMsg {
   background-color: #c5ff49;

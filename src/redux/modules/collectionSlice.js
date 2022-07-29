@@ -29,9 +29,11 @@ export const createCollection = createAsyncThunk(
 export const loadFirstCollection = createAsyncThunk(
   "LOAD_COLLECTION_FIRST_LIST",
   async (setCollectionData) => {
+    console.log(2);
     return await axios
       .get(`${serverUrl}/api/explore?tab=collection&_page=1&_limit=12`)
       .then((response) => {
+        console.log(3);
         setCollectionData(response.data.data);
         console.log(response.data.data);
         return response.data.data;
