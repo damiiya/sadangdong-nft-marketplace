@@ -18,6 +18,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useParams } from "react-router-dom";
 
 const CollectionPage = () => {
+  const token = sessionStorage.getItem("auth_token");
   const copyLinkRef = useRef();
   const dispatch = useDispatch();
   const params = useParams();
@@ -149,10 +150,12 @@ const CollectionPage = () => {
             <img className="ButtonIcon" src={share} />
             Share
           </button>
-          <button className="CollectionTitleButton">
-            <img className="ButtonIcon" src={pencil} />
-            <a href={`/editcollection/${collectionId}`}>Collection Edit</a>
-          </button>
+          {token === userInfo.address && (
+            <button className="CollectionTitleButton">
+              <img className="ButtonIcon" src={pencil} />
+              <a href={`/editcollection/${collectionId}`}>Collection Edit</a>
+            </button>
+          )}
         </div>
       </div>
       <div className="CollectionDescriptionWrapper">

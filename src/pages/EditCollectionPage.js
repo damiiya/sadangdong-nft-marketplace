@@ -18,6 +18,9 @@ const EditCollectionPage = (props) => {
   const commission = useRef();
   const params = useParams();
   const collectionId = params.collectionId;
+  const collectionDetail = useSelector(
+    (state) => state.collection.collectionDetail
+  );
 
   const [imageSrc, setImageSrc] = useState(false);
 
@@ -89,9 +92,7 @@ const EditCollectionPage = (props) => {
     dispatch(loadCollectionDetail(collectionId));
   }, []);
 
-  const collectionDetail = useSelector(
-    (state) => state.collection.collectionDetail
-  );
+  console.log(collectionDetail);
 
   if (!collectionDetail) {
     return null;
