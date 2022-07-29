@@ -528,6 +528,7 @@ export const loadAfterFirstCollectionDetailAuctionItem = createAsyncThunk(
   }
 );
 
+
 // 나의 활동페이지 찜한 아이템 목록 가져오기
 export const loadMyLikeItem = createAsyncThunk(
   "LOAD_MY_LIKE_ITEM",
@@ -546,6 +547,7 @@ export const loadMyLikeItem = createAsyncThunk(
   }
 );
 
+
 const itemSlice = createSlice({
   name: "itemSlice",
   initialState: {
@@ -562,7 +564,6 @@ const itemSlice = createSlice({
     [loadItemDetail.fulfilled]: (state, action) => {
       state.itemDetail = action.payload;
     },
-
     [loadMain.fulfilled]: (state, action) => {
       state.mainAuction = action.payload.auction_item;
       state.mainSeller = action.payload.ranking;

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { io } from "socket.io-client";
 import { serverUrl } from "../../shared/api";
-import RefreshIcon from "@mui/icons-material/Refresh";
 import Chat from "./Chat";
 import Offer from "./Offer";
 
@@ -23,6 +22,8 @@ const Auction = (props) => {
   const auction_id = props.data.auction_id;
   const [price, setPrice] = useState("");
   const [offers, setOffers] = useState([]);
+
+  socket = io(server);
 
   // 1.auction_id로 채팅창 생성
   useEffect(() => {
@@ -66,6 +67,7 @@ const Auction = (props) => {
           mycoin: mycoin,
         };
         await socket.emit("sendOffer", data);
+        setPrice("");
       }
     } catch (err) {
       console.log(err);
@@ -83,9 +85,8 @@ const Auction = (props) => {
                 <div className="AuctionHighestPriceWrapper">
                   <div className="AuctionHighestPriceSpanIcon">
                     <span className="AuctionHighestPriceSpan">현재 최고가</span>
-                    <RefreshIcon className="AuctionHighestPriceRefreshIcon" />
                   </div>
-                  <div className="AuctionHighestPrice">999.99 ETH</div>
+                  <div className="AuctionHighestPrice">{offers.name}ETH</div>
                 </div>
                 <div className="AuctionStartingPriceWrapper">
                   <div className="AuctionStartingPriceSpan">시작가</div>
@@ -121,7 +122,17 @@ const Auction = (props) => {
               </section>
               <div className="AuctionChattingPriceListContainer">
                 <Chat data={props} />
-                <Offer data={props} />
+                <div className="AuctionContainer">
+                  {offers.map((list, i) => (
+                    <div key={i}>
+                      <Offer
+                        time={list.time}
+                        name={list.name}
+                        price={list.price}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

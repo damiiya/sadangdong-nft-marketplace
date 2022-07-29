@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import heart from "../../assets/icon/heart.png";
 
 const CardItem = (props) => {

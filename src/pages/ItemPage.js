@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ItemDetail from "../components/itemauction/ItemDetail";
-import JoinAuction from "../components/itemauction/JoinAuction";
+import Join from "../components/itemauction/Join";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadItemDetail } from "../redux/modules/itemSlice";
@@ -11,7 +11,6 @@ const ItemPage = () => {
   const params = useParams();
   const token_id = params.token_id;
   const [isLoad, setIsLoad] = useState(false);
-  const [visible, setVisible] = useState(false);
   const itemDetail = useSelector((state) => state.item.itemDetail);
 
   useEffect(() => {
@@ -30,8 +29,14 @@ const ItemPage = () => {
   return (
     <>
       <ItemDetail data={itemDetail} />
-      {visible ? <JoinAuction data={itemDetail} /> : null}
-      {visible ? null : <Auction data={itemDetail} />}
+      {itemDetail.auction_progress ? (
+        <>
+          <Join data={itemDetail} />
+          <Auction data={itemDetail} />
+        </>
+      ) : (
+        <div className="ItemEmptyDiv"></div>
+      )}
     </>
   );
 };

@@ -11,6 +11,8 @@ import uploadimage from "../assets/uploadimage.png";
 import { PINATA_JWT } from "../shared/api";
 import axios from "axios";
 
+const token = sessionStorage.getItem("auth_token");
+
 const EditItemPage = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -86,7 +88,12 @@ const EditItemPage = () => {
   if (!isLoad) {
     return null;
   }
-  console.log(itemDetail);
+
+  // if (!token) {
+  //   alert("수정 권한이 없습니다!");
+  //   window.location.href = "/";
+  // }
+
   return (
     <>
       <div className="CreateItemContainer">

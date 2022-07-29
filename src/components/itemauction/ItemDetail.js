@@ -59,8 +59,12 @@ const ItemDetail = (props) => {
           </div>
           <div className="ItemInfoContainer">
             <div className="SellInfo">
-              <div className="HeartWrap" onClick={handleLike}>
-                <img className="Heart" src={like ? hearton : heartoff} />
+              <div className="HeartWrap">
+                <img
+                  className="Heart"
+                  src={like ? hearton : heartoff}
+                  onClick={handleLike}
+                />
                 <span className="HeartCount">
                   {likeCount == 1 ? likeCount : likeCount}
                 </span>
