@@ -29,7 +29,7 @@ function MyActivityPage() {
           </div>
         </div>
       </div>
-      <div className="CategoryContainer">
+      <div className="MyActivityCategoryContainer">
         <div className="SmallCategoryWrapper">
           <div className="CategoryWrap">
             {category === 0 ? (
