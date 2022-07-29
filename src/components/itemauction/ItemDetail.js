@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { clientUrl } from "../../shared/api";
 
 import { useParams } from "react-router-dom";
@@ -37,7 +37,6 @@ const ItemDetail = (props) => {
       setLikeCount(props.data.favorites_count);
     }
   }, []);
-
 
   const copyLinkRef = useRef();
 

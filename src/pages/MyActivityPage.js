@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
+import { loadAccountInfo } from "../redux/modules/userSlice";
+import { loadMyLikeItem } from "../redux/modules/itemSlice";
 import pencil from "../assets/icon/pencil.png";
 import CardItem from "../components/card/CardItem";
 
 function MyActivityPage() {
+  const dispatch = useDispatch();
   const [category, setCategory] = useState(0);
   const [selected, setSelected] = useState("0");
   const token = sessionStorage.getItem("auth_token");
-  console.log("category :", category, "selected :", selected);
+  const userInfo = useSelector((state) => state.user.account);
+  const myLikeItemInfo = useSelector((state) => state.item.mylikeitem);
+
+  useEffect(() => {
+    dispatch(loadAccountInfo(token));
+    dispatch(loadMyLikeItem(token));
+  }, []);
+
+  console.log(myLikeItemInfo);
+  if (!userInfo) return null;
 
   return (
     <div className="MainContainer">
@@ -16,12 +29,12 @@ function MyActivityPage() {
           <div className="AuthorImage">
             <Avatar
               alt="User Name"
-              //   src={userCollectionData[0].profile_image}
+              src={userInfo.profile_image}
               sx={{ width: 152, height: 152 }}
             />
           </div>
           <div className="NameWrap">
-            <span className="AuthorName">@ userName</span>
+            <span className="AuthorName">@ {userInfo.name}</span>
 
             <a href={`/account/edit/${token}`}>
               <img className="Icon" src={pencil} />
@@ -29,7 +42,7 @@ function MyActivityPage() {
           </div>
         </div>
       </div>
-      <div className="CategoryContainer">
+      <div className="MyActivityCategoryContainer">
         <div className="SmallCategoryWrapper">
           <div className="CategoryWrap">
             {category === 0 ? (
@@ -89,20 +102,6 @@ function MyActivityPage() {
                 찜한 아이템
               </button>
             )}
-          </div>
-          <div className="ShareCartWrap">
-            <div className="ShareWrap">
-              <input
-                style={{ visibility: "hidden" }}
-                type="text"
-                // ref={copyLinkRef}
-                // value={`http:localhost3000/account/${walletAddress}`}
-              ></input>
-              {/* <button className="CollectionTitleButton" onClick={copyTextUrl}>
-                <img className="ButtonIcon" src={share} />
-                share
-              </button> */}
-            </div>
           </div>
         </div>
       </div>
@@ -224,12 +223,14 @@ function MyActivityPage() {
           </div>
         </div>
       )}
-      {category === 1 && (
-        <div className="CardWrapper">{/* <CardItem data={itemData} /> */}</div>
-      )}
+      {/* {category === 1 && (
+        <div className="CardWrapper"><CardItem data={itemData} /></div>
+      )} */}
 
-      {category === 2 && (
-        <div className="CardWrapper">{/* <CardItem data={itemData} /> */}</div>
+      {category === 2 && myLikeItemInfo.length > 0 && (
+        <div className="MyActivityCardWrapper">
+          <CardItem data={myLikeItemInfo} />
+        </div>
       )}
     </div>
   );
