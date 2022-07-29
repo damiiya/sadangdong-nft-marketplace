@@ -76,7 +76,10 @@ export const loadAfterFirstItem = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/explore?tab=item&_page=${value.itemPage}&_limit=12`
+        `${serverUrl}/api/explore?tab=item&_page=${value.itemPage}&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
       )
       .then((response) => {
         value.setItemData([...value.itemData, ...response.data.data]);
@@ -96,7 +99,9 @@ export const loadAfterFirstItem = createAsyncThunk(
 // 아이템 리스트 가져오기
 export const loadItemList = createAsyncThunk("LOAD_ITEM_LIST", async () => {
   return await axios
-    .get(`${serverUrl}/api/explore?tab=item`)
+    .get(`${serverUrl}/api/explore?tab=item`, {
+      headers: { authorization: `${token}` },
+    })
     .then((response) => {
       console.log(response.data.data);
       return response.data.data;
@@ -111,7 +116,9 @@ export const loadItemDetail = createAsyncThunk(
   "LOAD_ITEM_DETAIL",
   async (token_id) => {
     return await axios
-      .get(`${serverUrl}/api/items/${token_id}`)
+      .get(`${serverUrl}/api/items/${token_id}`, {
+        headers: { authorization: `${token}` },
+      })
       .then((response) => {
         console.log(response.data.data);
         return response.data.data;
@@ -183,7 +190,9 @@ export const loadFirstAuctionList = createAsyncThunk(
   "LOAD_FIRST_AUCTION_LIST",
   async (setAuctionData) => {
     return await axios
-      .get(`${serverUrl}/api/explore?tab=auction&_page=1&_limit=12`)
+      .get(`${serverUrl}/api/explore?tab=auction&_page=1&_limit=12`, {
+        headers: { authorization: `${token}` },
+      })
       .then((response) => {
         console.log(response.data.data);
         setAuctionData(response.data.data);
@@ -201,7 +210,10 @@ export const loadAfterAuctionList = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/explore?tab=auction&_page=${value.auctionPage}&_limit=12`
+        `${serverUrl}/api/explore?tab=auction&_page=${value.auctionPage}&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
       )
       .then((response) => {
         value.setAuctionData([...value.auctionData, ...response.data.data]);
@@ -223,7 +235,9 @@ export const AuctionDetail = createAsyncThunk(
   "AUCTION_DETAIL",
   async (token_id) => {
     return await axios
-      .get(`${serverUrl}/api/items/${token_id}`)
+      .get(`${serverUrl}/api/items/${token_id}`, {
+        headers: { authorization: `${token}` },
+      })
       .then((response) => {
         console.log(response.data.data);
         return response.data.data;
@@ -240,7 +254,10 @@ export const loadSearchFirstItem = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/search?tab=item&name=${value.keyword}&_page=1&_limit=12`
+        `${serverUrl}/api/search?tab=item&name=${value.keyword}&_page=1&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
       )
       .then((response) => {
         console.log(response);
@@ -263,7 +280,10 @@ export const loadSearchAfterFirstItem = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/search?tab=item&name=${value.keyword}&_page=${value.itemPage}&_limit=12`
+        `${serverUrl}/api/search?tab=item&name=${value.keyword}&_page=${value.itemPage}&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
       )
       .then((response) => {
         value.setItemData([...value.itemData, ...response.data.data]);
@@ -286,7 +306,10 @@ export const loadSearchFirstAuctionItem = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/search?tab=auction&name=${value.keyword}&_page=1&_limit=12`
+        `${serverUrl}/api/search?tab=auction&name=${value.keyword}&_page=1&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
       )
       .then((response) => {
         console.log(response);
@@ -309,7 +332,10 @@ export const loadSearchAfterFirstAuctionItem = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/search?tab=auction&name=${value.keyword}&_page=${value.auctionPage}&_limit=12`
+        `${serverUrl}/api/search?tab=auction&name=${value.keyword}&_page=${value.auctionPage}&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
       )
       .then((response) => {
         value.setAuctionData([...value.auctionData, ...response.data.data]);
@@ -332,14 +358,17 @@ export const loadFirstCollectionDetailItem = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/collections/${value.collectionId}?tab=item&_page=1&_limit=12`
+        `${serverUrl}/api/collections/info/${value.collectionId}?tab=item&_page=1&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
       )
       .then((response) => {
         console.log(response);
-        value.setCollectionData(response.data.data);
+        value.setItemData(response.data.data);
 
         if (response.data.data.length === 0 || response.data.data.length < 12) {
-          value.setCollectionHasMore(false);
+          value.setItemHasMore(false);
         }
         return response.data.data;
       })
@@ -355,18 +384,18 @@ export const loadAfterFirstCollectionDetailItem = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/collections/${value.collectionId}?tab=item&_page=${value.collectionPage}&_limit=12`
+        `${serverUrl}/api/collections/info/${value.collectionId}?tab=item&_page=${value.itemPage}&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
       )
       .then((response) => {
-        value.setCollectionData([
-          ...value.collectionData,
-          ...response.data.data,
-        ]);
+        value.setItemData([...value.itemData, ...response.data.data]);
 
         if (response.data.data.length === 0 || response.data.data.length < 12) {
-          value.setCollectionHasMore(false);
+          value.setItemHasMore(false);
         }
-        value.setCollectionPage(value.collectionPage + 1);
+        value.setItemPage(value.itemPage + 1);
         return response.data.data;
       })
       .catch((error) => {
@@ -381,7 +410,10 @@ export const loadFirstCollectionDetailAuctionItem = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/collections/${value.collectionId}?tab=auction&_page=1&_limit=12`
+        `${serverUrl}/api/collections/info/${value.collectionId}?tab=auction&_page=1&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
       )
       .then((response) => {
         console.log(response);
@@ -404,7 +436,10 @@ export const loadAfterFirstCollectionDetailAuctionItem = createAsyncThunk(
   async (value) => {
     return await axios
       .get(
-        `${serverUrl}/api/collections/${value.collectionId}?tab=auction&_page=${value.collectionPage}&_limit=12`
+        `${serverUrl}/api/collections/info/${value.collectionId}?tab=auction&_page=${value.collectionPage}&_limit=12`,
+        {
+          headers: { authorization: `${token}` },
+        }
       )
       .then((response) => {
         value.setAuctionData([...value.auctionData, ...response.data.data]);

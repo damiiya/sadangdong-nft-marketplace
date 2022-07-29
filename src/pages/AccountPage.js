@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { clientUrl } from "../shared/api";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
@@ -7,6 +8,7 @@ import {
   loadAccountAfterFirstItem,
   loadAccountFirstAuctionItem,
   loadAccountAfterFirstAuctionItem,
+  loadAccountInfo,
 } from "../redux/modules/userSlice";
 
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -25,6 +27,7 @@ const AccountPage = () => {
   const params = useParams();
   const walletAddress = params.token_id;
   const copyLinkRef = useRef();
+  const userInfo = useSelector((state) => state.user.account);
   const userCollectionData = useSelector((state) => state.user.collection);
 
   // 아이템
@@ -38,6 +41,7 @@ const AccountPage = () => {
   const [auctionPage, setAuctionPage] = useState(2);
 
   useEffect(() => {
+    dispatch(loadAccountInfo(walletAddress));
     dispatch(
       loadAccountFirstAuctionItem({
         walletAddress,
@@ -79,14 +83,16 @@ const AccountPage = () => {
   };
 
   // Url 복사 함수
-  function copyTextUrl() {
+  const copyTextUrl = () => {
     copyLinkRef.current.focus();
     copyLinkRef.current.select();
 
     navigator.clipboard.writeText(copyLinkRef.current.value).then(() => {
       alert("링크를 복사했습니다.");
     });
-  }
+  };
+  console.log("userInfo", userInfo);
+  console.log("usercollectionData", userCollectionData);
 
   if (!userCollectionData) {
     return null;
@@ -99,16 +105,12 @@ const AccountPage = () => {
           <div className="AuthorImage">
             <Avatar
               alt="User Name"
-              src={
-                userCollectionData.data && userCollectionData.data.profile_image
-              }
+              src={userInfo && userInfo.profile_image}
               sx={{ width: 152, height: 152 }}
             />
           </div>
           <div className="NameWrap">
-            <span className="AuthorName">
-              @{userCollectionData.data && userCollectionData.data.name}
-            </span>
+            <span className="AuthorName">@{userInfo && userInfo.name}</span>
             {/* {token === walletAddress && (
               <a href={`/account/edit/${token}`}>
                 <img className="Icon" src={pencil} />
@@ -181,10 +183,10 @@ const AccountPage = () => {
           <div className="ShareCartWrap">
             <div className="ShareWrap">
               <input
-                style={{ visibility: "hidden" }}
+                style={{ visibility: "hidden", width: "0", height: "0" }}
                 type="text"
                 ref={copyLinkRef}
-                value={`http:localhost3000/account/${walletAddress}`}
+                value={`${clientUrl}/account/${walletAddress}`}
               ></input>
               <button className="CollectionTitleButton" onClick={copyTextUrl}>
                 <img className="ButtonIcon" src={share} />
@@ -222,7 +224,7 @@ const AccountPage = () => {
 
         {category === 2 && (
           <div className="CardWrapper">
-            <CardCollection data={userCollectionData.information} />
+            <CardCollection data={userCollectionData} />
           </div>
         )}
       </div>

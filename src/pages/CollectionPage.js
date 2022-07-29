@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { loadCollectionDetail } from "../redux/modules/collectionSlice";
+import React, { useState, useEffect, useRef } from "react";
+import { clientUrl } from "../shared/api";
+import { loadAccountInfoCollection } from "../redux/modules/userSlice";
 import {
   loadFirstCollectionDetailItem,
   loadAfterFirstCollectionDetailItem,
@@ -17,13 +18,12 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useParams } from "react-router-dom";
 
 const CollectionPage = () => {
+  const copyLinkRef = useRef();
   const dispatch = useDispatch();
   const params = useParams();
   const collectionId = params.collectionId;
 
-  const collectionDetail = useSelector(
-    (state) => state.collection.collectionDetail
-  );
+  const userInfo = useSelector((state) => state.user.userInfo);
   const [category, setCategory] = useState(0);
 
   // 경매 진행 중인 아이템
@@ -36,8 +36,9 @@ const CollectionPage = () => {
   const [itemHasMore, setItemHasMore] = useState(true);
   const [itemPage, setItemPage] = useState(2);
 
+  // 무한스크롤 초기데이터 가져오기
   useEffect(() => {
-    dispatch(loadCollectionDetail(collectionId));
+    dispatch(loadAccountInfoCollection(collectionId));
     dispatch(
       loadFirstCollectionDetailItem({
         collectionId,
@@ -54,6 +55,7 @@ const CollectionPage = () => {
     );
   }, []);
 
+  // 경매 아이템 추가데이터 가져오기
   const auctionFetchData = () => {
     dispatch(
       loadAfterFirstCollectionDetailAuctionItem({
@@ -67,6 +69,7 @@ const CollectionPage = () => {
     );
   };
 
+  // 아이템 추가데이터 가져오기
   const itemFetchData = () => {
     dispatch(
       loadAfterFirstCollectionDetailItem({
@@ -79,8 +82,18 @@ const CollectionPage = () => {
       })
     );
   };
-  console.log(collectionDetail);
-  if (!collectionDetail) {
+  // Url 복사 함수
+  const copyTextUrl = () => {
+    copyLinkRef.current.focus();
+    copyLinkRef.current.select();
+
+    navigator.clipboard.writeText(copyLinkRef.current.value).then(() => {
+      alert("링크를 복사했습니다.");
+    });
+  };
+
+  console.log(userInfo);
+  if (!userInfo) {
     return null;
   }
 
@@ -90,14 +103,14 @@ const CollectionPage = () => {
         className="MainBanner"
         style={{
           backgroundImage: `url(
-            ${collectionDetail && collectionDetail.banner_image}
+            ${userInfo && userInfo.banner_image}
           )`,
         }}
       >
         <div className="UserImageWrap">
           <Avatar
             alt="User Name"
-            src={collectionDetail.profile_image}
+            src={userInfo.profile_image}
             sx={{ width: 152, height: 152 }}
           />
         </div>
@@ -121,16 +134,20 @@ const CollectionPage = () => {
       <div className="CollectionTitleWrapper">
         <div className="CollectionTitleWrap">
           <span className="CollectionTitleLetter">
-            {collectionDetail && collectionDetail.name}
+            {userInfo && userInfo.name}
           </span>
-          <span className="CollectionUerLetter">
-            by {collectionDetail.user_name}
-          </span>
+          <span className="CollectionUerLetter">by {userInfo.user_name}</span>
         </div>
         <div className="CollectionButtonBundle">
-          <button className="CollectionTitleButton">
+          <input
+            style={{ visibility: "hidden", width: "0", height: "0" }}
+            type="text"
+            ref={copyLinkRef}
+            value={`${clientUrl}/detail/collection/${collectionId}`}
+          ></input>
+          <button className="CollectionTitleButton" onClick={copyTextUrl}>
             <img className="ButtonIcon" src={share} />
-            share
+            Share
           </button>
           <button className="CollectionTitleButton">
             <img className="ButtonIcon" src={pencil} />
@@ -139,26 +156,51 @@ const CollectionPage = () => {
         </div>
       </div>
       <div className="CollectionDescriptionWrapper">
-        {collectionDetail && collectionDetail.description}
+        {userInfo && userInfo.description}
       </div>
       <div className="CategoryContainer">
         <div className="CategoryWrapper">
-          <button
-            className="SelectedSmallButton"
-            onClick={() => {
-              setCategory(0);
-            }}
-          >
-            경매 진행중인 아이템
-          </button>
-          <button
-            className="UnSelectedSmallButton"
-            onClick={() => {
-              setCategory(1);
-            }}
-          >
-            아이템
-          </button>
+          {category === 0 && (
+            <>
+              <button
+                className="SelectedSmallButton"
+                onClick={() => {
+                  setCategory(0);
+                }}
+              >
+                경매 진행중인 아이템
+              </button>
+              <button
+                className="UnSelectedSmallButton"
+                onClick={() => {
+                  setCategory(1);
+                }}
+              >
+                아이템
+              </button>
+            </>
+          )}
+
+          {category === 1 && (
+            <>
+              <button
+                className="UnSelectedSmallButton"
+                onClick={() => {
+                  setCategory(0);
+                }}
+              >
+                경매 진행중인 아이템
+              </button>
+              <button
+                className="SelectedSmallButton"
+                onClick={() => {
+                  setCategory(1);
+                }}
+              >
+                아이템
+              </button>
+            </>
+          )}
         </div>
 
         {category === 0 && auctionData.length > 0 ? (
