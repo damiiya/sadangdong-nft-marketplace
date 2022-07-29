@@ -2983,7 +2983,13 @@ input[id*="CheckBox"] + label + div {
   margin-right: 80px;
 } */
 
-/* myactivity */
+/* MyActivity */
+
+.MyActivityCategoryContainer {
+  width: 75%;
+  height: auto;
+  margin: 80px 240px 40px 240px;
+}
 
 .MyAuctionPageContentTitleWrapper {
   width: 75%;
@@ -3134,4 +3140,13 @@ input[id*="CheckBox"] + label + div {
 
 .ContentMyBidding {
   margin-right: 5rem;
+}
+
+.MyActivityCardWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20%, auto));
+  gap: 1rem;
+  width: 75%;
+  height: auto;
+  margin: 40px auto 120px auto;
 }
