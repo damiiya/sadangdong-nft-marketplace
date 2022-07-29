@@ -248,7 +248,6 @@ export const AuctionDetail = createAsyncThunk(
   }
 );
 
-
 // 아이템 좋아요 요청 보내기
 export const likeItem = createAsyncThunk("LIKE_ITEM", async (args) => {
   const response = await axios
@@ -529,7 +528,6 @@ export const loadAfterFirstCollectionDetailAuctionItem = createAsyncThunk(
   }
 );
 
-
 const itemSlice = createSlice({
   name: "itemSlice",
   initialState: {
@@ -546,17 +544,15 @@ const itemSlice = createSlice({
     [loadItemDetail.fulfilled]: (state, action) => {
       state.itemDetail = action.payload;
     },
-
     [loadMain.fulfilled]: (state, action) => {
       state.mainAuction = action.payload.auction_item;
       state.mainSeller = action.payload.ranking;
-
+    },
     [loadCollectionDetailItem.fulfilled]: (state, action) => {
       state.collectionitem = action.payload;
     },
     [loadCollectionDetailAuction.fulfilled]: (state, action) => {
       state.collectionauction = action.payload;
-
     },
   },
 });

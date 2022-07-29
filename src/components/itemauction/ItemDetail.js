@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { clientUrl } from "../../shared/api";
 
 import { useParams } from "react-router-dom";
@@ -38,7 +38,6 @@ const ItemDetail = (props) => {
     }
   }, []);
 
-
   const copyLinkRef = useRef();
 
   // Url 복사 함수
@@ -60,8 +59,12 @@ const ItemDetail = (props) => {
           </div>
           <div className="ItemInfoContainer">
             <div className="SellInfo">
-              <div className="HeartWrap" onClick={handleLike}>
-                <img className="Heart" src={like ? hearton : heartoff} />
+              <div className="HeartWrap">
+                <img
+                  className="Heart"
+                  src={like ? hearton : heartoff}
+                  onClick={handleLike}
+                />
                 <span className="HeartCount">
                   {likeCount == 1 ? likeCount : likeCount}
                 </span>

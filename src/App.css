@@ -1184,6 +1184,10 @@ input[id*="account"]:checked + label + div {
   justify-content: space-between;
 }
 
+.ItemEmptyDiv {
+  height: 360px;
+}
+
 .ItemImageDiv {
   width: 39%;
   height: 79%;
@@ -1408,7 +1412,8 @@ input[id*="account"]:checked + label + div {
 
 .ItemBottomWrapper {
   width: 42%;
-  height: 926px;
+  /* height: 926px; */
+  height: auto;
   right: 0;
   margin-right: 240px;
   border-top: 1px solid #e5e5e5;
@@ -1423,9 +1428,9 @@ input[id*="account"]:checked + label + div {
   box-sizing: border-box;
 }
 
-.AuctionWrapper {
+/* .AuctionWrapper {
   display: flex;
-}
+} */
 
 .PriceContent {
   margin-right: 19%;
@@ -1445,20 +1450,27 @@ input[id*="account"]:checked + label + div {
   width: 1px;
   height: 72px;
   border: solid 1px #e5e5e5;
+  margin-left: 60px;
 }
 
 .AuctionTimeContent {
-  margin-left: 40px;
+  /* margin-left: 40px; */
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  margin-bottom: 40px;
 }
 
 .AuctionTimeSpan {
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
   color: #666;
+  margin-left: 60px;
 }
 
 .AuctionTime {
   font-size: 36px;
   font-weight: bold;
+  margin-left: 60px;
 }
 
 .AuctionJoinContent {
@@ -1967,9 +1979,17 @@ input[id*="account"]:checked + label + div {
   height: 32px;
   margin-right: 10px;
 }
+/* offer */
+.AuctionContainer {
+  width: 340px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}
 
 .AuctionPriceListContainer {
-  width: 42.5%;
+  width: 340px;
   margin-bottom: 16px;
 }
 

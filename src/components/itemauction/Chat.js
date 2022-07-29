@@ -14,7 +14,7 @@ import { serverUrl } from "../../shared/api";
 let socket;
 const address = sessionStorage.getItem("auth_token");
 const name = sessionStorage.getItem("user_nickname");
-const server = `${serverUrl}/hello`;
+const server = `${serverUrl}/chat`;
 
 const Chat = (props) => {
   const auction_id = props.data.data.auction_id;
@@ -73,18 +73,27 @@ const Chat = (props) => {
       </div>
       <div className="AuctionChattingInputWrapper">
         <div className="AuctionChattingInputBackGround">
-          <input
-            className="AuctionChattingInput"
-            placeholder="메세지를 입력해주세요."
-            type="text"
-            value={message}
-            onChange={(e) => {
-              setMessage(e.target.value);
-            }}
-            onKeyDown={(event) => {
-              event.key === "Enter" && sendMessage();
-            }}
-          />
+          {address ? (
+            <input
+              className="AuctionChattingInput"
+              placeholder="메세지를 입력해주세요."
+              type="text"
+              value={message}
+              onChange={(e) => {
+                setMessage(e.target.value);
+              }}
+              onKeyDown={(event) => {
+                event.key === "Enter" && sendMessage();
+              }}
+            />
+          ) : (
+            <input
+              className="AuctionChattingInput"
+              placeholder="로그인이 필요합니다."
+              type="text"
+              disabled
+            />
+          )}
           <img className="UpArrowImg" src={uparrow} onClick={sendMessage} />
         </div>
       </div>
