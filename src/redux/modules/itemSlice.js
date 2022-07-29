@@ -351,6 +351,23 @@ export const loadSearchAfterFirstAuctionItem = createAsyncThunk(
       });
   }
 );
+// 컬렉션 상세페이지 아이템 전체 목록 가져오기
+export const loadCollectionDetailItem = createAsyncThunk(
+  "LOAD_COLLECTION_DETAIL_ITEM_LIST",
+  async (collectionId) => {
+    return await axios
+      .get(`${serverUrl}/api/collections/info/${collectionId}?tab=item`, {
+        headers: { authorization: `${token}` },
+      })
+      .then((response) => {
+        console.log(response);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
 
 // 컬렉션 상세페이지 아이템 첫번째 목록 가져오기
 export const loadFirstCollectionDetailItem = createAsyncThunk(
@@ -396,6 +413,24 @@ export const loadAfterFirstCollectionDetailItem = createAsyncThunk(
           value.setItemHasMore(false);
         }
         value.setItemPage(value.itemPage + 1);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 컬렉션 상세페이지 경매진행중 전체목록 가져오기
+export const loadCollectionDetailAuction = createAsyncThunk(
+  "LOAD_COLLECTION_DETAIL_AUCTION_LIST",
+  async (collectionId) => {
+    return await axios
+      .get(`${serverUrl}/api/collections/info/${collectionId}?tab=auction`, {
+        headers: { authorization: `${token}` },
+      })
+      .then((response) => {
+        console.log(response);
         return response.data.data;
       })
       .catch((error) => {
@@ -471,6 +506,12 @@ const itemSlice = createSlice({
     },
     [loadItemDetail.fulfilled]: (state, action) => {
       state.itemDetail = action.payload;
+    },
+    [loadCollectionDetailItem.fulfilled]: (state, action) => {
+      state.collectionitem = action.payload;
+    },
+    [loadCollectionDetailAuction.fulfilled]: (state, action) => {
+      state.collectionauction = action.payload;
     },
   },
 });
