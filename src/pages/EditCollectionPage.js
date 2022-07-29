@@ -5,6 +5,10 @@ import {
   loadCollectionDetail,
   deleteCollection,
 } from "../redux/modules/collectionSlice";
+import {
+  loadCollectionDetailItem,
+  loadCollectionDetailAuction,
+} from "../redux/modules/itemSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import uploadimage from "../assets/uploadimage.png";
 
@@ -18,6 +22,17 @@ const EditCollectionPage = (props) => {
   const commission = useRef();
   const params = useParams();
   const collectionId = params.collectionId;
+
+  // 컬렉션 상세정보
+  const collectionDetail = useSelector(
+    (state) => state.collection.collectionDetail
+  );
+  // 컬렉션 아이템정보
+  const collectionItem = useSelector((state) => state.item.collectionitem);
+  // 컬렉션 경매정보
+  const collectionAuction = useSelector(
+    (state) => state.item.collectionauction
+  );
 
   const [imageSrc, setImageSrc] = useState(false);
 
@@ -75,9 +90,15 @@ const EditCollectionPage = (props) => {
 
   // 컬렉션 삭제하기
   const deleteSubmit = () => {
-    dispatch(
-      deleteCollection({ collectionId: collectionId, navigate: navigate })
-    );
+    if (collectionItem.length > 0 || collectionAuction.length > 0) {
+      alert(
+        "아이템이 있는 컬렉션은 삭제가 불가능 합니다. 먼저 아이템을 삭제해주세요"
+      );
+    } else {
+      dispatch(
+        deleteCollection({ collectionId: collectionId, navigate: navigate })
+      );
+    }
   };
 
   // 기존 컬렉션 데이터 받아오기
@@ -87,11 +108,13 @@ const EditCollectionPage = (props) => {
 
   useEffect(() => {
     dispatch(loadCollectionDetail(collectionId));
+    dispatch(loadCollectionDetailItem(collectionId));
+    dispatch(loadCollectionDetailAuction(collectionId));
   }, []);
 
-  const collectionDetail = useSelector(
-    (state) => state.collection.collectionDetail
-  );
+  console.log("컬렉션디테일 : ", collectionDetail);
+  console.log("컬렉션아이템 : ", collectionItem);
+  console.log("컬렉션경매 : ", collectionAuction);
 
   if (!collectionDetail) {
     return null;

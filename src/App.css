@@ -14,6 +14,10 @@ a:active {
   color: inherit;
 }
 
+button {
+  cursor: pointer;
+}
+
 .App {
   width: 100vw;
   height: auto;
@@ -249,6 +253,10 @@ input[id*="answer"]:checked + label + div {
   padding-right: 20px;
 }
 
+.AccordionMyMenu {
+  margin-right: 10px;
+}
+
 .AccordionMenuButton-2 {
   width: 100%;
   height: 4.5rem;
@@ -261,7 +269,6 @@ input[id*="answer"]:checked + label + div {
   white-space: nowrap;
   text-align: center;
   box-sizing: border-box;
-  padding-left: 28px;
 }
 
 /* HeaderDropDown(Avatar부분)  */
@@ -692,10 +699,10 @@ input[id*="account"]:checked + label + div {
   font-weight: bold;
   line-height: 1;
   text-align: left;
-  color: #111;
+  color: #86c500;
   border: none;
   background-color: transparent;
-  border-bottom: 4px solid #111;
+  border-bottom: 4px solid #86c500;
   padding-top: 16px;
   padding-bottom: 24px;
   margin-right: 32px;
@@ -723,6 +730,34 @@ input[id*="account"]:checked + label + div {
   width: 100%;
   height: auto;
   margin: 40px 0 120px;
+}
+
+.SearchFailedContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.SearchFailedWrapper {
+  text-align: center;
+}
+
+.SearchFailed {
+  width: 180px;
+  height: 180px;
+  margin-top: 200px;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+.SearchFailedText {
+  display: flex;
+  margin-top: 30px;
+  margin-left: 3rem;
+
+  font-size: 24px;
+  font-weight: bold;
 }
 
 /* AuctionListPage */
@@ -851,13 +886,34 @@ input[id*="account"]:checked + label + div {
   cursor: pointer;
 }
 
+.ShareCartWrap {
+  display: flex;
+}
+
 .ShareWrap {
   margin-bottom: 10px;
   border: none;
+
+  display: flex;
 }
 
 .ButtonIcon {
   margin-right: 8px;
+}
+
+.CartCircle {
+  width: 42px;
+  height: 42px;
+  border-radius: 24px;
+  background-color: #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CartImg {
+  width: 20px;
+  height: 20px;
 }
 
 .CollectionDescriptionWrapper {
@@ -998,6 +1054,14 @@ input[id*="account"]:checked + label + div {
   line-height: 1.33;
   text-align: center;
   color: #fff;
+}
+
+.CardItemNameRouting {
+  margin-top: 16px;
+}
+
+.CardItemUserRouting {
+  margin-bottom: 8px;
 }
 
 .CardName {
@@ -2718,7 +2782,7 @@ input[id*="CheckBox"] + label + div {
 
 /* MyAuctionPage */
 
-.MyAuctionPageContainer {
+/* .MyAuctionPageContainer {
   border-top: #e5e5e5 4px solid;
 
   display: grid;
@@ -2889,4 +2953,157 @@ input[id*="CheckBox"] + label + div {
 
 .ContentMyBidding {
   margin-right: 80px;
+} */
+
+/* myactivity */
+
+.MyAuctionPageContentTitleWrapper {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+}
+
+.ContentTitleImage {
+  margin-left: 2.8rem;
+}
+
+.ContentTitleItem {
+  margin-left: 5.5rem;
+}
+
+.ContentTitleAuctionStart {
+  margin-left: 7.3rem;
+}
+
+.ContentTitleAuctionEnd {
+  margin-left: 8.9rem;
+}
+
+.ContentTitleAuctionHighestBid {
+  margin-left: 8.8rem;
+}
+
+.ContentTitleAuctionMyBid {
+  margin-left: 25rem;
+}
+
+.AuctionSelectBoxWrapper {
+  width: 75%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: right;
+}
+
+.AuctionSelectBox {
+  width: 8rem;
+  height: 2rem;
+  border: 2px black solid;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.DisabledOption {
+  display: none;
+}
+
+.MyAuctionPageContentWrapper {
+  width: 75%;
+  height: 104px;
+  border-radius: 16px;
+  background-color: #fff;
+  border: 2px solid #e5e5e5;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  margin-left: auto;
+  margin-right: auto;
+
+  display: flex;
+  align-items: center;
+}
+
+.MyAuctionPageContentImageWrapper {
+  width: 56px;
+  height: 56px;
+  background-color: #e5e5e5;
+  border-radius: 32px;
+  margin-left: 40px;
+  margin-right: 80px;
+}
+
+.ContentItemName {
+  margin-right: 80px;
+}
+
+.ContentAuctionStart {
+  margin-right: 80px;
+}
+
+.ContentAuctionEnd {
+  margin-right: 80px;
+}
+
+.ContentHighestBid {
+  margin-right: 25.5%;
+}
+
+.ContentMyBid {
+  width: 200px;
+  height: 56px;
+  border-radius: 60px;
+  background-color: #c5ff49;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.ContentMyBidSuccessResult {
+  width: 240px;
+  height: 56px;
+  border-radius: 60px;
+  background-color: #c5ff49;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.ContentMyBidFailureResult {
+  width: 240px;
+  height: 56px;
+  border-radius: 60px;
+  background-color: #e5e5e5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #666;
+}
+
+.ContentTitleAuctionWinningBid {
+  margin-left: 9rem;
+}
+
+.ContentTitleAuctionWinningBid {
+  margin-right: 9rem;
+}
+
+.ContentTitleAuctionMyFinalBid {
+  margin-right: 12rem;
+}
+
+.ContentWinningBid {
+  margin-right: 10.5rem;
+}
+
+.ContentMyBidding {
+  margin-right: 5rem;
 }
