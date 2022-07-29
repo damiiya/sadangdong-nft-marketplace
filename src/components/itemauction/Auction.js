@@ -86,7 +86,9 @@ const Auction = (props) => {
                   <div className="AuctionHighestPriceSpanIcon">
                     <span className="AuctionHighestPriceSpan">현재 최고가</span>
                   </div>
-                  <div className="AuctionHighestPrice">{offers.name}ETH</div>
+                  <div className="AuctionHighestPrice">
+                    {offers[offers.length - 1].price}ETH
+                  </div>
                 </div>
                 <div className="AuctionStartingPriceWrapper">
                   <div className="AuctionStartingPriceSpan">시작가</div>
@@ -126,7 +128,7 @@ const Auction = (props) => {
                   {offers.map((list, i) => (
                     <div key={i}>
                       <Offer
-                        time={list.time}
+                        date={list.date}
                         name={list.name}
                         price={list.price}
                       />
