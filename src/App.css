@@ -3003,26 +3003,34 @@ input[id*="CheckBox"] + label + div {
 }
 
 .ContentTitleImage {
+  /* margin-left: 50px; */
+  /* margin-right: 80px; */
   margin-left: 2.8rem;
 }
 
 .ContentTitleItem {
+  /* margin-left: 10px; */
+  /* flex-grow: 1; */
   margin-left: 5.5rem;
 }
 
 .ContentTitleAuctionStart {
+  /* flex-grow: 2; */
   margin-left: 7.3rem;
 }
 
 .ContentTitleAuctionEnd {
+  /* flex-grow: 2; */
   margin-left: 8.9rem;
 }
 
 .ContentTitleAuctionHighestBid {
+  /* flex-grow: 3; */
   margin-left: 8.8rem;
 }
 
 .ContentTitleAuctionMyBid {
+  /* flex-grow: 1.2; */
   margin-left: 25rem;
 }
 
@@ -3058,30 +3066,42 @@ input[id*="CheckBox"] + label + div {
 
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .MyAuctionPageContentImageWrapper {
   width: 56px;
   height: 56px;
-  background-color: #e5e5e5;
-  border-radius: 32px;
+  border-radius: 50%;
   margin-left: 40px;
   margin-right: 80px;
+  object-fit: cover;
+}
+
+.MyBiddingImage {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .ContentItemName {
+  /* flex-grow: 1; */
   margin-right: 80px;
 }
 
 .ContentAuctionStart {
+  /* flex-grow: 1; */
   margin-right: 80px;
 }
 
 .ContentAuctionEnd {
+  /* flex-grow: 1; */
   margin-right: 80px;
 }
 
 .ContentHighestBid {
+  /* flex-grow: 3; */
   margin-right: 25.5%;
 }
 
@@ -3095,6 +3115,7 @@ input[id*="CheckBox"] + label + div {
   align-items: center;
   font-size: 18px;
   font-weight: bold;
+  margin-right: 40px;
 }
 
 .ContentMyBidSuccessResult {

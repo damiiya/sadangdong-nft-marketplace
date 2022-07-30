@@ -528,7 +528,6 @@ export const loadAfterFirstCollectionDetailAuctionItem = createAsyncThunk(
   }
 );
 
-
 // 나의 활동페이지 찜한 아이템 목록 가져오기
 export const loadMyLikeItem = createAsyncThunk(
   "LOAD_MY_LIKE_ITEM",
@@ -547,6 +546,59 @@ export const loadMyLikeItem = createAsyncThunk(
   }
 );
 
+// 나의 활동페이지 경매진행목록 받아오기
+export const loadMyBiddingItem = createAsyncThunk(
+  "LOAD_MY_BIDDING_ITEM",
+  async (token) => {
+    return await axios
+      .get(`${serverUrl}/api/account/${token}?tab=progress`, {
+        headers: { authorization: `${token}` },
+      })
+      .then((response) => {
+        console.log(response.data.data);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 나의 활동페이지 경매완료목록 받아오기
+export const loadMyBiddingResult = createAsyncThunk(
+  "LOAD_MY_BIDDING_ITEM",
+  async (token) => {
+    return await axios
+      .get(`${serverUrl}/api/account/${token}?tab=complete`, {
+        headers: { authorization: `${token}` },
+      })
+      .then((response) => {
+        console.log(response.data.data);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
+
+// 경매진행중인 아이템 소켓통신 정보 받아오기
+export const loadBiddingList = createAsyncThunk(
+  "LOAD_BIDDING_LIST",
+  async (auction_id) => {
+    return await axios
+      .get(`${serverUrl}/api/offer/${auction_id}`, {
+        headers: { authorization: `${token}` },
+      })
+      .then((response) => {
+        console.log(response.data.data);
+        return response.data.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+);
 
 const itemSlice = createSlice({
   name: "itemSlice",
@@ -575,9 +627,17 @@ const itemSlice = createSlice({
       state.collectionauction = action.payload;
     },
     [loadMyLikeItem.fulfilled]: (state, action) => {
-      console.log(action);
       state.mylikeitem = action.payload;
     },
+    [loadMyBiddingItem.fulfilled]: (state, action) => {
+      state.mybiddingItem = action.payload;
+    },
+    [loadMyBiddingResult.fulfilled]: (state, action) => {
+      state.mybiddingResult = action.payload;
+    },
+    // [loadBiddingList.fulfilled]: (state, action) => {
+    //   state.biddingList = action.payload;
+    // },
   },
 });
 
