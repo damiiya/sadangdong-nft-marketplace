@@ -2,25 +2,36 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
 import { loadAccountInfo } from "../redux/modules/userSlice";
-import { loadMyLikeItem } from "../redux/modules/itemSlice";
+import { loadMyBiddingItem, loadMyLikeItem } from "../redux/modules/itemSlice";
 import pencil from "../assets/icon/pencil.png";
 import CardItem from "../components/card/CardItem";
+import Spinner from "../elements/Spinner";
+import BiddingList from "../components/list/BiddingList";
 
 function MyActivityPage() {
   const dispatch = useDispatch();
+  const [isLoad, setIsLoad] = useState();
   const [category, setCategory] = useState(0);
   const [selected, setSelected] = useState("0");
   const token = sessionStorage.getItem("auth_token");
   const userInfo = useSelector((state) => state.user.account);
   const myLikeItemInfo = useSelector((state) => state.item.mylikeitem);
+  const mybiddingItem = useSelector((state) => state.item.mybiddingItem);
 
   useEffect(() => {
     dispatch(loadAccountInfo(token));
     dispatch(loadMyLikeItem(token));
+    dispatch(loadMyBiddingItem(token));
   }, []);
 
-  console.log(myLikeItemInfo);
+  useEffect(() => {
+    if (mybiddingItem) {
+      setIsLoad(true);
+    }
+  });
+
   if (!userInfo) return null;
+  if (!isLoad) return <Spinner />;
 
   return (
     <div className="MainContainer">
@@ -130,56 +141,18 @@ function MyActivityPage() {
             </span>
             <span className="ContentTitleAuctionMyBid">입찰가격</span>
           </div>
-          <div className="MyAuctionPageContentWrapper">
-            <div className="MyAuctionPageContentImageWrapper">
-              <img />
+          {mybiddingItem.map((list, i) => (
+            <div className="MyAuctionPageContentWrapper" key={i}>
+              <div className="MyAuctionPageContentImageWrapper">
+                <img className="MyBiddingImage" src={list.image} />
+              </div>
+              <span className="ContentItemName">{list.name}</span>
+              <span className="ContentAuctionStart">{list.started_at}</span>
+              <span className="ContentAuctionEnd">{list.ended_at}</span>
+              <span className="ContentHighestBid">{list.bidding_price}</span>
+              <div className="ContentMyBid">{list.user_offer}</div>
             </div>
-            <span className="ContentItemName">Item name#1</span>
-            <span className="ContentAuctionStart">2022.06.30.23:59:59</span>
-            <span className="ContentAuctionEnd">2022.06.30.23:59:59</span>
-            <span className="ContentHighestBid">99.999</span>
-            <div className="ContentMyBid">99.999</div>
-          </div>
-          <div className="MyAuctionPageContentWrapper">
-            <div className="MyAuctionPageContentImageWrapper">
-              <img />
-            </div>
-            <span className="ContentItemName">Item name#1</span>
-            <span className="ContentAuctionStart">2022.06.30.23:59:59</span>
-            <span className="ContentAuctionEnd">2022.06.30.23:59:59</span>
-            <span className="ContentHighestBid">99.999</span>
-            <div className="ContentMyBid">99.999</div>
-          </div>
-          <div className="MyAuctionPageContentWrapper">
-            <div className="MyAuctionPageContentImageWrapper">
-              <img />
-            </div>
-            <span className="ContentItemName">Item name#1</span>
-            <span className="ContentAuctionStart">2022.06.30.23:59:59</span>
-            <span className="ContentAuctionEnd">2022.06.30.23:59:59</span>
-            <span className="ContentHighestBid">99.999</span>
-            <div className="ContentMyBid">99.999</div>
-          </div>
-          <div className="MyAuctionPageContentWrapper">
-            <div className="MyAuctionPageContentImageWrapper">
-              <img />
-            </div>
-            <span className="ContentItemName">Item name#1</span>
-            <span className="ContentAuctionStart">2022.06.30.23:59:59</span>
-            <span className="ContentAuctionEnd">2022.06.30.23:59:59</span>
-            <span className="ContentHighestBid">99.999</span>
-            <div className="ContentMyBid">99.999</div>
-          </div>
-          <div className="MyAuctionPageContentWrapper">
-            <div className="MyAuctionPageContentImageWrapper">
-              <img />
-            </div>
-            <span className="ContentItemName">Item name#1</span>
-            <span className="ContentAuctionStart">2022.06.30.23:59:59</span>
-            <span className="ContentAuctionEnd">2022.06.30.23:59:59</span>
-            <span className="ContentHighestBid">99.999</span>
-            <div className="ContentMyBid">99.999</div>
-          </div>
+          ))}
         </div>
       )}
 
@@ -190,37 +163,11 @@ function MyActivityPage() {
             <span className="ContentTitleItem">아이템명</span>
             <span className="ContentTitleAuctionStart">경매 시작 시간</span>
             <span className="ContentTitleAuctionEnd">경매 종료 시간</span>
-
             <span className="ContentTitleAuctionWinningBid">최종 낙찰가</span>
             <span className="ContentTitleAuctionMyFinalBid">입찰가</span>
             <span className="ContentTitleAuctionMyBidResult">입찰결과</span>
           </div>
-          <div className="MyAuctionPageContentWrapper">
-            <div className="MyAuctionPageContentImageWrapper">
-              <img />
-            </div>
-            <span className="ContentItemName">Item name#1</span>
-            <span className="ContentAuctionStart">2022.06.30.23:59:59</span>
-            <span className="ContentAuctionEnd">2022.06.30.23:59:59</span>
-            <span className="ContentWinningBid">99.999</span>
-            <span className="ContentMyBidding">99.999</span>
-            <div className="ContentMyBidSuccessResult">
-              경매에 성공하셨습니다!
-            </div>
-          </div>
-          <div className="MyAuctionPageContentWrapper">
-            <div className="MyAuctionPageContentImageWrapper">
-              <img />
-            </div>
-            <span className="ContentItemName">Item name#1</span>
-            <span className="ContentAuctionStart">2022.06.30.23:59:59</span>
-            <span className="ContentAuctionEnd">2022.06.30.23:59:59</span>
-            <span className="ContentWinningBid">99.999</span>
-            <span className="ContentMyBidding">99.999</span>
-            <div className="ContentMyBidFailureResult">
-              아쉽지만 유찰되었습니다.
-            </div>
-          </div>
+          <BiddingList />
         </div>
       )}
       {/* {category === 1 && (

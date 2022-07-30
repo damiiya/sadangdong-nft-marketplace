@@ -11,7 +11,7 @@ import { likeItem } from "../../redux/modules/itemSlice";
 import { useDispatch } from "react-redux";
 
 const ItemDetail = (props) => {
-  console.log(props.data.data);
+  console.log(props.data);
   const token = sessionStorage.getItem("auth_token");
   const user = props.data.address;
   const params = useParams();
