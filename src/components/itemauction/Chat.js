@@ -17,7 +17,7 @@ const name = sessionStorage.getItem("user_nickname");
 const server = `${serverUrl}/chat`;
 
 const Chat = (props) => {
-  const auction_id = props.data.data.auction_id;
+  const auction_id = props.data.auction_id;
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
@@ -35,15 +35,6 @@ const Chat = (props) => {
     });
   }, []);
 
-  // 3. data 받아오기
-  useEffect(() => {
-    console.log(3);
-    socket.on("recMessage", (data) => {
-      console.log(data);
-      setMessages((list) => [...list, data]);
-    });
-  }, [socket]);
-
   // 2. data 보내기
   const sendMessage = async (e) => {
     if (message !== "") {
@@ -53,12 +44,18 @@ const Chat = (props) => {
         name: name,
         message: message,
       };
-      console.log(1);
       await socket.emit("sendMessage", data);
-      console.log(2);
       setMessage("");
     }
   };
+
+  // 3. data 받아오기
+  useEffect(() => {
+    socket.on("recMessage", (data) => {
+      console.log(data);
+      setMessages((list) => [...list, data]);
+    });
+  }, [socket]);
 
   return (
     <div className="AuctionChattingContainer">

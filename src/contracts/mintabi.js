@@ -80,25 +80,6 @@ export const MINT_NFT_ABI = [
     type: "event",
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    name: "mymint",
-    type: "event",
-  },
-  {
     inputs: [
       {
         internalType: "address",
@@ -489,25 +470,6 @@ export const MINT_NFT_ABI = [
       },
     ],
     name: "mintNFT",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_tokenURI",
-        type: "string",
-      },
-    ],
-    name: "editNFT",
     outputs: [
       {
         internalType: "uint256",

@@ -14,11 +14,9 @@ import {
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Avatar } from "@mui/material";
 import share from "../assets/icon/share.png";
-import pencil from "../assets/icon/pencil.png";
 import CardAuction from "../components/card/CardAuction";
 import CardCollection from "../components/card/CardCollection";
 import CardItem from "../components/card/CardItem";
-import cart2 from "../assets/icon/cart2.png";
 
 const AccountPage = () => {
   const dispatch = useDispatch();

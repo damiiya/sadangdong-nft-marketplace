@@ -45,7 +45,7 @@ export const postMintedItem = createAsyncThunk(
       })
       .then((response) => {
         console.log(response.data);
-        window.location.href = "/";
+        // window.location.href = "/";
       })
       .catch((error) => {
         console.log(error.message);
@@ -120,7 +120,7 @@ export const loadItemDetail = createAsyncThunk(
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        console.log(response.data.data);
+        console.log(response.data);
         return response.data.data;
       })
       .catch((error) => {
@@ -222,24 +222,6 @@ export const loadAfterAuctionList = createAsyncThunk(
           value.setAuctionHaeMore(false);
         }
         value.setAuctionPage(value.auctionPage + 1);
-        return response.data.data;
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  }
-);
-
-// 경매중인 아이템 상세페이지 정보 받아오기
-export const AuctionDetail = createAsyncThunk(
-  "AUCTION_DETAIL",
-  async (token_id) => {
-    return await axios
-      .get(`${serverUrl}/api/items/${token_id}`, {
-        headers: { authorization: `${token}` },
-      })
-      .then((response) => {
-        console.log(response.data.data);
         return response.data.data;
       })
       .catch((error) => {
@@ -566,7 +548,7 @@ export const loadMyBiddingItem = createAsyncThunk(
 
 // 나의 활동페이지 경매완료목록 받아오기
 export const loadMyBiddingResult = createAsyncThunk(
-  "LOAD_MY_BIDDING_ITEM",
+  "LOAD_MY_BIDDING_RESULT",
   async (token) => {
     return await axios
       .get(`${serverUrl}/api/account/${token}?tab=complete`, {
@@ -582,17 +564,39 @@ export const loadMyBiddingResult = createAsyncThunk(
   }
 );
 
-// 경매진행중인 아이템 소켓통신 정보 받아오기
-export const loadBiddingList = createAsyncThunk(
-  "LOAD_BIDDING_LIST",
-  async (auction_id) => {
+// 나의 활동페이지 거래 처리하기
+export const buyNft = createAsyncThunk("BUY_NFT", async (args) => {
+  console.log(args.auction_id);
+  console.log(args.price);
+  const priceData = { price: args.price };
+  return await axios
+    .post(`${serverUrl}/api/sell/${args.auction_id}`, priceData, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `${token}`,
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+      alert(response.data.statusMsg);
+      window.location.href = `/account/myactivity/${token}`;
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+});
+
+// 나의 활동페이지 구입한 아이템 받아오기
+export const loadBoughtNft = createAsyncThunk(
+  "LOAD_BOUGHT_NFT",
+  async (token) => {
     return await axios
-      .get(`${serverUrl}/api/offer/${auction_id}`, {
+      .get(`${serverUrl}/api/account/${token}?tab=activity`, {
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        console.log(response.data.data);
-        return response.data.data;
+        console.log(response.data);
+        return response.data;
       })
       .catch((error) => {
         console.log(error.message);
@@ -615,6 +619,7 @@ const itemSlice = createSlice({
     },
     [loadItemDetail.fulfilled]: (state, action) => {
       state.itemDetail = action.payload;
+      state.biddingList = action.payload.offers;
     },
     [loadMain.fulfilled]: (state, action) => {
       state.mainAuction = action.payload.auction_item;
@@ -627,17 +632,17 @@ const itemSlice = createSlice({
       state.collectionauction = action.payload;
     },
     [loadMyLikeItem.fulfilled]: (state, action) => {
-      state.mylikeitem = action.payload;
+      state.myLikeItem = action.payload;
     },
     [loadMyBiddingItem.fulfilled]: (state, action) => {
-      state.mybiddingItem = action.payload;
+      state.myBiddingItem = action.payload;
     },
     [loadMyBiddingResult.fulfilled]: (state, action) => {
-      state.mybiddingResult = action.payload;
+      state.myBiddingResult = action.payload;
     },
-    // [loadBiddingList.fulfilled]: (state, action) => {
-    //   state.biddingList = action.payload;
-    // },
+    [loadBoughtNft.fulfilled]: (state, action) => {
+      state.myNft = action.payload;
+    },
   },
 });
 

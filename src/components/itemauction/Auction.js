@@ -4,17 +4,13 @@ import { io } from "socket.io-client";
 import { serverUrl } from "../../shared/api";
 import Chat from "./Chat";
 import Offer from "./Offer";
-// import { loadBiddingList } from "../../redux/modules/itemSlice";
-// import { useDispatch, useSelector } from "react-redux";
-import Spinner from "../../elements/Spinner";
+import PreOffer from "./PreOffer";
 
 // 서버에 필요한 정보
 // "joinRoom": 채팅창 열기
 // "recOffer": 서버에서 데이터 받아오기
 // "sendOffer": 서버에 요청 보내기
-// address, price, mycoin, auction_id
-// time, name, price, bidding
-//name: name, created_at: date, price: price, auctionId: auction_id, address: address,
+// "error": 에러 처리하기
 
 // 경매용 소켓연결
 let socket;
@@ -22,21 +18,11 @@ const address = sessionStorage.getItem("auth_token");
 const server = `${serverUrl}/offer`;
 
 const Auction = (props) => {
-  console.log(props.itemDetail);
-  console.log(props.biddingList);
-  // const dispatch = useDispatch();
-  const auction_id = props.data.auction_id;
+  const auction_id = props.itemDetail.auction_id;
   const [price, setPrice] = useState("");
-  // const [biddingList] = useSelector((state) => state.item.biddingList);
   const [offers, setOffers] = useState([]);
-  // const [isLoad, setIsLoad] = useState(false);
-  // setOffers((list) => [...list, biddingList]);
 
   socket = io(server);
-
-  // useEffect(() => {
-  //   dispatch(loadBiddingList(auction_id));
-  // }, []);
 
   // 1.auction_id로 채팅창 생성
   useEffect(() => {
@@ -46,20 +32,8 @@ const Auction = (props) => {
       if (error) {
         alert(error);
       }
-      // if (biddingList) {
-      //   setIsLoad(true);
-      // }
     });
   }, []);
-
-  // 3. data 받아오기
-  useEffect(() => {
-    console.log(3);
-    socket.on("recOffer", (data) => {
-      console.log(data);
-      setOffers((list) => [...list, data]);
-    });
-  }, [socket]);
 
   // 2. data 보내기
   const sendOffer = async (e) => {
@@ -69,7 +43,6 @@ const Auction = (props) => {
       });
       const account = accounts[0];
       console.log("현재 계정:", account);
-
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const balance = await provider.getBalance(account);
       const mycoin = ethers.utils.formatEther(balance);
@@ -82,6 +55,7 @@ const Auction = (props) => {
           price: price,
           mycoin: mycoin,
         };
+        console.log(data);
         await socket.emit("sendOffer", data);
         setPrice("");
       }
@@ -90,9 +64,20 @@ const Auction = (props) => {
     }
   };
 
-  // if (!isLoad) {
-  //   return <Spinner />;
-  // }
+  // 3. data 받아오기
+  useEffect(() => {
+    socket.on("recOffer", (data) => {
+      console.log(data);
+      setOffers((list) => [...list, data]);
+    });
+  }, [socket]);
+
+  // 4. 에러 처리하기
+  useEffect(() => {
+    socket.on("error", (error) => {
+      alert(error);
+    });
+  }, []);
 
   return (
     <>
@@ -111,13 +96,15 @@ const Auction = (props) => {
                       {offers[offers.length - 1].price}ETH
                     </div>
                   ) : (
-                    <div className="AuctionHighestPrice">ETH</div>
+                    <div className="AuctionHighestPrice">
+                      {props.itemDetail.bidding_price}ETH
+                    </div>
                   )}
                 </div>
                 <div className="AuctionStartingPriceWrapper">
                   <div className="AuctionStartingPriceSpan">시작가</div>
                   <div className="AuctionStartingPrice">
-                    {props.data.auction_price} ETH
+                    {props.itemDetail.auction_price} ETH
                   </div>
                 </div>
               </div>
@@ -149,10 +136,20 @@ const Auction = (props) => {
               <div className="AuctionChattingPriceListContainer">
                 <Chat data={props} />
                 <div className="AuctionContainer">
+                  {props.biddingList.length > 0 &&
+                    props.biddingList.map((list, i) => (
+                      <div key={i}>
+                        <PreOffer
+                          created_at={list.created_at}
+                          name={list.name}
+                          price={list.price}
+                        />
+                      </div>
+                    ))}
                   {offers.map((list, i) => (
                     <div key={i}>
                       <Offer
-                        date={list.date}
+                        created_at={list.created_at}
                         name={list.name}
                         price={list.price}
                       />

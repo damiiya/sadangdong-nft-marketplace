@@ -137,4 +137,5 @@ const ItemDetail = (props) => {
   );
 };
 
+// !유저 && 토큰 ? 안보임 : 옥션 프로그레스 ? 안보임: 보임
 export default ItemDetail;
