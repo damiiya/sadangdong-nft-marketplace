@@ -2,36 +2,53 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
 import { loadAccountInfo } from "../redux/modules/userSlice";
-import { loadMyBiddingItem, loadMyLikeItem } from "../redux/modules/itemSlice";
+import {
+  loadMyLikeItem,
+  loadMyBiddingItem,
+  loadMyBiddingResult,
+  loadBoughtNft,
+} from "../redux/modules/itemSlice";
 import pencil from "../assets/icon/pencil.png";
-import CardItem from "../components/card/CardItem";
 import Spinner from "../elements/Spinner";
-import BiddingList from "../components/list/BiddingList";
+import CardItem from "../components/card/CardItem";
+import MyBids from "../components/list/MyBids";
+import BidsList from "../components/list/BidsList";
 
-function MyActivityPage() {
+const MyActivityPage = () => {
   const dispatch = useDispatch();
-  const [isLoad, setIsLoad] = useState();
+  const [isLoad, setIsLoad] = useState(false);
   const [category, setCategory] = useState(0);
   const [selected, setSelected] = useState("0");
   const token = sessionStorage.getItem("auth_token");
   const userInfo = useSelector((state) => state.user.account);
-  const myLikeItemInfo = useSelector((state) => state.item.mylikeitem);
-  const mybiddingItem = useSelector((state) => state.item.mybiddingItem);
+  const myBiddingItem = useSelector((state) => state.item.myBiddingItem);
+  const myBiddingResult = useSelector((state) => state.item.myBiddingResult);
+  const myLikeItemInfo = useSelector((state) => state.item.myLikeItem);
+  const myNft = useSelector((state) => state.item.myNft);
 
   useEffect(() => {
     dispatch(loadAccountInfo(token));
     dispatch(loadMyLikeItem(token));
     dispatch(loadMyBiddingItem(token));
+    dispatch(loadMyBiddingResult(token));
+    dispatch(loadBoughtNft(token));
   }, []);
 
   useEffect(() => {
-    if (mybiddingItem) {
+    if (
+      userInfo &&
+      myBiddingItem &&
+      myBiddingResult &&
+      myLikeItemInfo &&
+      myNft
+    ) {
       setIsLoad(true);
     }
   });
 
-  if (!userInfo) return null;
-  if (!isLoad) return <Spinner />;
+  if (!isLoad) {
+    return <Spinner />;
+  }
 
   return (
     <div className="MainContainer">
@@ -40,12 +57,12 @@ function MyActivityPage() {
           <div className="AuthorImage">
             <Avatar
               alt="User Name"
-              src={userInfo.profile_image}
+              src={userInfo && userInfo.profile_image}
               sx={{ width: 152, height: 152 }}
             />
           </div>
           <div className="NameWrap">
-            <span className="AuthorName">@ {userInfo.name}</span>
+            <span className="AuthorName">@ {userInfo && userInfo.name}</span>
 
             <a href={`/account/edit/${token}`}>
               <img className="Icon" src={pencil} />
@@ -128,51 +145,19 @@ function MyActivityPage() {
         </div>
       )}
 
-      {category === 0 && selected === "0" && (
-        <div className="MyAuctionPageContentContainer">
-          <div className="MyAuctionPageContentTitleWrapper">
-            <span className="ContentTitleImage">이미지</span>
-            <span className="ContentTitleItem">아이템명</span>
-            <span className="ContentTitleAuctionStart">경매 시작 시간</span>
-            <span className="ContentTitleAuctionEnd">경매 종료 시간</span>
-
-            <span className="ContentTitleAuctionHighestBid">
-              현재 최고 입찰가
-            </span>
-            <span className="ContentTitleAuctionMyBid">입찰가격</span>
-          </div>
-          {mybiddingItem.map((list, i) => (
-            <div className="MyAuctionPageContentWrapper" key={i}>
-              <div className="MyAuctionPageContentImageWrapper">
-                <img className="MyBiddingImage" src={list.image} />
-              </div>
-              <span className="ContentItemName">{list.name}</span>
-              <span className="ContentAuctionStart">{list.started_at}</span>
-              <span className="ContentAuctionEnd">{list.ended_at}</span>
-              <span className="ContentHighestBid">{list.bidding_price}</span>
-              <div className="ContentMyBid">{list.user_offer}</div>
-            </div>
-          ))}
-        </div>
+      {category === 0 && selected === "0" && myBiddingItem.length > 0 && (
+        <BidsList myBiddingItem={myBiddingItem} />
       )}
 
-      {category === 0 && selected === "1" && (
-        <div className="MyAuctionPageContentContainer">
-          <div className="MyAuctionPageContentTitleWrapper">
-            <span className="ContentTitleImage">이미지</span>
-            <span className="ContentTitleItem">아이템명</span>
-            <span className="ContentTitleAuctionStart">경매 시작 시간</span>
-            <span className="ContentTitleAuctionEnd">경매 종료 시간</span>
-            <span className="ContentTitleAuctionWinningBid">최종 낙찰가</span>
-            <span className="ContentTitleAuctionMyFinalBid">입찰가</span>
-            <span className="ContentTitleAuctionMyBidResult">입찰결과</span>
-          </div>
-          <BiddingList />
+      {category === 0 && selected === "1" && myBiddingResult.length > 0 && (
+        <MyBids data={myBiddingResult} />
+      )}
+
+      {category === 1 && myNft.length > 0 && (
+        <div className="CardWrapper">
+          <CardItem data={myNft} />
         </div>
       )}
-      {/* {category === 1 && (
-        <div className="CardWrapper"><CardItem data={itemData} /></div>
-      )} */}
 
       {category === 2 && myLikeItemInfo.length > 0 && (
         <div className="MyActivityCardWrapper">
@@ -181,6 +166,6 @@ function MyActivityPage() {
       )}
     </div>
   );
-}
+};
 
 export default MyActivityPage;

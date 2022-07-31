@@ -44,7 +44,7 @@ export const loadAccountInfo = createAsyncThunk(
         },
       })
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.data);
         return response.data.data;
       })
       .catch((error) => {
@@ -223,14 +223,12 @@ const userSlice = createSlice({
   initialState: {},
   reducers: [],
   extraReducers: {
-    // [createAccount.fulfilled]: (state, action) => {
-    //   state.account = action.payload;
-    // },
     [loadAccountCollection.fulfilled]: (state, action) => {
       state.collection = action.payload;
     },
     [loadAccountInfo.fulfilled]: (state, action) => {
       state.account = action.payload;
+      console.log(state.account);
     },
     [loadAccountInfoCollection.fulfilled]: (state, action) => {
       state.userInfo = action.payload;

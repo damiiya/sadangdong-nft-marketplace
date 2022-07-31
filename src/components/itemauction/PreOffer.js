@@ -1,6 +1,6 @@
 import React from "react";
 
-const Offer = (props) => {
+const PreOffer = (props) => {
   return (
     <div className="AuctionPriceListContainer">
       <div className="AuctionPriceContainer">
@@ -16,4 +16,4 @@ const Offer = (props) => {
   );
 };
 
-export default Offer;
+export default PreOffer;

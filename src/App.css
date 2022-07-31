@@ -400,6 +400,7 @@ input[id*="account"]:checked + label + div {
   height: 40px;
   display: flex;
   justify-content: center;
+  /* position: fixed; */
   position: relative;
   transform: translateY(-100%);
 }
@@ -425,7 +426,8 @@ input[id*="account"]:checked + label + div {
 /* MainPage */
 .MainContainer {
   width: 100%;
-  height: auto;
+  /* height: auto; */
+  height: 1000px;
 }
 
 .MainContainer2 {
@@ -3053,6 +3055,10 @@ input[id*="CheckBox"] + label + div {
   display: none;
 }
 
+.MyAuctionPageContentContainer {
+  height: 1066px;
+}
+
 .MyAuctionPageContentWrapper {
   width: 75%;
   height: 104px;
@@ -3118,7 +3124,21 @@ input[id*="CheckBox"] + label + div {
   margin-right: 40px;
 }
 
-.ContentMyBidSuccessResult {
+.ContentMyBidSuccessResult1 {
+  width: 240px;
+  height: 56px;
+  border-radius: 60px;
+  background-color: #f5e1e1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #b10f0fd3;
+  border: none;
+}
+
+.ContentMyBidSuccessResult2 {
   width: 240px;
   height: 56px;
   border-radius: 60px;
@@ -3128,6 +3148,7 @@ input[id*="CheckBox"] + label + div {
   align-items: center;
   font-size: 18px;
   font-weight: bold;
+  border: none;
 }
 
 .ContentMyBidFailureResult {
