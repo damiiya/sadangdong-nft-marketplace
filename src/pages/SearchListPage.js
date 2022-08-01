@@ -197,6 +197,7 @@ const SearchListPage = () => {
           dataLength={collectionData.length}
           next={collectionFetchData}
           hasMore={collectionHasMore}
+          style={{ overflowY: "hidden" }}
         >
           <div className="CardWrapper">
             <CardCollection data={collectionData} />
@@ -219,6 +220,7 @@ const SearchListPage = () => {
           dataLength={itemData.length}
           next={itemFetchData}
           hasMore={itemHasMore}
+          style={{ overflowY: "hidden" }}
         >
           <div className="CardWrapper">
             <CardItem data={itemData} />
@@ -243,11 +245,7 @@ const SearchListPage = () => {
           next={auctionFetchData}
           auctionHasMore={auctionHasMore}
           loader={<h4>Loding...</h4>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
+          style={{ overflowY: "hidden" }}
         >
           <div className="CardWrapper">
             <CardAuction data={auctionData} />

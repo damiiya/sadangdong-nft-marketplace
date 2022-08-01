@@ -519,7 +519,7 @@ export const loadMyLikeItem = createAsyncThunk(
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        console.log(response.data.data);
+        console.log("좋아요 목록", response.data.data);
         return response.data.data;
       })
       .catch((error) => {
@@ -537,7 +537,7 @@ export const loadMyBiddingItem = createAsyncThunk(
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        console.log(response.data.data);
+        console.log("경매진행목록", response.data.data);
         return response.data.data;
       })
       .catch((error) => {
@@ -555,7 +555,7 @@ export const loadMyBiddingResult = createAsyncThunk(
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        console.log(response.data.data);
+        console.log("경매완료목록", response.data.data);
         return response.data.data;
       })
       .catch((error) => {
@@ -595,7 +595,7 @@ export const loadBoughtNft = createAsyncThunk(
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        console.log(response.data);
+        console.log("구입한목록", response.data);
         return response.data;
       })
       .catch((error) => {
@@ -633,15 +633,19 @@ const itemSlice = createSlice({
     },
     [loadMyLikeItem.fulfilled]: (state, action) => {
       state.myLikeItem = action.payload;
+      console.log("내가 찜한 목록", state.myLikeItem);
     },
     [loadMyBiddingItem.fulfilled]: (state, action) => {
       state.myBiddingItem = action.payload;
+      console.log("진행목록", state.myBiddingItem);
     },
     [loadMyBiddingResult.fulfilled]: (state, action) => {
       state.myBiddingResult = action.payload;
+      console.log("완료목록", state.myBiddingResult);
     },
     [loadBoughtNft.fulfilled]: (state, action) => {
       state.myNft = action.payload;
+      console.log("구매목록", state.myNft);
     },
   },
 });
