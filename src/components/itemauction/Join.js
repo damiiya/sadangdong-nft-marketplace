@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 const Join = (props) => {
   const clock = props.data.remained_at.split(":");

@@ -1,3 +1,7 @@
+// ** 처리한 사항은 [v]표시로 바꿔주세요!
+// []모든 인풋값이 입력되지 않았을 때 오류메세지를 alert로 띄워줘야함!
+// []전역메세지로 처리가능한지 확인해야함!
+
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createCollection } from "../redux/modules/collectionSlice";
@@ -57,11 +61,6 @@ const CreateCollectionPage = () => {
     formData.append("files", file1, "bannerImg");
     formData.append("files", file2, "featuredImg");
 
-    console.log(formData);
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-
     dispatch(
       createCollection({
         formData: formData,
@@ -70,6 +69,13 @@ const CreateCollectionPage = () => {
         navigate: navigate,
       })
     );
+  };
+
+  const textCheck = (e) => {
+    const regExp = /[^\w\sㄱ-힣]|[\_]/g;
+    if (regExp.test(e.currentTarget.value)) {
+      alert("특수문자는 입력하실수 없습니다.");
+    }
   };
 
   if (!token) {
@@ -144,6 +150,8 @@ const CreateCollectionPage = () => {
               <div>
                 <input
                   ref={name}
+                  type="text"
+                  onChange={textCheck}
                   className="CreateCollectionTittleInput"
                   placeholder="컬렉션 이름을 입력해 주세요."
                 />

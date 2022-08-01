@@ -1,3 +1,5 @@
+// ** 처리한 사항은 [v]표시로 바꿔주세요!
+
 import React, { useState, useEffect, useRef } from "react";
 import { clientUrl } from "../shared/api";
 import { loadAccountInfoCollection } from "../redux/modules/userSlice";
@@ -14,7 +16,7 @@ import pencil from "../assets/icon/pencil.png";
 import CardAuction from "../components/card/CardAuction";
 import CardItem from "../components/card/CardItem";
 import InfiniteScroll from "react-infinite-scroll-component";
-
+import EmptyView from "../elements/EmptyView";
 import { useParams } from "react-router-dom";
 
 const CollectionPage = () => {
@@ -83,6 +85,7 @@ const CollectionPage = () => {
       })
     );
   };
+
   // Url 복사 함수
   const copyTextUrl = () => {
     copyLinkRef.current.focus();
@@ -93,7 +96,6 @@ const CollectionPage = () => {
     });
   };
 
-  console.log(userInfo);
   if (!userInfo) {
     return null;
   }
@@ -120,15 +122,15 @@ const CollectionPage = () => {
         <div className="CollectionInfoWrap">
           <div className="CollectionInfo">
             <span className="InfoTap">Items</span>
-            <span className="InfoValue">15</span>
+            <span className="InfoValue">{userInfo.item_count}</span>
           </div>
           <div className="CollectionInfo">
             <span className="InfoTap">Owners</span>
-            <span className="InfoValue">10</span>
+            <span className="InfoValue">{userInfo.buyuser_count}</span>
           </div>
           <div className="CollectionInfo">
             <span className="InfoTap">Floor Price</span>
-            <span className="InfoValue">999.99</span>
+            <span className="InfoValue">{userInfo.least_offer}</span>
           </div>
         </div>
       </div>
@@ -206,7 +208,7 @@ const CollectionPage = () => {
           )}
         </div>
 
-        {category === 0 && auctionData.length > 0 ? (
+        {category === 0 && itemData.length > 0 ? (
           <InfiniteScroll
             dataLength={auctionData.length}
             next={auctionFetchData}
@@ -224,7 +226,7 @@ const CollectionPage = () => {
           </InfiniteScroll>
         ) : null}
 
-        {category === 1 && (
+        {category === 1 && itemData.length > 0 ? (
           <InfiniteScroll
             dataLength={itemData.length}
             next={itemFetchData}
@@ -234,7 +236,7 @@ const CollectionPage = () => {
               <CardItem data={itemData} />
             </div>
           </InfiniteScroll>
-        )}
+        ) : null}
       </div>
     </div>
   );

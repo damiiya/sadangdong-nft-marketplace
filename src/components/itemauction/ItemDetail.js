@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { clientUrl } from "../../shared/api";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import heartoff from "../../assets/icon/heartoff.png";
 import hearton from "../../assets/icon/hearton.png";
@@ -28,6 +28,18 @@ const ItemDetail = (props) => {
       setLike((like) => !like);
       setLikeCount((likeCount) => (like ? likeCount - 1 : likeCount + 1));
       dispatch(likeItem({ token_id: token_id, like: like }));
+    }
+  };
+
+  const navigate = useNavigate();
+  const handleSubmit = () => {
+    const UTC_date = new Date();
+    const now_date = new Date();
+    now_date.setHours(UTC_date.getHours() + 9);
+    if (props.data.transaction_at < now_date.toISOString()) {
+      navigate(`/account/sell/${token_id}`);
+    } else {
+      alert("경매처리가 진행중입니다!");
     }
   };
 
@@ -81,7 +93,7 @@ const ItemDetail = (props) => {
               <div className="SellCollectionInfo">
                 <span className="SellCollectionSpan">owned by</span>
                 <span className="ItemCollectionName">
-                  {/* {props.data.owner} */}
+                  {props.data.owner_name}
                 </span>
               </div>
             </div>
@@ -120,11 +132,12 @@ const ItemDetail = (props) => {
                       <EditIcon className="EditIcon" />
                     </div>
                   </a>
-                  <a href={`/account/sell/${token_id}`}>
-                    <button className="AuctionRegistration">
-                      경매 등록하기
-                    </button>
-                  </a>
+                  <button
+                    className="AuctionRegistration"
+                    onClick={handleSubmit}
+                  >
+                    경매 등록하기
+                  </button>
                 </>
               ) : (
                 <></>

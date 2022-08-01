@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { applyAuction, loadItemDetail } from "../redux/modules/itemSlice";
 import { ethers } from "ethers";
 import { MINT_NFT_ABI } from "../contracts/mintabi";
@@ -8,6 +8,7 @@ import { MintContractAddress } from "../shared/api";
 
 const SellingItemPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const params = useParams();
   const token_id = params.token_id;
   const [isLoad, setIsLoad] = useState(false);
@@ -17,29 +18,26 @@ const SellingItemPage = () => {
   const handleSubmit = async () => {
     window.confirm("경매 등록시 수정이 불가능합니다!");
     try {
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      const account = accounts[0];
-      console.log("현재 계정:", account);
+      if (itemDetail.transaction) {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        const account = accounts[0];
+        console.log("현재 계정:", account);
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(
-        MintContractAddress,
-        MINT_NFT_ABI,
-        signer
-      );
-      const tokenID = `0x${token_id.toString(16)}`;
-      const ethPrice = ethers.utils.parseEther(price);
-      const result = await contract.setApprovalForAll(
-        MintContractAddress,
-        true
-      );
-      console.log(result);
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(
+          MintContractAddress,
+          MINT_NFT_ABI,
+          signer
+        );
 
-      const auction = await contract.setSaleNftToken(tokenID, ethPrice);
-      console.log(auction);
+        const tokenID = ethers.utils.hexlify(Number(token_id));
+        const ethPrice = ethers.utils.parseEther(price);
+        const auction = await contract.setSaleNftToken(tokenID, ethPrice);
+        console.log(auction);
+      }
 
       dispatch(applyAuction({ token_id: token_id, price: price }));
     } catch (error) {
@@ -59,6 +57,13 @@ const SellingItemPage = () => {
 
   if (!isLoad) {
     return null;
+  }
+
+  const now_date = new Date();
+  now_date.setHours(now_date.getHours() + 9);
+  if (itemDetail.transaction_at > now_date.toISOString()) {
+    alert("경매처리가 진행중입니다!");
+    navigate("/");
   }
 
   return (

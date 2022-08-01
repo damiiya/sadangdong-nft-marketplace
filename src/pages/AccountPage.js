@@ -109,11 +109,6 @@ const AccountPage = () => {
           </div>
           <div className="NameWrap">
             <span className="AuthorName">@{userInfo && userInfo.name}</span>
-            {/* {token === walletAddress && (
-              <a href={`/account/edit/${token}`}>
-                <img className="Icon" src={pencil} />
-              </a>
-            )} */}
           </div>
         </div>
       </div>

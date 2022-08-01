@@ -154,7 +154,7 @@ const MyActivityPage = () => {
       )}
 
       {category === 1 && myNft.length > 0 && (
-        <div className="CardWrapper">
+        <div className="MyActivityCardWrapper">
           <CardItem data={myNft} />
         </div>
       )}

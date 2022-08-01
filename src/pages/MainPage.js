@@ -4,11 +4,6 @@ import { Link } from "react-router-dom";
 import MainCard from "../components/main/MainCard";
 import TeamInfo from "../components/main/TeamInfo";
 import { Avatar } from "@mui/material";
-import s1 from "../assets/seller/s1.png";
-import s2 from "../assets/seller/s2.png";
-import s3 from "../assets/seller/s3.png";
-import s4 from "../assets/seller/s4.png";
-import s5 from "../assets/seller/s5.png";
 import i1 from "../assets/itemsample/i1.png";
 import i2 from "../assets/itemsample/i2.png";
 import i3 from "../assets/itemsample/i3.png";
@@ -116,56 +111,18 @@ const MainPage = () => {
           </span>
         </div>
         <div className="MainWrapper">
-          <div className="UserWrapper">
-            <Avatar
-              alt="User Name"
-              src={s1}
-              sx={{ width: 200, height: 200 }}
-              style={{ border: "2px solid #111111" }}
-            />
-            <div className="Ranking">1</div>
-            <span className="UserName">Seller Name</span>
-          </div>
-          <div className="UserWrapper">
-            <Avatar
-              alt="User Name"
-              src={s2}
-              sx={{ width: 200, height: 200 }}
-              style={{ border: "2px solid #111111" }}
-            />
-            <div className="Ranking">2</div>
-            <span className="UserName">Seller Name</span>
-          </div>
-          <div className="UserWrapper">
-            <Avatar
-              alt="User Name"
-              src={s3}
-              sx={{ width: 200, height: 200 }}
-              style={{ border: "2px solid #111111" }}
-            />
-            <div className="Ranking">3</div>
-            <span className="UserName">Seller Name</span>
-          </div>
-          <div className="UserWrapper">
-            <Avatar
-              alt="User Name"
-              src={s4}
-              sx={{ width: 200, height: 200 }}
-              style={{ border: "2px solid #111111" }}
-            />
-            <div className="Ranking">4</div>
-            <span className="UserName">Seller Name</span>
-          </div>
-          <div className="UserWrapper">
-            <Avatar
-              alt="User Name"
-              src={s5}
-              sx={{ width: 200, height: 200 }}
-              style={{ border: "2px solid #111111" }}
-            />
-            <div className="Ranking">5</div>
-            <span className="UserName">Seller Name</span>
-          </div>
+          {mainSeller.map((list, i) => (
+            <div className="UserWrapper">
+              <Avatar
+                alt="User Name"
+                src={list.profile_image}
+                sx={{ width: 200, height: 200 }}
+                style={{ border: "2px solid #111111" }}
+              />
+              <div className="Ranking">{i + 1}</div>
+              <span className="UserName">{list.name}</span>
+            </div>
+          ))}
         </div>
       </div>
       <TeamInfo />

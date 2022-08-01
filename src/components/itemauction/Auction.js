@@ -78,7 +78,7 @@ const Auction = (props) => {
       alert(error);
     });
   }, []);
-
+  // transaction_at 시간보다
   return (
     <>
       <div className="AuctionBottomContainer">

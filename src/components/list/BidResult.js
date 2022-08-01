@@ -42,14 +42,8 @@ const BidResult = (props) => {
       const AA = await contract.getNftTokens(account);
       console.log(AA);
 
-      const tokenID = `0x${props.token_id.toString(16)}`;
+      const tokenID = ethers.utils.hexlify(Number(props.token_id));
       const ethPrice = ethers.utils.parseEther(props.user_offer);
-      const result = await contract.setApprovalForAll(
-        MintContractAddress,
-        true
-      );
-      console.log(result);
-
       const auction = await contract.buyNftToken(tokenID, { value: ethPrice });
       console.log(auction);
 
