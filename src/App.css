@@ -1240,7 +1240,6 @@ input[id*="account"]:checked + label + div {
   width: 100%;
   height: 560px;
   border-radius: 16px;
-  object-fit: cover;
 }
 
 .ItemInfoContainer {
