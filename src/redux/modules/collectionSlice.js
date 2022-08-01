@@ -104,7 +104,8 @@ export const deleteCollection = createAsyncThunk(
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        value.navigate("/list");
+        // value.navigate("/list");
+        window.location.href = "/list";
       })
       .catch((error) => {
         console.log(error.message);
