@@ -1,4 +1,6 @@
+
 import React, { useState, useEffect, useRef } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
@@ -130,11 +132,6 @@ const EditItemPage = () => {
   if (!isLoad) {
     return null;
   }
-
-  // if (!token) {
-  //   alert("수정 권한이 없습니다!");
-  //   window.location.href = "/";
-  // }
 
   return (
     <>

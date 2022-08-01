@@ -1,3 +1,6 @@
+// ** 처리한 사항은 [v]표시로 바꿔주세요!
+// []푸터 아래에 고정시켜야함!
+
 import React from "react";
 
 const Footer = () => {

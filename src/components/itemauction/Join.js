@@ -1,3 +1,7 @@
+// ** 처리한 사항은 [v]표시로 바꿔주세요!
+// []시간이 가끔 0이 하나 더 붙는 오류 처리해주기
+// []가능하면 전체 카드컴포에 실시간 남은 시간 표시해주기
+
 import React, { useState, useEffect } from "react";
 
 const Join = (props) => {

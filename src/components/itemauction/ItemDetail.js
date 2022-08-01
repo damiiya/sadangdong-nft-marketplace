@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { clientUrl } from "../../shared/api";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import heartoff from "../../assets/icon/heartoff.png";
 import hearton from "../../assets/icon/hearton.png";
@@ -13,11 +13,11 @@ import { useDispatch } from "react-redux";
 const ItemDetail = (props) => {
   console.log(props.data);
   const token = sessionStorage.getItem("auth_token");
-  const user = props.data.address;
   const params = useParams();
   const token_id = params.token_id;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [like, setLike] = useState(props.data.favorites);
   const [likeCount, setLikeCount] = useState(props.data.favorites_count);
@@ -31,7 +31,6 @@ const ItemDetail = (props) => {
     }
   };
 
-  const navigate = useNavigate();
   const handleSubmit = () => {
     const UTC_date = new Date();
     const now_date = new Date();
@@ -86,27 +85,35 @@ const ItemDetail = (props) => {
               </div>
               <div className="SellCollectionInfo">
                 <span className="SellCollectionSpan">Collection</span>
-                <span className="ItemCollectionName">
-                  {props.data.collection_name}
-                </span>
+                <Link to={`/detail/collection/${props.data.collection_name}`}>
+                  <span className="ItemCollectionName">
+                    {props.data.collection_name}
+                  </span>
+                </Link>
               </div>
               <div className="SellCollectionInfo">
                 <span className="SellCollectionSpan">owned by</span>
-                <span className="ItemCollectionName">
-                  {props.data.owner_name}
-                </span>
+                <Link to={`/account/${props.data.owner}`}>
+                  <span className="ItemCollectionName">
+                    {props.data.owner_name}
+                  </span>
+                </Link>
               </div>
             </div>
             <div className="ItemDescriptionTittle">
               <span className="SellDescriptionSpan">Description</span>
-              <div className="AvatarWrapper">
-                <Avatar
-                  className="SellDescriptionAvatar"
-                  alt="User Name"
-                  src={props.data.profile_image}
-                />
-                <span className="SellUserName">by {props.data.user_name}</span>
-              </div>
+              <Link to={`/account/${props.data.address}`}>
+                <div className="AvatarWrapper">
+                  <Avatar
+                    className="SellDescriptionAvatar"
+                    alt="User Name"
+                    src={props.data.profile_image}
+                  />
+                  <span className="SellUserName">
+                    by {props.data.user_name}
+                  </span>
+                </div>
+              </Link>
             </div>
             <div className="ItemDescriptionContent">
               <p>{props.data.description}</p>
@@ -124,7 +131,7 @@ const ItemDetail = (props) => {
                 ref={copyLinkRef}
                 value={`${clientUrl}/detail/item/${token_id}`}
               ></input>
-              {token === user ? (
+              {token === props.data.owner ? (
                 <>
                   <a href={`/edititem/${token_id}`}>
                     <div className="EditButtonAndIcon">
@@ -150,5 +157,4 @@ const ItemDetail = (props) => {
   );
 };
 
-// !유저 && 토큰 ? 안보임 : 옥션 프로그레스 ? 안보임: 보임
 export default ItemDetail;

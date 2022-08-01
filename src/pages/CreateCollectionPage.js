@@ -85,6 +85,7 @@ const CreateCollectionPage = () => {
   const checkName = (e) => {
     const regExp = /[^\w\sㄱ-힣]|[\_]/g;
     if (regExp.test(e.currentTarget.value)) {
+
       alert("특수문자는 입력하실 수 없습니다.");
 
       e.currentTarget.value = e.currentTarget.value.substring(
@@ -119,6 +120,7 @@ const CreateCollectionPage = () => {
     const regExpNum = /^[0-9]*(\.?\d*)$/;
     if (!regExpNum.test(e.currentTarget.value)) {
       alert("숫자만 입력해주세요");
+
       e.currentTarget.value = e.currentTarget.value.substring(
         0,
         e.currentTarget.value.length - 1

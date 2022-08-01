@@ -1,3 +1,6 @@
+// ** 처리한 사항은 [v]표시로 바꿔주세요!
+// []카드 컴포넌트가 없는 경우 보이는 빈화면 '아직 아이템이 생성되지 않았습니다'로 바꿔줘야함(재은님께 빈화면 페이지 요청!)
+
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -36,7 +39,6 @@ const AllListPage = () => {
   const [auctionPage, setAuctionPage] = useState(2);
 
   useEffect(() => {
-    console.log(1);
     dispatch(loadFirstCollection(setCollectionData));
     dispatch(loadFirstItem(setItemData));
     dispatch(loadFirstAuctionList(setAuctionData));

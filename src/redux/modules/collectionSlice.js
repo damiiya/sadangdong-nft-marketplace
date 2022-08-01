@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { serverUrl } from "../../shared/api";
 
@@ -33,7 +33,6 @@ export const loadFirstCollection = createAsyncThunk(
     return await axios
       .get(`${serverUrl}/api/explore?tab=collection&_page=1&_limit=12`)
       .then((response) => {
-        console.log(3);
         setCollectionData(response.data.data);
         console.log(response.data.data);
         return response.data.data;

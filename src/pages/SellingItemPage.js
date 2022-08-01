@@ -1,3 +1,6 @@
+// ** 처리한 사항은 [v]표시로 바꿔주세요!
+// []경매가격 설정에 상한선과 하한선에 조건을 줘야함!
+
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";

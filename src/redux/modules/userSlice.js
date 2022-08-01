@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { serverUrl } from "../../shared/api";
 
@@ -31,6 +31,25 @@ export const createAccount = createAsyncThunk(
       });
   }
 );
+
+// 유저 테스트용 요청 보내기
+export const testUser = createAsyncThunk("TEST_USER", async (account) => {
+  return await axios({
+    method: "get",
+    url: `${serverUrl}/api/json/getETH`,
+    headers: {
+      authorization: account,
+    },
+  })
+    .then((response) => {
+      console.log(response.data);
+      alert(response.data.statusMsg);
+    })
+    .catch((error) => {
+      console.log(error.message);
+      alert(error.message);
+    });
+});
 
 // 유저페이지 유저 정보 가져오기
 export const loadAccountInfo = createAsyncThunk(

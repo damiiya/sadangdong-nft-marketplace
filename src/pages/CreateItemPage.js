@@ -1,3 +1,6 @@
+// ** 처리한 사항은 [v]표시로 바꿔주세요!
+// []민팅할때 로딩시간이 너무 오래걸려서 스피너를 사용하거나 다른 처리가 필요함
+
 import React, { useState, useRef, useEffect } from "react";
 import { MintContractAddress } from "../shared/api";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +13,7 @@ import {
   getCollectionSelect,
   postMintedItem,
 } from "../redux/modules/itemSlice";
-import Spinner from "../elements/Spinner";
+// import Spinner from "../elements/Spinner";
 
 const CreateItemPage = () => {
   const [isLoad, setIsLoad] = useState(false);
@@ -236,6 +239,7 @@ const CreateItemPage = () => {
   } else {
     return (
       <>
+
         <div className="CreateItemContainer">
           <div className="CreateItemWrapper">
             <span className="CreateItemTittle">아이템 생성</span>
