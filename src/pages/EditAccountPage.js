@@ -37,6 +37,7 @@ function MyAccountPage() {
 
     const formData = new FormData();
     formData.append("fileInfo", JSON.stringify(fileInfo));
+    // 프로필 파일 변경 없을 시, 빈 파일이 서버에 전송되지 않도록 조건문 추가
     if (file) {
       formData.append("files", file, "profile_Img");
     }
