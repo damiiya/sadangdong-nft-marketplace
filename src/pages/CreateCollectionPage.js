@@ -50,31 +50,77 @@ const CreateCollectionPage = () => {
     let file1 = fileInputA.current.files[0];
     let file2 = fileInputB.current.files[0];
 
+    let nameValue = name.current.value;
+    let descValue = desc.current.value;
+    let commissionValue = commission.current.value;
+
     const fileInfo = {
       name: name.current.value,
       desc: desc.current.value,
       commission: commission.current.value,
     };
 
-    const formData = new FormData();
-    formData.append("fileInfo", JSON.stringify(fileInfo));
-    formData.append("files", file1, "bannerImg");
-    formData.append("files", file2, "featuredImg");
+    // 데이터가 모두 입력되었다면 컬렉션 생성가능
+    // 데이터가 모두 입력되지 않은 상태에서 Create버튼 클릭시 alert창 호출
+    if (file1 && file2 && nameValue && descValue && commissionValue) {
+      const formData = new FormData();
+      formData.append("fileInfo", JSON.stringify(fileInfo));
+      formData.append("files", file1, "bannerImg");
+      formData.append("files", file2, "featuredImg");
 
-    dispatch(
-      createCollection({
-        formData: formData,
-        collectionId: collectionId,
-        fileInfo: fileInfo,
-        navigate: navigate,
-      })
-    );
+      dispatch(
+        createCollection({
+          formData: formData,
+          collectionId: collectionId,
+          fileInfo: fileInfo,
+          navigate: navigate,
+        })
+      );
+    } else {
+      alert("모든 정보를 입력해주세요!");
+    }
   };
-
-  const textCheck = (e) => {
+  // 컬렉션 이름 유효성 검사
+  // 특수문자 제외 띄어쓰기 포함 8글자 이하
+  const checkName = (e) => {
     const regExp = /[^\w\sㄱ-힣]|[\_]/g;
     if (regExp.test(e.currentTarget.value)) {
-      alert("특수문자는 입력하실수 없습니다.");
+
+      alert("특수문자는 입력하실 수 없습니다.");
+
+      e.currentTarget.value = e.currentTarget.value.substring(
+        0,
+        e.currentTarget.value.length - 1
+      );
+    }
+
+    if (e.currentTarget.value.length > 8) {
+      alert("이름은 8자 이하만 가능합니다!");
+      e.currentTarget.value = e.currentTarget.value.substring(
+        0,
+        e.currentTarget.value.length - 1
+      );
+    }
+  };
+  // 컬렉션 설명 유효성 검사
+  // 띄어쓰기 포함 200글자 이하
+  const checkDesc = (e) => {
+    if (e.currentTarget.value.length > 200) {
+      alert("설명은 200자 이하만 가능합니다!");
+      e.currentTarget.value = e.currentTarget.value.substring(
+        0,
+        e.currentTarget.value.length - 1
+      );
+    }
+  };
+
+  // Creator Earnings 유효성 검사
+  // 숫자만 가능
+  const checkNumber = (e) => {
+    const regExpNum = /^[0-9]*(\.?\d*)$/;
+    if (!regExpNum.test(e.currentTarget.value)) {
+      alert("숫자만 입력해주세요");
+
       e.currentTarget.value = e.currentTarget.value.substring(
         0,
         e.currentTarget.value.length - 1
@@ -155,7 +201,10 @@ const CreateCollectionPage = () => {
                 <input
                   ref={name}
                   type="text"
-                  onChange={textCheck}
+                  maxLength={9}
+                  onChange={(e) => {
+                    checkName(e);
+                  }}
                   className="CreateCollectionTittleInput"
                   placeholder="컬렉션 이름을 입력해 주세요."
                 />
@@ -168,6 +217,10 @@ const CreateCollectionPage = () => {
               <div>
                 <textarea
                   ref={desc}
+                  maxLength={201}
+                  onChange={(e) => {
+                    checkDesc(e);
+                  }}
                   className="CreateCollectionDescriptionTextArea"
                   placeholder="컬렉션 설명글을 작성해 주세요."
                 />
@@ -179,7 +232,11 @@ const CreateCollectionPage = () => {
               </span>
               <div>
                 <input
+                  type="text"
                   ref={commission}
+                  onChange={(e) => {
+                    checkNumber(e);
+                  }}
                   className="CreateCollectionCreatorEarningsInput"
                   placeholder="9.99 ETH"
                 />

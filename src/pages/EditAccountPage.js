@@ -29,6 +29,7 @@ function MyAccountPage() {
 
   const handleSubmit = () => {
     let file = fileInput.current.files[0];
+    let profile_image = userInfo[0].profile_image;
 
     const fileInfo = {
       name: name.current.value,
@@ -36,7 +37,10 @@ function MyAccountPage() {
 
     const formData = new FormData();
     formData.append("fileInfo", JSON.stringify(fileInfo));
-    formData.append("files", file, "profile_Img");
+    // 프로필 파일 변경 없을 시, 빈 파일이 서버에 전송되지 않도록 조건문 추가
+    if (file) {
+      formData.append("files", file, "profile_Img");
+    }
 
     console.log(formData);
     for (var pair of formData.entries()) {
@@ -45,6 +49,8 @@ function MyAccountPage() {
 
     dispatch(
       editAccount({
+        file: file,
+        profile_image: profile_image,
         formData: formData,
         navigate: navigate,
       })
@@ -54,6 +60,26 @@ function MyAccountPage() {
   useEffect(() => {
     dispatch(loadAccountCollection(token_id));
   }, []);
+
+  const checkName = (e) => {
+    const regExp = /[^\w\sㄱ-힣]|[\_]/g;
+    if (regExp.test(e.currentTarget.value)) {
+      alert("특수문자는 입력하실수 없습니다.");
+
+      e.currentTarget.value = e.currentTarget.value.substring(
+        0,
+        e.currentTarget.value.length - 1
+      );
+    }
+
+    if (e.currentTarget.value.length > 8) {
+      alert("이름은 8자 이하만 가능합니다!");
+      e.currentTarget.value = e.currentTarget.value.substring(
+        0,
+        e.currentTarget.value.length - 1
+      );
+    }
+  };
 
   if (!userInfo) {
     return <Spinner />;
@@ -103,7 +129,11 @@ function MyAccountPage() {
               <input
                 className="UserIdInput"
                 placeholder="사용자 아이디를 입력해 주세요."
+                maxLength={9}
                 ref={name}
+                onChange={(e) => {
+                  checkName(e);
+                }}
                 defaultValue={userInfo[0] && userInfo[0].user_name}
               />
             </div>

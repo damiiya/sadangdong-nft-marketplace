@@ -22,7 +22,12 @@ const CreateItemPage = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [selected, setSelected] = useState("");
+
+  // 필수입력값 Ref
   const fileInput = useRef();
+  const nameInput = useRef();
+  const descInput = useRef();
+  const collectionSelect = useRef();
 
   const dispatch = useDispatch();
   const collectionName = useSelector((state) => state.item.collectionName);
@@ -54,7 +59,7 @@ const CreateItemPage = () => {
       ipfsImage: ImgHash,
       name: name,
       description: description,
-      collection_id: selected,
+      collection_name: selected,
     };
     console.log(itemInfo);
     const formData = new FormData();
@@ -138,8 +143,23 @@ const CreateItemPage = () => {
 
   // 이미지 파일 Ipfshash로 변환
   const setFiletoIPFS = async (e) => {
+    // 필수 입력값 value
+    let fileValue = fileInput.current.files[0];
+    let nameValue = nameInput.current.value;
+    let descValue = descInput.current.value;
+    let collectionValue = collectionSelect.current.value;
+    console.log(
+      "fileValue : ",
+      fileValue,
+      "nameValue : ",
+      nameValue,
+      "descValue : ",
+      descValue,
+      "collectionValue : ",
+      collectionValue
+    );
     e.preventDefault();
-    if (file) {
+    if (fileValue && nameValue && descValue && collectionValue) {
       try {
         const formData = new FormData();
         formData.append("file", file);
@@ -159,6 +179,42 @@ const CreateItemPage = () => {
       } catch (error) {
         console.log(error);
       }
+    } else {
+      alert("모든 정보를 입력해주세요!");
+    }
+  };
+
+  // 아이템 이름 유효성 검사
+  // 특수문자 제외 띄어쓰기 포함 8글자이하
+  const checkName = (e) => {
+    const regExp = /[^\w\sㄱ-힣]|[\_]/g;
+    if (regExp.test(e.currentTarget.value)) {
+      alert("특수문자는 입력하실수 없습니다.");
+
+      e.currentTarget.value = e.currentTarget.value.substring(
+        0,
+        e.currentTarget.value.length - 1
+      );
+    }
+
+    if (e.currentTarget.value.length > 8) {
+      alert("이름은 8자 이하만 가능합니다!");
+      e.currentTarget.value = e.currentTarget.value.substring(
+        0,
+        e.currentTarget.value.length - 1
+      );
+    }
+  };
+
+  // 아이템 설명 유효성 검사
+  // 200글자 이하
+  const checkDesc = (e) => {
+    if (e.currentTarget.value.length > 200) {
+      alert("설명은 200자 이하만 가능합니다!");
+      e.currentTarget.value = e.currentTarget.value.substring(
+        0,
+        e.currentTarget.value.length - 1
+      );
     }
   };
 
@@ -183,7 +239,7 @@ const CreateItemPage = () => {
   } else {
     return (
       <>
-        {/* <Spinner /> */}
+
         <div className="CreateItemContainer">
           <div className="CreateItemWrapper">
             <span className="CreateItemTittle">아이템 생성</span>
@@ -222,8 +278,11 @@ const CreateItemPage = () => {
                     className="CreateItemTittleInput"
                     placeholder="아이템 이름을 입력해 주세요."
                     type="text"
+                    maxLength={9}
                     value={name}
+                    ref={nameInput}
                     onChange={(e) => {
+                      checkName(e);
                       setName(e.target.value);
                     }}
                   />
@@ -235,8 +294,11 @@ const CreateItemPage = () => {
                   <textarea
                     className="CreateItemDescriptionTextArea"
                     placeholder="아이템 설명글을 작성해 주세요."
+                    maxLength={201}
                     value={description}
+                    ref={descInput}
                     onChange={(e) => {
+                      checkDesc(e);
                       setDescription(e.target.value);
                     }}
                   />
@@ -249,6 +311,7 @@ const CreateItemPage = () => {
                 <select
                   className="CreateItemSelectCollection"
                   value={selected}
+                  ref={collectionSelect}
                   onChange={(e) => {
                     setSelected(e.target.value);
                   }}

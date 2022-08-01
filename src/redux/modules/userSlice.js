@@ -229,8 +229,15 @@ export const editAccount = createAsyncThunk("EDIT_ACCOUNT", async (value) => {
     })
     .then((response) => {
       console.log(response.data);
-      value.navigate(`/account/${token}`);
-      sessionStorage.setItem("user_profile", response.data.data.profile_image);
+      value.navigate(`/account/myactivity/${token}`);
+      if (!value.file) {
+        sessionStorage.setItem("user_profile", value.profile_image);
+      } else {
+        sessionStorage.setItem(
+          "user_profile",
+          response.data.data.profile_image
+        );
+      }
     })
     .catch((error) => {
       console.log(error.message);
