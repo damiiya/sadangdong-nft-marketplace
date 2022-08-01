@@ -464,7 +464,8 @@ input[id*="account"]:checked + label + div {
 /* MainPage */
 .MainContainer {
   width: 100%;
-  height: auto;
+  min-height: 900px;
+  box-sizing: border-box;
   /* height: 1000px; */
 }
 
@@ -672,7 +673,7 @@ input[id*="account"]:checked + label + div {
 /* SearchListPage */
 .Container {
   width: 75%;
-  height: auto;
+  min-height: 800px;
   margin: 80px 240px 0;
 }
 
