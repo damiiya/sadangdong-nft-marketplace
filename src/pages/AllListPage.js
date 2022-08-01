@@ -14,6 +14,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import CardCollection from "../components/card/CardCollection";
 import CardItem from "../components/card/CardItem";
 import CardAuction from "../components/card/CardAuction";
+import Spinner from "../elements/Spinner";
 
 const AllListPage = () => {
   const dispatch = useDispatch();
@@ -149,12 +150,8 @@ const AllListPage = () => {
           dataLength={collectionData.length}
           next={collectionFetchData}
           hasMore={collectionHasMore}
-          loader={<h4>Loading...</h4>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
+          loader={<Spinner />}
+          style={{ overflowY: "hidden" }}
         >
           <div className="CardWrapper">
             <CardCollection data={collectionData} />
@@ -166,12 +163,8 @@ const AllListPage = () => {
           dataLength={itemData.length}
           next={itemFetchData}
           hasMore={itemHasMore}
-          loader={<h4>Loading...</h4>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
+          loader={<Spinner />}
+          style={{ overflowY: "hidden" }}
         >
           <div className="CardWrapper">
             <CardItem data={itemData} />
@@ -183,12 +176,8 @@ const AllListPage = () => {
           dataLength={auctionData.length}
           next={auctionFetchData}
           auctionHasMore={auctionHasMore}
-          loader={<h4>Loding...</h4>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
+          loader={<Spinner />}
+          style={{ overflowY: "hidden" }}
         >
           <div className="CardWrapper">
             <CardAuction data={auctionData} />
