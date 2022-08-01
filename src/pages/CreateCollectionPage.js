@@ -113,6 +113,19 @@ const CreateCollectionPage = () => {
     }
   };
 
+  // Creator Earnings 유효성 검사
+  // 숫자만 가능
+  const checkNumber = (e) => {
+    const regExpNum = /^[0-9]*(\.?\d*)$/;
+    if (!regExpNum.test(e.currentTarget.value)) {
+      alert("숫자만 입력해주세요");
+      e.currentTarget.value = e.currentTarget.value.substring(
+        0,
+        e.currentTarget.value.length - 1
+      );
+    }
+  };
+
   if (!token) {
     alert("로그인이 필요합니다!!");
     window.location.href = "/";
@@ -219,9 +232,9 @@ const CreateCollectionPage = () => {
                 <input
                   type="text"
                   ref={commission}
-                  // onChange={(e) => {
-                  //   checkNumber(e);
-                  // }}
+                  onChange={(e) => {
+                    checkNumber(e);
+                  }}
                   className="CreateCollectionCreatorEarningsInput"
                   placeholder="9.99 ETH"
                 />
