@@ -56,7 +56,7 @@ const CreateItemPage = () => {
       ipfsImage: ImgHash,
       name: name,
       description: description,
-      collection_id: selected,
+      collection_name: selected,
     };
     console.log(itemInfo);
     const formData = new FormData();
@@ -181,8 +181,19 @@ const CreateItemPage = () => {
     }
   };
 
-  // 아이템 이름 글자수 검사
+  // 아이템 이름 유효성 검사
+  // 특수문자 제외 띄어쓰기 포함 8글자이하
   const checkName = (e) => {
+    const regExp = /[^\w\sㄱ-힣]|[\_]/g;
+    if (regExp.test(e.currentTarget.value)) {
+      alert("특수문자는 입력하실수 없습니다.");
+
+      e.currentTarget.value = e.currentTarget.value.substring(
+        0,
+        e.currentTarget.value.length - 1
+      );
+    }
+
     if (e.currentTarget.value.length > 8) {
       alert("이름은 8자 이하만 가능합니다!");
       e.currentTarget.value = e.currentTarget.value.substring(
@@ -192,8 +203,9 @@ const CreateItemPage = () => {
     }
   };
 
-  // 아이템 설명 글자수 검사
-  const descName = (e) => {
+  // 아이템 설명 유효성 검사
+  // 200글자 이하
+  const checkDesc = (e) => {
     if (e.currentTarget.value.length > 200) {
       alert("설명은 200자 이하만 가능합니다!");
       e.currentTarget.value = e.currentTarget.value.substring(
@@ -282,7 +294,7 @@ const CreateItemPage = () => {
                     value={description}
                     ref={descInput}
                     onChange={(e) => {
-                      descName(e);
+                      checkDesc(e);
                       setDescription(e.target.value);
                     }}
                   />

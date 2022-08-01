@@ -112,9 +112,18 @@ const EditCollectionPage = (props) => {
     dispatch(loadCollectionDetailAuction(collectionId));
   }, []);
 
-  console.log("컬렉션디테일 : ", collectionDetail);
-  console.log("컬렉션아이템 : ", collectionItem);
-  console.log("컬렉션경매 : ", collectionAuction);
+  // Creator Earnings 유효성 검사
+  // 숫자만 가능
+  const checkNumber = (e) => {
+    const regExpNum = /^[0-9]*(\.?\d*)$/;
+    if (!regExpNum.test(e.currentTarget.value)) {
+      alert("숫자만 입력해주세요");
+      e.currentTarget.value = e.currentTarget.value.substring(
+        0,
+        e.currentTarget.value.length - 1
+      );
+    }
+  };
 
   if (!collectionDetail) {
     return null;
@@ -234,9 +243,11 @@ const EditCollectionPage = (props) => {
                 <input
                   className="CreateCollectionCreatorEarningsInput"
                   placeholder="9.99 ETH"
+                  type="text"
                   ref={commission}
                   onChange={(e) => {
                     setInputCommission(e.target.value);
+                    checkNumber(e);
                   }}
                   defaultValue={collectionDetail.commission}
                 />

@@ -55,6 +55,19 @@ const SellingItemPage = () => {
     }
   });
 
+  // Creator Earnings 유효성 검사
+  // 숫자만 가능
+  const checkNumber = (e) => {
+    const regExpNum = /^[0-9]*(\.?\d*)$/;
+    if (!regExpNum.test(e.currentTarget.value)) {
+      alert("숫자만 입력해주세요");
+      e.currentTarget.value = e.currentTarget.value.substring(
+        0,
+        e.currentTarget.value.length - 1
+      );
+    }
+  };
+
   if (!isLoad) {
     return null;
   }
@@ -116,12 +129,12 @@ const SellingItemPage = () => {
               <input
                 className="ItemAuctionPriceInput"
                 placeholder="0.00"
-                type="number"
-                max="100"
-                min="0"
-                step="any"
+                type="text"
                 value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                onChange={(e) => {
+                  checkNumber(e);
+                  setPrice(e.target.value);
+                }}
               />
               <span className="ItemAuctionPriceInputEth">ETH</span>
               <button
