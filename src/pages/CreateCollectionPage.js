@@ -80,12 +80,32 @@ const CreateCollectionPage = () => {
       alert("모든 정보를 입력해주세요!");
     }
   };
-
-  const textCheck = (e) => {
+  // 컬렉션 이름 유효성 검사
+  // 특수문자 제외 띄어쓰기 포함 8글자 이하
+  const checkName = (e) => {
     const regExp = /[^\w\sㄱ-힣]|[\_]/g;
     if (regExp.test(e.currentTarget.value)) {
-      alert("특수문자는 입력하실수 없습니다.");
+      alert("특수문자는 입력하실 수 없습니다.");
 
+      e.currentTarget.value = e.currentTarget.value.substring(
+        0,
+        e.currentTarget.value.length - 1
+      );
+    }
+
+    if (e.currentTarget.value.length > 8) {
+      alert("이름은 8자 이하만 가능합니다!");
+      e.currentTarget.value = e.currentTarget.value.substring(
+        0,
+        e.currentTarget.value.length - 1
+      );
+    }
+  };
+  // 컬렉션 설명 유효성 검사
+  // 띄어쓰기 포함 200글자 이하
+  const checkDesc = (e) => {
+    if (e.currentTarget.value.length > 200) {
+      alert("설명은 200자 이하만 가능합니다!");
       e.currentTarget.value = e.currentTarget.value.substring(
         0,
         e.currentTarget.value.length - 1
@@ -166,7 +186,10 @@ const CreateCollectionPage = () => {
                 <input
                   ref={name}
                   type="text"
-                  onChange={textCheck}
+                  maxLength={9}
+                  onChange={(e) => {
+                    checkName(e);
+                  }}
                   className="CreateCollectionTittleInput"
                   placeholder="컬렉션 이름을 입력해 주세요."
                 />
@@ -179,6 +202,10 @@ const CreateCollectionPage = () => {
               <div>
                 <textarea
                   ref={desc}
+                  maxLength={201}
+                  onChange={(e) => {
+                    checkDesc(e);
+                  }}
                   className="CreateCollectionDescriptionTextArea"
                   placeholder="컬렉션 설명글을 작성해 주세요."
                 />
@@ -190,7 +217,11 @@ const CreateCollectionPage = () => {
               </span>
               <div>
                 <input
+                  type="text"
                   ref={commission}
+                  // onChange={(e) => {
+                  //   checkNumber(e);
+                  // }}
                   className="CreateCollectionCreatorEarningsInput"
                   placeholder="9.99 ETH"
                 />
