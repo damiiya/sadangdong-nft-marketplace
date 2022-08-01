@@ -1,3 +1,7 @@
+// ** 처리한 사항은 [v]표시로 바꿔주세요!
+// []리스트 내 컨텐츠들의 길이에 따라 위치가 변하는 것 고정시켜야함
+// []거래완료시 버튼 색이 달라지게 해야함
+
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { buyNft } from "../../redux/modules/itemSlice";
@@ -54,34 +58,64 @@ const BidResult = (props) => {
   };
 
   return bidWin ? (
-    <div className="MyAuctionPageContentWrapper">
-      <div className="MyAuctionPageContentImageWrapper">
-        <img className="MyBiddingImage" src={props.image} />
+    <div className="activity-table2">
+      <div className="table1-row">
+        <img className="act-img" src={props.image} />
       </div>
-      <span className="ContentItemName">{props.name}</span>
-      <span className="ContentAuctionStart">{props.started_at}</span>
-      <span className="ContentAuctionEnd">{props.ended_at}</span>
-      <span className="ContentWinningBid">{props.bidding_price}</span>
-      <span className="ContentMyBidding">{props.user_offer}</span>
+      <span id="row-title1" className="table1-row">
+        {props.name}
+      </span>
+      <span id="row-title2" className="table1-row">
+        {props.started_at}
+      </span>
+      <span id="row-title2" className="table1-row">
+        {props.ended_at}
+      </span>
+      <span id="row-title3" className="table1-row">
+        {props.bidding_price}
+      </span>
+      <span id="row-title3" className="table1-row">
+        {props.user_offer}
+      </span>
       {props.transaction == 0 ? (
-        <button className="ContentMyBidSuccessResult2">{props.message}</button>
+        <div id="row-title4" className="table1-row">
+          <button id="btnA-2" className="activity-btn">
+            {props.message}
+          </button>
+        </div>
       ) : (
-        <button className="ContentMyBidSuccessResult1" onClick={getTransaction}>
-          {props.message}
-        </button>
+        <div id="row-title4" className="table1-row">
+          <button id="btnA-1" className="activity-btn" onClick={getTransaction}>
+            {props.message}
+          </button>
+        </div>
       )}
     </div>
   ) : (
-    <div className="MyAuctionPageContentWrapper">
-      <div className="MyAuctionPageContentImageWrapper">
-        <img src={props.image} />
+    <div className="activity-table2">
+      <div className="table1-row">
+        <img className="act-img" src={props.image} />
       </div>
-      <span className="ContentItemName">{props.name}</span>
-      <span className="ContentAuctionStart">{props.started_at}</span>
-      <span className="ContentAuctionEnd">{props.ended_at}</span>
-      <span className="ContentWinningBid">{props.bidding_price}</span>
-      <span className="ContentMyBidding">{props.user_offer}</span>
-      <div className="ContentMyBidFailureResult">{props.message}</div>
+      <span id="row-title1" className="table1-row">
+        {props.name}
+      </span>
+      <span id="row-title2" className="table1-row">
+        {props.started_at}
+      </span>
+      <span id="row-title2" className="table1-row">
+        {props.ended_at}
+      </span>
+      <span id="row-title3" className="table1-row">
+        {props.bidding_price}
+      </span>
+      <span id="row-title3" className="table1-row">
+        {props.user_offer}
+      </span>
+      <div id="row-title4" className="table1-row">
+        <div id="btnA-3" className="activity-btn">
+          {props.message}
+        </div>
+      </div>
     </div>
   );
 };

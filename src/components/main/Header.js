@@ -1,3 +1,8 @@
+// ** 처리한 사항은 [v]표시로 바꿔주세요!
+// []아코디언 메뉴 열기/닫기 버튼 처리해줘야함
+// []호버시 그림자 생성해줘야함
+// []지갑연결 버튼 아이콘 추가해줘야함
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/icon/logo.png";

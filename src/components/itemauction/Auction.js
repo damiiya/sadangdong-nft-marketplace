@@ -3,8 +3,7 @@ import { ethers } from "ethers";
 import { io } from "socket.io-client";
 import { serverUrl } from "../../shared/api";
 import Chat from "./Chat";
-import Offer from "./Offer";
-import PreOffer from "./PreOffer";
+import { Offer, PreOffer } from "./Offer";
 
 // 서버에 필요한 정보
 // "joinRoom": 채팅창 열기
@@ -78,7 +77,7 @@ const Auction = (props) => {
       alert(error);
     });
   }, []);
-  // transaction_at 시간보다
+
   return (
     <>
       <div className="AuctionBottomContainer">

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { editAccount, loadAccountCollection } from "../redux/modules/userSlice";
 import uploadimage from "../assets/uploadimage.png";
+import Spinner from "../elements/Spinner";
 
 function MyAccountPage() {
   const navigate = useNavigate();
@@ -14,7 +15,6 @@ function MyAccountPage() {
   const params = useParams();
   const token_id = params.token_id;
   const userInfo = useSelector((state) => state.user.collection);
-  console.log(userInfo);
 
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -56,8 +56,9 @@ function MyAccountPage() {
   }, []);
 
   if (!userInfo) {
-    return null;
+    return <Spinner />;
   }
+
   return (
     <>
       <div className="MyAccountPageContainer">

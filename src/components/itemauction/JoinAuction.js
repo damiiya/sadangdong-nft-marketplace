@@ -1,3 +1,6 @@
+// 삭제
+// 푸시알림기능 추가할때는 필요함
+
 // import React, { useState, useEffect } from "react";
 // import { useParams } from "react-router-dom";
 

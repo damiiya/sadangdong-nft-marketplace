@@ -1,3 +1,6 @@
+// ** 처리한 사항은 [v]표시로 바꿔주세요!
+// []수정할때도 로딩시간이 길어져서 스피너를 사용하거나 다른 처리가 필요함
+
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -88,11 +91,6 @@ const EditItemPage = () => {
   if (!isLoad) {
     return null;
   }
-
-  // if (!token) {
-  //   alert("수정 권한이 없습니다!");
-  //   window.location.href = "/";
-  // }
 
   return (
     <>

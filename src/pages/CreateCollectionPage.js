@@ -75,6 +75,10 @@ const CreateCollectionPage = () => {
     const regExp = /[^\w\sㄱ-힣]|[\_]/g;
     if (regExp.test(e.currentTarget.value)) {
       alert("특수문자는 입력하실수 없습니다.");
+      e.currentTarget.value = e.currentTarget.value.substring(
+        0,
+        e.currentTarget.value.length - 1
+      );
     }
   };
 

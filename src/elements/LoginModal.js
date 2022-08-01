@@ -4,8 +4,6 @@ import { createAccount } from "../redux/modules/userSlice";
 import metamaskfox from "../assets/icon/metamaskfox.png";
 import Modal from "react-modal";
 import { serverUrl_sol } from "../shared/api";
-import { ethErrors, errorCodes } from "eth-rpc-errors";
-import validUrl from "valid-url";
 
 const LoginModal = (props) => {
   const dispatch = useDispatch();
@@ -18,16 +16,6 @@ const LoginModal = (props) => {
         const chainId = await window.ethereum.request({
           method: "eth_chainId",
         });
-
-        // const rpcUrls = [`${serverUrl_sol}`];
-        // const firstValidRPCUrl = Array.isArray(rpcUrls)
-        //   ? rpcUrls.find(
-        //       (rpcUrl) =>
-        //         validUrl.isHttpsUri(rpcUrl) ||
-        //         validUrl.isHttpUri(rpcUrl)
-        //     )
-        //   : null;
-        // console.log(firstValidRPCUrl);
 
         const SDDchainId = 1387;
         const SDD = `0x${SDDchainId.toString(16)}`;
@@ -60,8 +48,7 @@ const LoginModal = (props) => {
                   {
                     chainId: SDD,
                     chainName: "Sadangdong",
-                    rpcUrls: [`${serverUrl_sol}`] /* ... */,
-                    // rpcUrls: [firstValidRPCUrl] /* ... */,
+                    rpcUrls: [`${serverUrl_sol}`],
                   },
                 ],
               });

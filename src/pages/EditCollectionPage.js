@@ -1,3 +1,6 @@
+// ** 처리한 사항은 [v]표시로 바꿔주세요!
+// []모든 인풋값이 입력되지 않았을 때 오류메세지를 alert로 띄워줘야함!(수정하다가 인풋값이 비어있는 경우가 발생할 수 있음)
+
 import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {

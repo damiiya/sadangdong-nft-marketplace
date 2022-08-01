@@ -31,7 +31,7 @@ const AuctionListPage = () => {
   };
 
   if (!auctionData) {
-    return null;
+    return <Spinner />;
   }
 
   return (
