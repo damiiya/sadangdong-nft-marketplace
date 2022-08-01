@@ -45,7 +45,8 @@ export const postMintedItem = createAsyncThunk(
       })
       .then((response) => {
         console.log(response.data);
-        // window.location.href = "/";
+        alert("아이템이 민팅되었습니다!!!");
+        window.location.href = "/";
       })
       .catch((error) => {
         console.log(error.message);
@@ -591,12 +592,12 @@ export const loadBoughtNft = createAsyncThunk(
   "LOAD_BOUGHT_NFT",
   async (token) => {
     return await axios
-      .get(`${serverUrl}/api/account/${token}?tab=activity`, {
+      .get(`${serverUrl}/api/account/${token}?tab=buynft`, {
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        console.log(response.data);
-        return response.data;
+        console.log(response.data.data);
+        return response.data.data;
       })
       .catch((error) => {
         console.log(error.message);

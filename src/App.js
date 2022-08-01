@@ -5,7 +5,6 @@ import AccountPage from "./pages/AccountPage";
 import AdminPage from "./pages/AdminPage";
 import AllListPage from "./pages/AllListPage";
 import AuctionListPage from "./pages/AuctionListPage";
-import AuthorPage from "./pages/AuthorPage";
 import CollectionPage from "./pages/CollectionPage";
 import CreateCollectionPage from "./pages/CreateCollectionPage";
 import CreateItemPage from "./pages/CreateItemPage";
@@ -20,6 +19,7 @@ import RejectedAdminPage from "./pages/RejectedAdminPage";
 import EditAccountPage from "./pages/EditAccountPage";
 import MyActivityPage from "./pages/MyActivityPage";
 import Footer from "./components/main/Footer";
+import UserTest from "./elements/UserTest";
 
 function App() {
   return (
@@ -33,7 +33,6 @@ function App() {
         <Route path="list/auctionlist" element={<AuctionListPage />} />
 
         {/* 상세페이지 */}
-        <Route path="detail/author/:userId" element={<AuthorPage />} />
         <Route
           path="detail/collection/:collectionId"
           element={<CollectionPage />}
@@ -65,6 +64,7 @@ function App() {
         <Route path="rejected" element={<RejectedAdminPage />} />
       </Routes>
       <Footer />
+      <UserTest />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { Avatar } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const CardCollection = (props) => {
   return (
@@ -7,7 +8,9 @@ const CardCollection = (props) => {
       {props.data.map((val, index) => (
         <div key={index} className="CardCollectionContainer">
           <div className="CardCollectionImageWrapper">
-            <img className="CardCollectionImage" src={val.feature_image} />
+            <Link to={`/detail/collection/${val.name}`}>
+              <img className="CardCollectionImage" src={val.feature_image} />
+            </Link>
           </div>
           <div className="CardCollectionContentWrapper">
             <Avatar
@@ -15,18 +18,14 @@ const CardCollection = (props) => {
               src={val.profile_image}
               sx={{ width: 64, height: 64 }}
               style={{
-                border: "solid 1px #e5e5e5",
+                border: "solid 5px #fff",
+                backgroundColor: "#fff",
               }}
             />
-            <a
-              className="CardItemNameRouting"
-              href={`/detail/collection/${val.name}`}
-            >
-              <span className="CardName">{val.name}</span>
-            </a>
-            <a href={`/account/${val.address}`}>
+            <span className="CardName">{val.name}</span>
+            <Link to={`/account/${val.address}`}>
               <span className="CardUserName">by {val.user_name}</span>
-            </a>
+            </Link>
             <span className="CardCollectionDescription">{val.description}</span>
           </div>
         </div>
