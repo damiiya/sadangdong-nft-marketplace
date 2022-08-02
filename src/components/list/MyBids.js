@@ -5,7 +5,6 @@ import React from "react";
 import BidResult from "./BidResult";
 
 const MyBids = (props) => {
-  console.log(props);
   return (
     <>
       <div className="activity-container">

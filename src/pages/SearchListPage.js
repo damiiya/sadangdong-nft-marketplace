@@ -101,7 +101,7 @@ const SearchListPage = () => {
       })
     );
   };
-  console.log(collectionData);
+
   if (!collectionData) {
     return null;
   }

@@ -89,8 +89,6 @@ const AccountPage = () => {
       alert("링크를 복사했습니다.");
     });
   };
-  console.log("userInfo", userInfo);
-  console.log("usercollectionData", userCollectionData);
 
   if (!userCollectionData) {
     return null;

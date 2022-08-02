@@ -43,11 +43,6 @@ function MyAccountPage() {
       formData.append("files", file, "profile_Img");
     }
 
-    console.log(formData);
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-
     dispatch(
       editAccount({
         file: file,

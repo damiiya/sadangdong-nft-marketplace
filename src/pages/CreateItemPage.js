@@ -33,12 +33,10 @@ const CreateItemPage = () => {
 
   const dispatch = useDispatch();
   const collectionName = useSelector((state) => state.item.collectionName);
-  console.log(collectionName);
 
   // 이미지 파일 가져오기
   const getImage = (e) => {
     setFile(e);
-    console.log(file);
   };
 
   // 이미지 미리보기
@@ -64,11 +62,9 @@ const CreateItemPage = () => {
       description: description,
       collection_name: selected,
     };
-    console.log(itemInfo);
     const formData = new FormData();
     formData.append("itemInfo", JSON.stringify(itemInfo));
     formData.append("files", file);
-    console.log(formData);
 
     dispatch(postMintedItem(formData));
   };
@@ -86,17 +82,12 @@ const CreateItemPage = () => {
       const response = await axios.get(`${serverUrl}/api/items/lasttoken`);
       const getToken = ethers.utils.hexlify(Number(response.data.data));
       const TOKEN = response.data.data;
-      console.log(response.data);
-      console.log(getToken);
 
       const txn = await contract.mintNFT(tokenURI, getToken);
       const hashData = txn.hash;
 
       handleSubmit(TOKEN, hashData, account, tokenURI, ImgHash);
-    } catch (error) {
-      console.log("Error while minting NFT with contract");
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const getConnect = async (tokenURI, ImgHash) => {
@@ -108,16 +99,12 @@ const CreateItemPage = () => {
 
         const SDDchainId = 1387;
         const SDD = `0x${SDDchainId.toString(16)}`;
-        console.log(chainId);
-        console.log(SDD);
 
         if (chainId === SDD) {
-          console.log("네트워크 연결이 가능합니다!");
           const accounts = await window.ethereum.request({
             method: "eth_requestAccounts",
           });
           const account = accounts[0];
-          console.log(accounts);
           getMintNFT(account, tokenURI, ImgHash);
         } else {
           try {
@@ -129,7 +116,6 @@ const CreateItemPage = () => {
               method: "eth_requestAccounts",
             });
             const account = accounts[0];
-            console.log(accounts);
             getMintNFT(account, tokenURI, ImgHash);
           } catch (switchError) {
             try {
@@ -151,13 +137,9 @@ const CreateItemPage = () => {
                 method: "eth_requestAccounts",
               });
               const account = accounts[0];
-              console.log(accounts);
               getMintNFT(account, tokenURI, ImgHash);
-            } catch (addError) {
-              console.log("연결이 실패했습니다.");
-            }
+            } catch (addError) {}
           }
-          console.log("연결이 실패했습니다.");
         }
       } else {
         alert("메타마스크를 먼저 설치해주세요!");
@@ -185,15 +167,10 @@ const CreateItemPage = () => {
         },
       });
 
-      console.log("final ", `ipfs://${resJSON.data.IpfsHash}`);
       const tokenURI = `ipfs://${resJSON.data.IpfsHash}`;
-      console.log("Token URI", tokenURI);
 
       getConnect(tokenURI, ImgHash);
-    } catch (error) {
-      console.log("JSON to IPFS: ");
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   // 이미지 파일 Ipfshash로 변환
@@ -203,16 +180,6 @@ const CreateItemPage = () => {
     let nameValue = nameInput.current.value;
     let descValue = descInput.current.value;
     let collectionValue = collectionSelect.current.value;
-    console.log(
-      "fileValue : ",
-      fileValue,
-      "nameValue : ",
-      nameValue,
-      "descValue : ",
-      descValue,
-      "collectionValue : ",
-      collectionValue
-    );
     e.preventDefault();
     if (fileValue && nameValue && descValue && collectionValue) {
       try {
@@ -231,9 +198,7 @@ const CreateItemPage = () => {
         });
         const ImgHash = `ipfs://${resFile.data.IpfsHash}`;
         sendJsontoIPFS(ImgHash);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     } else {
       alert("모든 정보를 입력해주세요!");
     }

@@ -18,8 +18,6 @@ import cart from "../../assets/icon/cart.png";
 import user from "../../assets/icon/user.png";
 
 const Header = (userProfile) => {
-  console.log(userProfile.profile_image);
-
   const navigate = useNavigate();
 
   const [openLoginModal, setOpenLoginModal] = useState(false);

@@ -25,10 +25,8 @@ const Chat = (props) => {
 
   // 1.auction_id로 채팅창 생성
   useEffect(() => {
-    console.log(10);
     socket = io(server);
     socket.emit("joinRoom", `${auction_id}`, (error) => {
-      console.log("error");
       if (error) {
         alert(error);
       }
@@ -52,7 +50,6 @@ const Chat = (props) => {
   // 3. data 받아오기
   useEffect(() => {
     socket.on("recMessage", (data) => {
-      console.log(data);
       setMessages((list) => [...list, data]);
     });
   }, [socket]);

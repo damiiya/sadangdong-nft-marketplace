@@ -8,7 +8,6 @@ const token = sessionStorage.getItem("auth_token");
 export const getCollectionSelect = createAsyncThunk(
   "COLLECTION_SELECT",
   async () => {
-    console.log(token);
     try {
       const response = await axios({
         method: "get",
@@ -24,11 +23,8 @@ export const getCollectionSelect = createAsyncThunk(
         alert("컬렉션을 먼저 생성해주세요!");
         window.location.href = "/createcollection";
       }
-      console.log(response.data.data);
       return response.data.data;
-    } catch (error) {
-      console.log(error.message);
-    }
+    } catch (error) {}
   }
 );
 
@@ -44,13 +40,10 @@ export const postMintedItem = createAsyncThunk(
         },
       })
       .then((response) => {
-        console.log(response.data);
         alert("아이템이 민팅되었습니다!!!");
         window.location.href = "/";
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -62,12 +55,9 @@ export const loadFirstItem = createAsyncThunk(
       .get(`${serverUrl}/api/explore?tab=item&_page=1&_limit=12`)
       .then((response) => {
         setItemData(response.data.data);
-        console.log(response.data.data);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -91,9 +81,7 @@ export const loadAfterFirstItem = createAsyncThunk(
         value.setItemPage(value.itemPage + 1);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -104,12 +92,9 @@ export const loadItemList = createAsyncThunk("LOAD_ITEM_LIST", async () => {
       headers: { authorization: `${token}` },
     })
     .then((response) => {
-      console.log(response.data.data);
       return response.data.data;
     })
-    .catch((error) => {
-      console.log(error.message);
-    });
+    .catch((error) => {});
 });
 
 // 아이템 상세페이지 정보 받아오기
@@ -121,18 +106,14 @@ export const loadItemDetail = createAsyncThunk(
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        console.log(response.data);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
 // 아이템 수정하기
 export const editItem = createAsyncThunk("EDIT_ITEM", async (args) => {
-  console.log(args.itemInfo);
   const response = await axios
     .put(`${serverUrl}/api/items/${args.token_id}`, args.itemInfo, {
       headers: {
@@ -141,13 +122,10 @@ export const editItem = createAsyncThunk("EDIT_ITEM", async (args) => {
       },
     })
     .then((response) => {
-      console.log(response.data);
       alert("아이템을 수정하였습니다!");
       window.location.href = `/detail/item/${args.token_id}`;
     })
-    .catch((error) => {
-      console.log(error.message);
-    });
+    .catch((error) => {});
 });
 
 // 아이템 삭제하기
@@ -157,13 +135,10 @@ export const deleteItem = createAsyncThunk("Delete_ITEM", async (token_id) => {
       headers: { authorization: `${token}` },
     })
     .then((response) => {
-      console.log(response.data);
       alert("아이템을 삭제하였습니다!");
       window.location.href = "/";
     })
-    .catch((error) => {
-      console.log(error.message);
-    });
+    .catch((error) => {});
 });
 
 // 아이템 경매 등록하기
@@ -177,13 +152,10 @@ export const applyAuction = createAsyncThunk("APPLY_AUCTION", async (args) => {
       },
     })
     .then((response) => {
-      console.log(response.data);
       alert("경매가 시작되었습니다!");
       window.location.href = `/detail/item/${args.token_id}`;
     })
-    .catch((error) => {
-      console.log(error.message);
-    });
+    .catch((error) => {});
 });
 
 // 경매중인 아이템 첫번째 리스트 받아오기
@@ -195,13 +167,10 @@ export const loadFirstAuctionList = createAsyncThunk(
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        console.log(response.data.data);
         setAuctionData(response.data.data);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -225,9 +194,7 @@ export const loadAfterAuctionList = createAsyncThunk(
         value.setAuctionPage(value.auctionPage + 1);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -241,12 +208,9 @@ export const likeItem = createAsyncThunk("LIKE_ITEM", async (args) => {
       },
     })
     .then((response) => {
-      console.log(response.data);
       return response.data;
     })
-    .catch((error) => {
-      console.log(error.message);
-    });
+    .catch((error) => {});
 });
 
 // 메인 페이지 요청 보내기
@@ -258,13 +222,9 @@ export const loadMain = createAsyncThunk("LOAD_MAIN", async () => {
       },
     })
     .then((response) => {
-      console.log(response.data.data);
-      console.log("메인페이지 불러오기");
       return response.data.data;
     })
-    .catch((error) => {
-      console.log(error.message);
-    });
+    .catch((error) => {});
 });
 
 // 아이템 검색 첫번째 목록 가져오기
@@ -279,7 +239,6 @@ export const loadSearchFirstItem = createAsyncThunk(
         }
       )
       .then((response) => {
-        console.log(response);
         value.setItemData(response.data.data);
 
         if (response.data.data.length === 0 || response.data.data.length < 12) {
@@ -287,9 +246,7 @@ export const loadSearchFirstItem = createAsyncThunk(
         }
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -313,9 +270,7 @@ export const loadSearchAfterFirstItem = createAsyncThunk(
         value.setItemPage(value.itemPage + 1);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -331,7 +286,6 @@ export const loadSearchFirstAuctionItem = createAsyncThunk(
         }
       )
       .then((response) => {
-        console.log(response);
         value.setAuctionData(response.data.data);
 
         if (response.data.data.length === 0 || response.data.data.length < 12) {
@@ -339,9 +293,7 @@ export const loadSearchFirstAuctionItem = createAsyncThunk(
         }
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -365,9 +317,7 @@ export const loadSearchAfterFirstAuctionItem = createAsyncThunk(
         value.setAuctionPage(value.auctionPage + 1);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -380,12 +330,9 @@ export const loadCollectionDetailItem = createAsyncThunk(
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        console.log(response);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -401,7 +348,6 @@ export const loadFirstCollectionDetailItem = createAsyncThunk(
         }
       )
       .then((response) => {
-        console.log(response);
         value.setItemData(response.data.data);
 
         if (response.data.data.length === 0 || response.data.data.length < 12) {
@@ -409,9 +355,7 @@ export const loadFirstCollectionDetailItem = createAsyncThunk(
         }
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -435,9 +379,7 @@ export const loadAfterFirstCollectionDetailItem = createAsyncThunk(
         value.setItemPage(value.itemPage + 1);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -450,12 +392,9 @@ export const loadCollectionDetailAuction = createAsyncThunk(
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        console.log(response);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -471,7 +410,6 @@ export const loadFirstCollectionDetailAuctionItem = createAsyncThunk(
         }
       )
       .then((response) => {
-        console.log(response);
         value.setAuctionData(response.data.data);
 
         if (response.data.data.length === 0 || response.data.data.length < 12) {
@@ -479,9 +417,7 @@ export const loadFirstCollectionDetailAuctionItem = createAsyncThunk(
         }
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -505,9 +441,7 @@ export const loadAfterFirstCollectionDetailAuctionItem = createAsyncThunk(
         value.setAuctionPage(value.auctionPage + 1);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -520,12 +454,9 @@ export const loadMyLikeItem = createAsyncThunk(
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        console.log("좋아요 목록", response.data.data);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -538,12 +469,9 @@ export const loadMyBiddingItem = createAsyncThunk(
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        console.log("경매진행목록", response.data.data);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -556,19 +484,14 @@ export const loadMyBiddingResult = createAsyncThunk(
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        console.log("경매완료목록", response.data.data);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
 // 나의 활동페이지 거래 처리하기
 export const buyNft = createAsyncThunk("BUY_NFT", async (args) => {
-  console.log(args.auction_id);
-  console.log(args.price);
   const priceData = { price: args.price };
   return await axios
     .post(`${serverUrl}/api/sell/${args.auction_id}`, priceData, {
@@ -578,13 +501,10 @@ export const buyNft = createAsyncThunk("BUY_NFT", async (args) => {
       },
     })
     .then((response) => {
-      console.log(response.data);
       alert(response.data.statusMsg);
       window.location.href = `/account/myactivity/${token}`;
     })
-    .catch((error) => {
-      console.log(error.message);
-    });
+    .catch((error) => {});
 });
 
 // 나의 활동페이지 구입한 아이템 받아오기
@@ -596,12 +516,9 @@ export const loadBoughtNft = createAsyncThunk(
         headers: { authorization: `${token}` },
       })
       .then((response) => {
-        console.log(response.data.data);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -634,19 +551,15 @@ const itemSlice = createSlice({
     },
     [loadMyLikeItem.fulfilled]: (state, action) => {
       state.myLikeItem = action.payload;
-      console.log("내가 찜한 목록", state.myLikeItem);
     },
     [loadMyBiddingItem.fulfilled]: (state, action) => {
       state.myBiddingItem = action.payload;
-      console.log("진행목록", state.myBiddingItem);
     },
     [loadMyBiddingResult.fulfilled]: (state, action) => {
       state.myBiddingResult = action.payload;
-      console.log("완료목록", state.myBiddingResult);
     },
     [loadBoughtNft.fulfilled]: (state, action) => {
       state.myNft = action.payload;
-      console.log("구매목록", state.myNft);
     },
   },
 });

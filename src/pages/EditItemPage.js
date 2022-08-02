@@ -71,13 +71,9 @@ const EditItemPage = () => {
           "content-type": "application/json",
         },
       });
-      console.log(resJSON);
-      console.log("okay");
 
       handleSubmit();
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   // 기존 아이템 데이터 받아오기

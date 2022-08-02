@@ -31,16 +31,13 @@ const Auction = (props) => {
     // 소켓연결내용
     // socket = io(server);
     socket.emit("joinRoom", `${auction_id}`, (error) => {
-      console.log("error");
       if (error) {
         alert(error);
       }
     });
     // 리턴안에 먼저 실행하고
     return () => {
-      socket.on("leaveRoom", () => {
-        console.log("disconnect");
-      });
+      socket.on("leaveRoom", () => {});
     };
   }, []);
 
@@ -51,11 +48,9 @@ const Auction = (props) => {
       //   method: "eth_requestAccounts",
       // });
       // const account = accounts[0];
-      // console.log("현재 계정:", account);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const balance = await provider.getBalance(account);
       const mycoin = ethers.utils.formatEther(balance);
-      console.log(mycoin);
 
       if (price && address) {
         const data = {
@@ -74,20 +69,14 @@ const Auction = (props) => {
               return alert(response.data.statusMsg);
             }
             const hello = await socket.emit("sendOffer", data);
-            console.log(hello);
             setPrice("");
-            console.log(response);
-            console.log(response.data);
             alert(response.data.statusMsg);
           })
           .catch((error) => {
-            console.log(error);
             alert(error.message);
           });
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const sendOffer = async (e) => {
@@ -99,16 +88,12 @@ const Auction = (props) => {
 
         const SDDchainId = 1387;
         const SDD = `0x${SDDchainId.toString(16)}`;
-        console.log(chainId);
-        console.log(SDD);
 
         if (chainId === SDD) {
-          console.log("네트워크 연결이 가능합니다!");
           const accounts = await window.ethereum.request({
             method: "eth_requestAccounts",
           });
           const account = accounts[0];
-          console.log(accounts);
           sendServer(account, price);
         } else {
           try {
@@ -120,7 +105,6 @@ const Auction = (props) => {
               method: "eth_requestAccounts",
             });
             const account = accounts[0];
-            console.log(accounts);
             sendServer(account, price);
           } catch (switchError) {
             try {
@@ -142,27 +126,20 @@ const Auction = (props) => {
                 method: "eth_requestAccounts",
               });
               const account = accounts[0];
-              console.log(accounts);
               sendServer(account, price);
-            } catch (addError) {
-              console.log("연결이 실패했습니다.");
-            }
+            } catch (addError) {}
           }
-          console.log("연결이 실패했습니다.");
         }
       } else {
         alert("메타마스크를 먼저 설치해주세요!");
         window.open("https://metamask.io/download.html");
       }
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   // 3. data 받아오기
   useEffect(() => {
     socket.on("recOffer", (data) => {
-      console.log(data);
       setOffers((list) => [...list, data]);
     });
   }, [socket]);

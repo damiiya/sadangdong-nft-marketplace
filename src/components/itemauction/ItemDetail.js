@@ -11,7 +11,6 @@ import { likeItem } from "../../redux/modules/itemSlice";
 import { useDispatch } from "react-redux";
 
 const ItemDetail = (props) => {
-  console.log(props.data);
   const token = sessionStorage.getItem("auth_token");
   const params = useParams();
   const token_id = params.token_id;
@@ -23,7 +22,6 @@ const ItemDetail = (props) => {
   const [likeCount, setLikeCount] = useState(props.data.favorites_count);
 
   const handleLike = () => {
-    console.log(like);
     if (token) {
       setLike((like) => !like);
       setLikeCount((likeCount) => (like ? likeCount - 1 : likeCount + 1));

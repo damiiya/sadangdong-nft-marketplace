@@ -33,7 +33,6 @@ const BidResult = (props) => {
       //   method: "eth_requestAccounts",
       // });
       // const account = accounts[0];
-      // console.log("현재 계정:", account);
 
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
@@ -43,20 +42,15 @@ const BidResult = (props) => {
         signer
       );
       const getToken = await contract.getSaleNftToken();
-      console.log(getToken);
 
       const AA = await contract.getNftTokens(account);
-      console.log(AA);
 
       const tokenID = ethers.utils.hexlify(Number(props.token_id));
       const ethPrice = ethers.utils.parseEther(props.user_offer);
       const auction = await contract.buyNftToken(tokenID, { value: ethPrice });
-      console.log(auction);
 
       handleSubmit();
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const getTransaction = async () => {
@@ -68,16 +62,12 @@ const BidResult = (props) => {
 
         const SDDchainId = 1387;
         const SDD = `0x${SDDchainId.toString(16)}`;
-        console.log(chainId);
-        console.log(SDD);
 
         if (chainId === SDD) {
-          console.log("네트워크 연결이 가능합니다!");
           const accounts = await window.ethereum.request({
             method: "eth_requestAccounts",
           });
           const account = accounts[0];
-          console.log(accounts);
           sendTransaction(account);
         } else {
           try {
@@ -89,7 +79,6 @@ const BidResult = (props) => {
               method: "eth_requestAccounts",
             });
             const account = accounts[0];
-            console.log(accounts);
             sendTransaction(account);
           } catch (switchError) {
             try {
@@ -111,21 +100,15 @@ const BidResult = (props) => {
                 method: "eth_requestAccounts",
               });
               const account = accounts[0];
-              console.log(accounts);
               sendTransaction(account);
-            } catch (addError) {
-              console.log("연결이 실패했습니다.");
-            }
+            } catch (addError) {}
           }
-          console.log("연결이 실패했습니다.");
         }
       } else {
         alert("메타마스크를 먼저 설치해주세요!");
         window.open("https://metamask.io/download.html");
       }
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   return bidWin ? (
