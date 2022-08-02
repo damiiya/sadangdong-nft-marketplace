@@ -2,6 +2,7 @@
 // []리스트 내 컨텐츠들의 길이에 따라 위치가 변하는 것 고정시켜야함
 
 import React from "react";
+import { Link } from "react-router-dom";
 
 const BidsList = (props) => {
   return (
@@ -27,7 +28,9 @@ const BidsList = (props) => {
       {props.myBiddingItem.map((list, i) => (
         <div className="activity-table2" key={i}>
           <div className="table1-row">
-            <img className="act-img" src={list.image} />
+            <Link to={`/detail/item/${list.token_id}`}>
+              <img className="act-img" src={list.image} />
+            </Link>
           </div>
           <span id="row-title1" className="table1-row">
             {list.name}

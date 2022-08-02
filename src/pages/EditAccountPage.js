@@ -12,6 +12,7 @@ function MyAccountPage() {
   const fileInput = useRef();
   const name = useRef();
   const token = sessionStorage.getItem("auth_token");
+  const userImg = sessionStorage.getItem("user_profile");
   const params = useParams();
   const token_id = params.token_id;
   const userInfo = useSelector((state) => state.user.collection);
@@ -29,7 +30,7 @@ function MyAccountPage() {
 
   const handleSubmit = () => {
     let file = fileInput.current.files[0];
-    let profile_image = userInfo[0].profile_image;
+    let profile_image = userImg;
 
     const fileInfo = {
       name: name.current.value,
@@ -97,7 +98,7 @@ function MyAccountPage() {
                 {!imageSrc ? (
                   <img
                     className="ProfieImagePreivew"
-                    src={userInfo[0] && userInfo[0].profile_image}
+                    src={userImg}
                     alt="preview-img"
                   />
                 ) : (
