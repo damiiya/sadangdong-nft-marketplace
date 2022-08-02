@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { editAccount, loadAccountCollection } from "../redux/modules/userSlice";
 import uploadimage from "../assets/uploadimage.png";
-import Spinner from "../elements/Spinner";
+import { Spinner } from "../elements/Spinner";
 
 function MyAccountPage() {
   const navigate = useNavigate();

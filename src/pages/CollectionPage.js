@@ -19,7 +19,7 @@ import CardItem from "../components/card/CardItem";
 import InfiniteScroll from "react-infinite-scroll-component";
 // import EmptyView from "../elements/EmptyView";
 import { useParams } from "react-router-dom";
-import Spinner from "../elements/Spinner";
+import { Spinner } from "../elements/Spinner";
 
 const CollectionPage = () => {
   const token = sessionStorage.getItem("auth_token");

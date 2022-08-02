@@ -6,7 +6,7 @@ import {
   loadAfterAuctionList,
 } from "../redux/modules/itemSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Spinner from "../elements/Spinner";
+import { Spinner } from "../elements/Spinner";
 
 const AuctionListPage = () => {
   const dispatch = useDispatch();
