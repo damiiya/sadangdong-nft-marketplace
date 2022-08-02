@@ -669,7 +669,7 @@ input[id*="account"]:checked + label + div {
 /* TeamInfo */
 .TeamBackground {
   width: 100%;
-  height: 883px;
+  min-height: 900px;
   background-color: #001c96;
 }
 
@@ -1724,6 +1724,7 @@ input[id*="account"]:checked + label + div {
   align-items: center;
   margin-top: 32px;
   margin-left: 170px;
+  margin-bottom: 10rem;
 }
 
 .ItemAuctionPriceInput {
