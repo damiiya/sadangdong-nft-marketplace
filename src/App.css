@@ -846,6 +846,13 @@ input[id*="account"]:checked + label + div {
 }
 
 /* CollectionPage */
+.CollectionContainer {
+  width: 100%;
+
+  min-height: 1500px;
+  box-sizing: border-box;
+}
+
 .MainBanner {
   width: 100%;
   height: 480px;
