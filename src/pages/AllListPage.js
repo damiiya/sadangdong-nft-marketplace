@@ -17,7 +17,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import CardCollection from "../components/card/CardCollection";
 import CardItem from "../components/card/CardItem";
 import CardAuction from "../components/card/CardAuction";
-import Spinner from "../elements/Spinner";
+import { Spinner } from "../elements/Spinner";
 
 const AllListPage = () => {
   const dispatch = useDispatch();

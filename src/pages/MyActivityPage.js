@@ -9,7 +9,7 @@ import {
   loadBoughtNft,
 } from "../redux/modules/itemSlice";
 import pencil from "../assets/icon/pencil.png";
-import Spinner from "../elements/Spinner";
+import { Spinner } from "../elements/Spinner";
 import CardItem from "../components/card/CardItem";
 import MyBids from "../components/list/MyBids";
 import BidsList from "../components/list/BidsList";

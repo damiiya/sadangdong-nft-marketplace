@@ -15,7 +15,7 @@ import {
 } from "../redux/modules/itemSlice";
 import { serverUrl } from "../shared/api";
 import { serverUrl_sol } from "../shared/api";
-// import Spinner from "../elements/Spinner";
+import { MintingSpinner } from "../elements/Spinner";
 
 const CreateItemPage = () => {
   const [isLoad, setIsLoad] = useState(false);
@@ -24,6 +24,7 @@ const CreateItemPage = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [selected, setSelected] = useState("");
+  const [start, setStart] = useState(false);
 
   // 필수입력값 Ref
   const fileInput = useRef();
@@ -215,6 +216,7 @@ const CreateItemPage = () => {
     );
     e.preventDefault();
     if (fileValue && nameValue && descValue && collectionValue) {
+      setStart(true);
       try {
         const formData = new FormData();
         formData.append("file", file);
@@ -283,11 +285,9 @@ const CreateItemPage = () => {
     }
   }, [collectionName]);
 
-  // useEffect(() => {
-  //   if (!tokenID && tokenURI && ImgHash) {
-  //     return <Spinner />;
-  //   }
-  // }, [tokenID, tokenURI, ImgHash]);
+  if (start) {
+    return <MintingSpinner />;
+  }
 
   if (!isLoad) {
     return null;
