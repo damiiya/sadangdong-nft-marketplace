@@ -19,6 +19,7 @@ import CardItem from "../components/card/CardItem";
 import InfiniteScroll from "react-infinite-scroll-component";
 // import EmptyView from "../elements/EmptyView";
 import { useParams } from "react-router-dom";
+import Spinner from "../elements/Spinner";
 
 const CollectionPage = () => {
   const token = sessionStorage.getItem("auth_token");
@@ -102,7 +103,7 @@ const CollectionPage = () => {
   }
 
   return (
-    <div className="MainContainer">
+    <div className="CollectionContainer">
       <div
         className="MainBanner"
         style={{
@@ -214,12 +215,7 @@ const CollectionPage = () => {
             dataLength={auctionData.length}
             next={auctionFetchData}
             auctionHasMore={auctionHasMore}
-            loader={<h4>Loding...</h4>}
-            endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
-              </p>
-            }
+            loader={<Spinner />}
           >
             <div className="CardWrapper">
               <CardAuction data={auctionData} />
