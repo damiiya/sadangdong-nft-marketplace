@@ -110,9 +110,10 @@ const MainPage = () => {
             Weekly Top seller🏆
           </span>
         </div>
-        <Link to={`/account/${mainSeller.address}`}>
-          <div className="MainWrapper">
-            {mainSeller.map((list, i) => (
+
+        <div className="MainWrapper">
+          {mainSeller.map((list, i) => (
+            <Link to={`/account/${list.address}`}>
               <div className="UserWrapper">
                 <Avatar
                   alt="User Name"
@@ -123,9 +124,9 @@ const MainPage = () => {
                 <div className="Ranking">{i + 1}</div>
                 <span className="UserName">{list.name}</span>
               </div>
-            ))}
-          </div>
-        </Link>
+            </Link>
+          ))}
+        </div>
       </div>
       <TeamInfo />
     </div>
