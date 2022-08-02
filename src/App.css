@@ -2077,7 +2077,7 @@ input[id*="account"]:checked + label + div {
   height: 660px;
   display: flex;
   flex-direction: column-reverse;
-  /* justify-content: flex-end; */
+  justify-content: flex-end;
   overflow: scroll;
 }
 
