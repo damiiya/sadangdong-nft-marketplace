@@ -189,7 +189,7 @@ const CreateItemPage = () => {
   // 아이템 이름 유효성 검사
   // 특수문자 제외 띄어쓰기 포함 8글자이하
   const checkName = (e) => {
-    const regExp = /[^\w\sㄱ-힣]|[\_]/g;
+    const regExp = /[^\w\sㄱ-힣\#]|[\_]/g;
     if (regExp.test(e.currentTarget.value)) {
       alert("특수문자는 입력하실수 없습니다.");
 

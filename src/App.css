@@ -1152,6 +1152,7 @@ input[id*="account"]:checked + label + div {
   width: auto;
   height: auto;
   margin-top: 16px;
+  margin-bottom: 8px;
   font-size: 24px;
   font-weight: bold;
   line-height: 1.25;
