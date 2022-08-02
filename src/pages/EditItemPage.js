@@ -104,8 +104,8 @@ const EditItemPage = () => {
       );
     }
 
-    if (e.currentTarget.value.length > 8) {
-      alert("이름은 8자 이하만 가능합니다!");
+    if (e.currentTarget.value.length > 15) {
+      alert("이름은 15자 이하만 가능합니다!");
       e.currentTarget.value = e.currentTarget.value.substring(
         0,
         e.currentTarget.value.length - 1
@@ -153,7 +153,7 @@ const EditItemPage = () => {
                 <input
                   className="CreateItemTittleInput"
                   placeholder="아이템 이름을 입력해 주세요."
-                  maxLength={9}
+                  maxLength={16}
                   defaultValue={itemDetail.name}
                   ref={nameRef}
                   onChange={(e) => {
