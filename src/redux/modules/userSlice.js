@@ -34,6 +34,7 @@ export const createAccount = createAsyncThunk(
 
 // 유저 테스트용 요청 보내기
 export const testUser = createAsyncThunk("TEST_USER", async (account) => {
+  console.log(account);
   return await axios({
     method: "get",
     url: `${serverUrl}/api/json/getETH`,

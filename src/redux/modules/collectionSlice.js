@@ -8,6 +8,7 @@ const token = sessionStorage.getItem("auth_token");
 export const createCollection = createAsyncThunk(
   "CREATE_LIST",
   async (value) => {
+    console.log(value);
     const response = await axios
       .post(`${serverUrl}/api/collections`, value.formData, {
         headers: {

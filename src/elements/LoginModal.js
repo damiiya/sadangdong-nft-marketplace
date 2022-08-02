@@ -68,7 +68,7 @@ const LoginModal = (props) => {
           console.log("연결이 실패했습니다.");
         }
       } else {
-        alert("Install Metamask!");
+        alert("메타마스크를 먼저 설치해주세요!");
         window.open("https://metamask.io/download.html");
       }
     } catch (error) {

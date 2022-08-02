@@ -8,6 +8,8 @@ import { buyNft } from "../../redux/modules/itemSlice";
 import { ethers } from "ethers";
 import { MINT_NFT_ABI } from "../../contracts/mintabi";
 import { MintContractAddress } from "../../shared/api";
+import { serverUrl_sol } from "../../shared/api";
+import { Link } from "react-router-dom";
 
 const BidResult = (props) => {
   const dispatch = useDispatch();
@@ -25,13 +27,13 @@ const BidResult = (props) => {
   };
 
   // 메타마스크로 거래완료하기
-  const getTransaction = async () => {
+  const sendTransaction = async (account) => {
     try {
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      const account = accounts[0];
-      console.log("현재 계정:", account);
+      // const accounts = await window.ethereum.request({
+      //   method: "eth_requestAccounts",
+      // });
+      // const account = accounts[0];
+      // console.log("현재 계정:", account);
 
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
@@ -57,10 +59,81 @@ const BidResult = (props) => {
     }
   };
 
+  const getTransaction = async () => {
+    try {
+      if (window.ethereum) {
+        const chainId = await window.ethereum.request({
+          method: "eth_chainId",
+        });
+
+        const SDDchainId = 1387;
+        const SDD = `0x${SDDchainId.toString(16)}`;
+        console.log(chainId);
+        console.log(SDD);
+
+        if (chainId === SDD) {
+          console.log("네트워크 연결이 가능합니다!");
+          const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          const account = accounts[0];
+          console.log(accounts);
+          sendTransaction(account);
+        } else {
+          try {
+            await window.ethereum.request({
+              method: "wallet_switchEthereumChain",
+              params: [{ chainId: SDD }],
+            });
+            const accounts = await window.ethereum.request({
+              method: "eth_requestAccounts",
+            });
+            const account = accounts[0];
+            console.log(accounts);
+            sendTransaction(account);
+          } catch (switchError) {
+            try {
+              await window.ethereum.request({
+                method: "wallet_addEthereumChain",
+                params: [
+                  {
+                    chainId: SDD,
+                    chainName: "Sadangdong",
+                    rpcUrls: [`${serverUrl_sol}`],
+                  },
+                ],
+              });
+              await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: SDD }],
+              });
+              const accounts = await window.ethereum.request({
+                method: "eth_requestAccounts",
+              });
+              const account = accounts[0];
+              console.log(accounts);
+              sendTransaction(account);
+            } catch (addError) {
+              console.log("연결이 실패했습니다.");
+            }
+          }
+          console.log("연결이 실패했습니다.");
+        }
+      } else {
+        alert("메타마스크를 먼저 설치해주세요!");
+        window.open("https://metamask.io/download.html");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return bidWin ? (
     <div className="activity-table2">
       <div className="table1-row">
-        <img className="act-img" src={props.image} />
+        <Link to={`/detail/item/${props.token_id}`}>
+          <img className="act-img" src={props.image} />
+        </Link>
       </div>
       <span id="row-title1" className="table1-row">
         {props.name}
@@ -94,7 +167,9 @@ const BidResult = (props) => {
   ) : (
     <div className="activity-table2">
       <div className="table1-row">
-        <img className="act-img" src={props.image} />
+        <Link to={`/detail/item/${props.token_id}`}>
+          <img className="act-img" src={props.image} />
+        </Link>
       </div>
       <span id="row-title1" className="table1-row">
         {props.name}
