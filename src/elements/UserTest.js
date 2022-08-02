@@ -10,24 +10,18 @@ const UserTest = () => {
   const handleSubmit = async () => {
     try {
       if (window.ethereum) {
-        console.log(1);
         const chainId = await window.ethereum.request({
           method: "eth_chainId",
         });
 
         const SDDchainId = 1387;
         const SDD = `0x${SDDchainId.toString(16)}`;
-        console.log(chainId);
-        console.log(SDD);
 
         if (chainId === SDD) {
-          console.log("네트워크 연결이 가능합니다!");
           const accounts = await window.ethereum.request({
             method: "eth_requestAccounts",
           });
           setAccount(accounts[0]);
-          console.log(accounts);
-          console.log(account);
           dispatch(testUser(accounts[0]));
         } else {
           try {
@@ -39,7 +33,6 @@ const UserTest = () => {
               method: "eth_requestAccounts",
             });
             setAccount(accounts[0]);
-            console.log(accounts);
             dispatch(testUser(accounts[0]));
           } catch (switchError) {
             try {
@@ -61,13 +54,9 @@ const UserTest = () => {
                 method: "eth_requestAccounts",
               });
               setAccount(accounts[0]);
-              console.log(accounts);
               dispatch(testUser(accounts[0]));
-            } catch (addError) {
-              console.log("연결이 실패했습니다.");
-            }
+            } catch (addError) {}
           }
-          console.log("연결이 실패했습니다.");
         }
       } else {
         alert("메타마스크를 먼저 설치해주세요!");

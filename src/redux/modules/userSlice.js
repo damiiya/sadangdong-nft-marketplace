@@ -23,18 +23,14 @@ export const createAccount = createAsyncThunk(
           response.data.data.profile_image
         );
         sessionStorage.setItem("user_nickname", response.data.data.name);
-        console.log(response.data.data);
         window.location.href = "";
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
 // 유저 테스트용 요청 보내기
 export const testUser = createAsyncThunk("TEST_USER", async (account) => {
-  console.log(account);
   return await axios({
     method: "get",
     url: `${serverUrl}/api/json/getETH`,
@@ -43,11 +39,9 @@ export const testUser = createAsyncThunk("TEST_USER", async (account) => {
     },
   })
     .then((response) => {
-      console.log(response.data);
       alert(response.data.statusMsg);
     })
     .catch((error) => {
-      console.log(error.message);
       alert(error.message);
     });
 });
@@ -64,12 +58,9 @@ export const loadAccountInfo = createAsyncThunk(
         },
       })
       .then((response) => {
-        console.log(response.data.data);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -85,12 +76,9 @@ export const loadAccountInfoCollection = createAsyncThunk(
         },
       })
       .then((response) => {
-        console.log(response.data);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -106,7 +94,6 @@ export const loadAccountFirstAuctionItem = createAsyncThunk(
         }
       )
       .then((response) => {
-        console.log(response);
         value.setAuctionData(response.data.data);
 
         if (response.data.data.length === 0 || response.data.data.length < 12) {
@@ -114,9 +101,7 @@ export const loadAccountFirstAuctionItem = createAsyncThunk(
         }
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -140,9 +125,7 @@ export const loadAccountAfterFirstAuctionItem = createAsyncThunk(
         value.setAuctionPage(value.auctionPage + 1);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -158,7 +141,6 @@ export const loadAccountFirstItem = createAsyncThunk(
         }
       )
       .then((response) => {
-        console.log(response);
         value.setItemData(response.data.data);
 
         if (response.data.data.length === 0 || response.data.data.length < 12) {
@@ -166,9 +148,7 @@ export const loadAccountFirstItem = createAsyncThunk(
         }
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -192,9 +172,7 @@ export const loadAccountAfterFirstItem = createAsyncThunk(
         value.setItemPage(value.itemPage + 1);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -210,12 +188,9 @@ export const loadAccountCollection = createAsyncThunk(
         },
       })
       .then((response) => {
-        console.log(response.data);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -229,7 +204,6 @@ export const editAccount = createAsyncThunk("EDIT_ACCOUNT", async (value) => {
       },
     })
     .then((response) => {
-      console.log(response.data);
       value.navigate(`/account/myactivity/${token}`);
       if (!value.file) {
         sessionStorage.setItem("user_profile", value.profile_image);
@@ -240,9 +214,7 @@ export const editAccount = createAsyncThunk("EDIT_ACCOUNT", async (value) => {
         );
       }
     })
-    .catch((error) => {
-      console.log(error.message);
-    });
+    .catch((error) => {});
 });
 
 const userSlice = createSlice({
@@ -255,7 +227,6 @@ const userSlice = createSlice({
     },
     [loadAccountInfo.fulfilled]: (state, action) => {
       state.account = action.payload;
-      console.log(state.account);
     },
     [loadAccountInfoCollection.fulfilled]: (state, action) => {
       state.userInfo = action.payload;

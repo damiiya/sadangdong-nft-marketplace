@@ -29,7 +29,6 @@ const SellingItemPage = () => {
           method: "eth_requestAccounts",
         });
         const account = accounts[0];
-        console.log("현재 계정:", account);
 
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
@@ -48,13 +47,10 @@ const SellingItemPage = () => {
           return alert(response.data.statusMsg);
         }
         const auction = await contract.setSaleNftToken(tokenID, ethPrice);
-        console.log(auction);
       }
 
       dispatch(applyAuction({ token_id: token_id, price: price }));
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {

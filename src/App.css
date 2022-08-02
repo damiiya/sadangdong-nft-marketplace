@@ -2274,7 +2274,6 @@ input[id*="account"]:checked + label + div {
   border-radius: 16px;
   padding-left: 16px;
   box-sizing: border-box;
-  color: #e5e5e5;
   font-size: 18px;
 }
 

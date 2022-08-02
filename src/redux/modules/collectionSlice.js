@@ -8,7 +8,6 @@ const token = sessionStorage.getItem("auth_token");
 export const createCollection = createAsyncThunk(
   "CREATE_LIST",
   async (value) => {
-    console.log(value);
     const response = await axios
       .post(`${serverUrl}/api/collections`, value.formData, {
         headers: {
@@ -20,9 +19,7 @@ export const createCollection = createAsyncThunk(
         value.navigate(`/detail/collection/${value.fileInfo.name}`);
         return response.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -30,17 +27,13 @@ export const createCollection = createAsyncThunk(
 export const loadFirstCollection = createAsyncThunk(
   "LOAD_COLLECTION_FIRST_LIST",
   async (setCollectionData) => {
-    console.log(2);
     return await axios
       .get(`${serverUrl}/api/explore?tab=collection&_page=1&_limit=12`)
       .then((response) => {
         setCollectionData(response.data.data);
-        console.log(response.data.data);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -64,9 +57,7 @@ export const loadAfterFirstCollection = createAsyncThunk(
         value.setCollectionPage(value.collectionPage + 1);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -89,9 +80,7 @@ export const editCollection = createAsyncThunk(
         value.navigate(`/detail/collection/${value.fileInfo.name}`);
         return response.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -107,9 +96,7 @@ export const deleteCollection = createAsyncThunk(
         // value.navigate("/list");
         window.location.href = "/list";
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -124,9 +111,7 @@ export const loadCollectionDetail = createAsyncThunk(
       .then((response) => {
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -139,7 +124,6 @@ export const loadSearchFirstCollection = createAsyncThunk(
         `${serverUrl}/api/search?tab=collection&name=${value.keyword}&_page=1&_limit=12`
       )
       .then((response) => {
-        console.log(response);
         value.setCollectionData(response.data.data);
 
         if (response.data.data.length === 0 || response.data.data.length < 12) {
@@ -147,9 +131,7 @@ export const loadSearchFirstCollection = createAsyncThunk(
         }
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
@@ -173,9 +155,7 @@ export const loadSearchAfterFirstCollection = createAsyncThunk(
         value.setCollectionPage(value.collectionPage + 1);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
