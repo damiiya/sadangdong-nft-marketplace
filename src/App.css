@@ -471,7 +471,6 @@ input[id*="account"]:checked + label + div {
 
   min-height: 900px;
   box-sizing: border-box;
-
 }
 
 .MainContainer2 {
@@ -2040,9 +2039,7 @@ input[id*="account"]:checked + label + div {
   width: 340px;
   height: 600px;
   display: flex;
-  /* flex-direction: column; */
   flex-direction: column-reverse;
-  justify-content: flex-end;
   overflow: scroll;
 }
 
