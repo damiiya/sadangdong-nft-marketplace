@@ -85,7 +85,6 @@ const CreateCollectionPage = () => {
   const checkName = (e) => {
     const regExp = /[^\w\sㄱ-힣]|[\_]/g;
     if (regExp.test(e.currentTarget.value)) {
-
       alert("특수문자는 입력하실 수 없습니다.");
 
       e.currentTarget.value = e.currentTarget.value.substring(
@@ -105,8 +104,8 @@ const CreateCollectionPage = () => {
   // 컬렉션 설명 유효성 검사
   // 띄어쓰기 포함 200글자 이하
   const checkDesc = (e) => {
-    if (e.currentTarget.value.length > 200) {
-      alert("설명은 200자 이하만 가능합니다!");
+    if (e.currentTarget.value.length > 50) {
+      alert("설명은 50자 이하만 가능합니다!");
       e.currentTarget.value = e.currentTarget.value.substring(
         0,
         e.currentTarget.value.length - 1
@@ -217,7 +216,7 @@ const CreateCollectionPage = () => {
               <div>
                 <textarea
                   ref={desc}
-                  maxLength={201}
+                  maxLength={51}
                   onChange={(e) => {
                     checkDesc(e);
                   }}

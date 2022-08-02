@@ -16,6 +16,7 @@ import {
 } from "../redux/modules/itemSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
 import searchfailed from "../assets/icon/searchfailed.png";
+import Spinner from "../elements/Spinner";
 
 const SearchListPage = () => {
   const dispatch = useDispatch();
@@ -184,12 +185,10 @@ const SearchListPage = () => {
       </div>
       {category === 0 && collectionData.length === 0 && (
         <div className="SearchFailedContainer">
-          <div className="SearchFailedWrapper">
-            <img className="SearchFailed" src={searchfailed} />
-            <span className="SearchFailedText">
-              '{keyword}'와 일치하는 검색 결과가 없습니다.
-            </span>
-          </div>
+          <img className="SearchFailed" src={searchfailed} />
+          <span className="SearchFailedText">
+            '{keyword}'와 일치하는 검색 결과가 없습니다.
+          </span>
         </div>
       )}
       {category === 0 && (
@@ -197,6 +196,7 @@ const SearchListPage = () => {
           dataLength={collectionData.length}
           next={collectionFetchData}
           hasMore={collectionHasMore}
+          loader={<Spinner />}
           style={{ overflowY: "hidden" }}
         >
           <div className="CardWrapper">
@@ -207,12 +207,10 @@ const SearchListPage = () => {
 
       {category === 1 && itemData.length === 0 && (
         <div className="SearchFailedContainer">
-          <div className="SearchFailedWrapper">
-            <img className="SearchFailed" src={searchfailed} />
-            <span className="SearchFailedText">
-              '{keyword}'와 일치하는 검색 결과가 없습니다.
-            </span>
-          </div>
+          <img className="SearchFailed" src={searchfailed} />
+          <span className="SearchFailedText">
+            '{keyword}'와 일치하는 검색 결과가 없습니다.
+          </span>
         </div>
       )}
       {category === 1 && (
@@ -220,6 +218,7 @@ const SearchListPage = () => {
           dataLength={itemData.length}
           next={itemFetchData}
           hasMore={itemHasMore}
+          loader={<Spinner />}
           style={{ overflowY: "hidden" }}
         >
           <div className="CardWrapper">
@@ -229,14 +228,10 @@ const SearchListPage = () => {
       )}
       {category === 2 && auctionData.length === 0 && (
         <div className="SearchFailedContainer">
-          <div className="SearchFailedWrapper">
-            <img className="SearchFailed" src={searchfailed} />
-            <div>
-              <span className="SearchFailedText">
-                '{keyword}'와 일치하는 검색 결과가 없습니다.
-              </span>
-            </div>
-          </div>
+          <img className="SearchFailed" src={searchfailed} />
+          <span className="SearchFailedText">
+            '{keyword}'와 일치하는 검색 결과가 없습니다.
+          </span>
         </div>
       )}
       {category === 2 && auctionData.length > 0 ? (
@@ -244,7 +239,7 @@ const SearchListPage = () => {
           dataLength={auctionData.length}
           next={auctionFetchData}
           auctionHasMore={auctionHasMore}
-          loader={<h4>Loding...</h4>}
+          loader={<Spinner />}
           style={{ overflowY: "hidden" }}
         >
           <div className="CardWrapper">

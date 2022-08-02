@@ -89,18 +89,22 @@ const Header = (userProfile) => {
                 </span>
               </label>
               <div className="AccordionMenu">
-                <div className="AccordionCreateitemContainer-1">
-                  <img src={createitem} />
-                  <button className="AccordionMenuButton-1">
-                    <a href="/createitem">Create Item</a>
-                  </button>
-                </div>
-                <div className="AccordionCreateitemContainer-2">
-                  <img src={createcollection} />
-                  <button className="AccordionMenuButton-2">
-                    <a href="/createcollection">Create Collection</a>
-                  </button>
-                </div>
+                <a href="/createitem">
+                  <div className="AccordionCreateitemContainer-1">
+                    <img src={createitem} />
+                    <button className="AccordionMenuButton-1">
+                      Create Item
+                    </button>
+                  </div>
+                </a>
+                <a href="/createcollection">
+                  <div className="AccordionCreateitemContainer-2">
+                    <img src={createcollection} />
+                    <button className="AccordionMenuButton-2">
+                      Create Collection
+                    </button>
+                  </div>
+                </a>
               </div>
             </div>
             {token && userProfile ? (
@@ -125,28 +129,25 @@ const Header = (userProfile) => {
                     />
                   </label>
                   <div className="AccordionAccountMenu">
-                    <div className="AccordionCreateitemContainer-1">
-                      <img src={user} />
-                      <button className="AccordionMenuButton-2">
-                        <a
-                          className="AccordionMyMenu"
-                          href={`/account/${token}`}
-                        >
+                    <a className="AccordionMyMenu" href={`/account/${token}`}>
+                      <div className="AccordionCreateitemContainer-1">
+                        <img src={user} />
+                        <button className="AccordionMenuButton-2">
                           나의 NFT
-                        </a>
-                      </button>
-                    </div>
-                    <div className="AccordionCreateitemContainer-2">
-                      <img src={cart} />
-                      <button className="AccordionMenuButton-2">
-                        <a
-                          className="AccordionMyMenu"
-                          href={`/account/myactivity/${token}`}
-                        >
+                        </button>
+                      </div>
+                    </a>
+                    <a
+                      className="AccordionMyMenu"
+                      href={`/account/myactivity/${token}`}
+                    >
+                      <div className="AccordionCreateitemContainer-2">
+                        <img src={cart} />
+                        <button className="AccordionMenuButton-2">
                           나의 활동
-                        </a>
-                      </button>
-                    </div>
+                        </button>
+                      </div>
+                    </a>
                   </div>
                 </div>
               </>

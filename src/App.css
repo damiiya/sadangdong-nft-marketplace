@@ -326,7 +326,8 @@ input[id*="answer"]:checked + label + div {
 }
 
 .AccordionMyMenu {
-  margin-right: 10px;
+  width: 100%;
+  height: 72px;
 }
 
 .AccordionMenuButton-2 {
@@ -669,7 +670,7 @@ input[id*="account"]:checked + label + div {
 /* TeamInfo */
 .TeamBackground {
   width: 100%;
-  height: 883px;
+  min-height: 900px;
   background-color: #001c96;
 }
 
@@ -809,25 +810,20 @@ input[id*="account"]:checked + label + div {
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 .SearchFailedWrapper {
-  text-align: center;
 }
 
 .SearchFailed {
   width: 180px;
   height: 180px;
   margin-top: 200px;
-  margin-left: 200px;
-  margin-right: 200px;
 }
 
 .SearchFailedText {
-  display: flex;
   margin-top: 30px;
-  margin-left: 3rem;
 
   font-size: 24px;
   font-weight: bold;
@@ -846,6 +842,13 @@ input[id*="account"]:checked + label + div {
 }
 
 /* CollectionPage */
+.CollectionContainer {
+  width: 100%;
+
+  min-height: 1500px;
+  box-sizing: border-box;
+}
+
 .MainBanner {
   width: 100%;
   height: 480px;
@@ -1145,6 +1148,7 @@ input[id*="account"]:checked + label + div {
   width: auto;
   height: auto;
   margin-top: 16px;
+  margin-bottom: 8px;
   font-size: 24px;
   font-weight: bold;
   line-height: 1.25;
@@ -1716,6 +1720,7 @@ input[id*="account"]:checked + label + div {
   align-items: center;
   margin-top: 32px;
   margin-left: 170px;
+  margin-bottom: 10rem;
 }
 
 .ItemAuctionPriceInput {
@@ -3184,4 +3189,34 @@ input[id*="CheckBox"] + label + div {
   width: 75%;
   height: auto;
   margin: 40px auto 120px auto;
+}
+
+/* ErrorPage */
+.ErrorContainer {
+  width: 100%;
+  height: 60rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 6.25rem;
+}
+
+.ErrorImage {
+  margin-bottom: 2.5rem;
+}
+
+.ErrorSpan {
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.ErrorPageButton {
+  width: 20rem;
+  height: 3.5rem;
+  border-radius: 16px;
+  background-color: #c5ff49;
+  font-size: 1.125rem;
+  font-weight: bold;
+  border: none;
 }

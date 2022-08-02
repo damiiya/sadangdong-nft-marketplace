@@ -26,7 +26,15 @@ const CardCollection = (props) => {
             <Link to={`/account/${val.address}`}>
               <span className="CardUserName">by {val.user_name}</span>
             </Link>
-            <span className="CardCollectionDescription">{val.description}</span>
+            {val.description.length > 20 ? (
+              <span className="CardCollectionDescription">
+                {val.description.substr(0, 20)}....
+              </span>
+            ) : (
+              <span className="CardCollectionDescription">
+                {val.description}
+              </span>
+            )}
           </div>
         </div>
       ))}
