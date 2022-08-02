@@ -103,6 +103,21 @@ input :focus {
   flex-direction: column;
 }
 
+.HashLoader {
+  margin-bottom: 2rem;
+}
+
+.SpinnerText {
+  font-size: 2rem;
+  font-size: bold;
+}
+
+.SpinnerDesc {
+  font-size: 1.5rem;
+  color: #001c96;
+  font-weight: 700;
+}
+
 /* EmptyView */
 .EmptyView {
   width: 100%;
