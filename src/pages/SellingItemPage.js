@@ -8,6 +8,8 @@ import { applyAuction, loadItemDetail } from "../redux/modules/itemSlice";
 import { ethers } from "ethers";
 import { MINT_NFT_ABI } from "../contracts/mintabi";
 import { MintContractAddress } from "../shared/api";
+import { serverUrl } from "../shared/api";
+import axios from "axios";
 
 const SellingItemPage = () => {
   const dispatch = useDispatch();
@@ -39,6 +41,12 @@ const SellingItemPage = () => {
 
         const tokenID = ethers.utils.hexlify(Number(token_id));
         const ethPrice = ethers.utils.parseEther(price);
+        const response = await axios.get(
+          `${serverUrl}/api/json/transaction/${itemDetail.hashdata}`
+        );
+        if (response.data.statusCode === 400) {
+          return alert(response.data.statusMsg);
+        }
         const auction = await contract.setSaleNftToken(tokenID, ethPrice);
         console.log(auction);
       }

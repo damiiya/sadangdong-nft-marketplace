@@ -14,6 +14,7 @@ import {
   postMintedItem,
 } from "../redux/modules/itemSlice";
 import { serverUrl } from "../shared/api";
+import { serverUrl_sol } from "../shared/api";
 // import Spinner from "../elements/Spinner";
 
 const CreateItemPage = () => {
@@ -53,7 +54,7 @@ const CreateItemPage = () => {
   };
 
   // formData로 요청하기
-  const handleSubmit = async (TOKEN, tokenURI, ImgHash, hashData) => {
+  const handleSubmit = async (TOKEN, hashData, account, tokenURI, ImgHash) => {
     const itemInfo = {
       token_id: TOKEN,
       ipfsJson: tokenURI,
@@ -73,14 +74,8 @@ const CreateItemPage = () => {
   };
 
   // 민팅
-  const getMintNFT = async (tokenURI, ImgHash) => {
+  const getMintNFT = async (account, tokenURI, ImgHash) => {
     try {
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      const account = accounts[0];
-      console.log("현재 계정:", account);
-
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const contract = new ethers.Contract(
@@ -97,10 +92,79 @@ const CreateItemPage = () => {
       const txn = await contract.mintNFT(tokenURI, getToken);
       const hashData = txn.hash;
 
-      handleSubmit(TOKEN, tokenURI, ImgHash, hashData);
+      handleSubmit(TOKEN, hashData, account, tokenURI, ImgHash);
     } catch (error) {
       console.log("Error while minting NFT with contract");
       console.log(error);
+    }
+  };
+
+  const getConnect = async (tokenURI, ImgHash) => {
+    try {
+      if (window.ethereum) {
+        const chainId = await window.ethereum.request({
+          method: "eth_chainId",
+        });
+
+        const SDDchainId = 1387;
+        const SDD = `0x${SDDchainId.toString(16)}`;
+        console.log(chainId);
+        console.log(SDD);
+
+        if (chainId === SDD) {
+          console.log("네트워크 연결이 가능합니다!");
+          const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          const account = accounts[0];
+          console.log(accounts);
+          getMintNFT(account, tokenURI, ImgHash);
+        } else {
+          try {
+            await window.ethereum.request({
+              method: "wallet_switchEthereumChain",
+              params: [{ chainId: SDD }],
+            });
+            const accounts = await window.ethereum.request({
+              method: "eth_requestAccounts",
+            });
+            const account = accounts[0];
+            console.log(accounts);
+            getMintNFT(account, tokenURI, ImgHash);
+          } catch (switchError) {
+            try {
+              await window.ethereum.request({
+                method: "wallet_addEthereumChain",
+                params: [
+                  {
+                    chainId: SDD,
+                    chainName: "Sadangdong",
+                    rpcUrls: [`${serverUrl_sol}`],
+                  },
+                ],
+              });
+              await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: SDD }],
+              });
+              const accounts = await window.ethereum.request({
+                method: "eth_requestAccounts",
+              });
+              const account = accounts[0];
+              console.log(accounts);
+              getMintNFT(account, tokenURI, ImgHash);
+            } catch (addError) {
+              console.log("연결이 실패했습니다.");
+            }
+          }
+          console.log("연결이 실패했습니다.");
+        }
+      } else {
+        alert("메타마스크를 먼저 설치해주세요!");
+        window.open("https://metamask.io/download.html");
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -125,7 +189,7 @@ const CreateItemPage = () => {
       const tokenURI = `ipfs://${resJSON.data.IpfsHash}`;
       console.log("Token URI", tokenURI);
 
-      getMintNFT(tokenURI, ImgHash);
+      getConnect(tokenURI, ImgHash);
     } catch (error) {
       console.log("JSON to IPFS: ");
       console.log(error);
