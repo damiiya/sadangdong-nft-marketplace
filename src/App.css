@@ -23,7 +23,7 @@ input :focus {
 }
 
 .App {
-  width: 1920px;
+  width: 100%;
   height: auto;
   font-stretch: normal;
   font-style: normal;
@@ -471,7 +471,6 @@ input[id*="account"]:checked + label + div {
 
   min-height: 900px;
   box-sizing: border-box;
-
 }
 
 .MainContainer2 {

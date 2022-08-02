@@ -14,6 +14,7 @@ const SellingItemPage = () => {
   const navigate = useNavigate();
   const params = useParams();
   const token_id = params.token_id;
+  const token = sessionStorage.getItem("auth_token");
   const [isLoad, setIsLoad] = useState(false);
   const [price, setPrice] = useState(0);
   const itemDetail = useSelector((state) => state.item.itemDetail);
@@ -79,6 +80,11 @@ const SellingItemPage = () => {
   now_date.setHours(now_date.getHours() + 9);
   if (itemDetail.transaction_at > now_date.toISOString()) {
     alert("경매처리가 진행중입니다!");
+    navigate("/");
+  }
+
+  if (!itemDetail.owner && token) {
+    alert("잘못된 접근입니다!");
     navigate("/");
   }
 

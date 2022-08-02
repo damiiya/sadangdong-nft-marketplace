@@ -13,6 +13,7 @@ import {
   getCollectionSelect,
   postMintedItem,
 } from "../redux/modules/itemSlice";
+import { serverUrl } from "../shared/api";
 // import Spinner from "../elements/Spinner";
 
 const CreateItemPage = () => {
@@ -52,11 +53,12 @@ const CreateItemPage = () => {
   };
 
   // formData로 요청하기
-  const handleSubmit = async (tokenID, tokenURI, ImgHash) => {
+  const handleSubmit = async (TOKEN, tokenURI, ImgHash, hashData) => {
     const itemInfo = {
-      token_id: tokenID,
+      token_id: TOKEN,
       ipfsJson: tokenURI,
       ipfsImage: ImgHash,
+      hashdata: hashData,
       name: name,
       description: description,
       collection_name: selected,
@@ -86,27 +88,16 @@ const CreateItemPage = () => {
         MINT_NFT_ABI,
         signer
       );
+      const response = await axios.get(`${serverUrl}/api/items/lasttoken`);
+      const getToken = ethers.utils.hexlify(Number(response.data.data));
+      const TOKEN = response.data.data;
+      console.log(response.data);
+      console.log(getToken);
 
-      const txn = await contract.mintNFT(tokenURI);
-      const tx = await provider.getTransaction(txn.hash);
-      const receipt = await tx.wait();
-      console.log(receipt);
+      const txn = await contract.mintNFT(tokenURI, getToken);
+      const hashData = txn.hash;
 
-      const getmintItem = await contract.getNftTokens(account);
-      console.log(getmintItem);
-
-      const tokensOwned = await contract.balanceOf(account);
-      const tokenIds = [];
-
-      for (let i = 0; i < tokensOwned; i++) {
-        const tokenId = await contract.tokenOfOwnerByIndex(account, i);
-        tokenIds.push(tokenId.toString());
-      }
-
-      const tokenID = tokenIds[tokenIds.length - 1];
-      console.log(tokenID);
-
-      handleSubmit(tokenID, tokenURI, ImgHash);
+      handleSubmit(TOKEN, tokenURI, ImgHash, hashData);
     } catch (error) {
       console.log("Error while minting NFT with contract");
       console.log(error);
@@ -239,7 +230,6 @@ const CreateItemPage = () => {
   } else {
     return (
       <>
-
         <div className="CreateItemContainer">
           <div className="CreateItemWrapper">
             <span className="CreateItemTittle">아이템 생성</span>
