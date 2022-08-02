@@ -326,7 +326,8 @@ input[id*="answer"]:checked + label + div {
 }
 
 .AccordionMyMenu {
-  margin-right: 10px;
+  width: 100%;
+  height: 72px;
 }
 
 .AccordionMenuButton-2 {
