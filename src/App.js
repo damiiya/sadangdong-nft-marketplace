@@ -20,6 +20,7 @@ import EditAccountPage from "./pages/EditAccountPage";
 import MyActivityPage from "./pages/MyActivityPage";
 import Footer from "./components/main/Footer";
 import UserTest from "./elements/UserTest";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   return (
@@ -62,6 +63,9 @@ function App() {
         <Route path="admin" element={<AdminPage />} />
         <Route path="approved" element={<ApprovedAdminPage />} />
         <Route path="rejected" element={<RejectedAdminPage />} />
+
+        {/* 에러페이지 */}
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
       <UserTest />

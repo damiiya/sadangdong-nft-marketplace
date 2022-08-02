@@ -3194,3 +3194,33 @@ input[id*="CheckBox"] + label + div {
   height: auto;
   margin: 40px auto 120px auto;
 }
+
+/* ErrorPage */
+.ErrorContainer {
+  width: 100%;
+  height: 60rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 6.25rem;
+}
+
+.ErrorImage {
+  margin-bottom: 2.5rem;
+}
+
+.ErrorSpan {
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.ErrorPageButton {
+  width: 20rem;
+  height: 3.5rem;
+  border-radius: 16px;
+  background-color: #c5ff49;
+  font-size: 1.125rem;
+  font-weight: bold;
+  border: none;
+}
