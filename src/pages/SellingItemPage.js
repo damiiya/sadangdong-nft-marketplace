@@ -8,12 +8,15 @@ import { applyAuction, loadItemDetail } from "../redux/modules/itemSlice";
 import { ethers } from "ethers";
 import { MINT_NFT_ABI } from "../contracts/mintabi";
 import { MintContractAddress } from "../shared/api";
+import { serverUrl } from "../shared/api";
+import axios from "axios";
 
 const SellingItemPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
   const token_id = params.token_id;
+  const token = sessionStorage.getItem("auth_token");
   const [isLoad, setIsLoad] = useState(false);
   const [price, setPrice] = useState(0);
   const itemDetail = useSelector((state) => state.item.itemDetail);
@@ -38,6 +41,12 @@ const SellingItemPage = () => {
 
         const tokenID = ethers.utils.hexlify(Number(token_id));
         const ethPrice = ethers.utils.parseEther(price);
+        const response = await axios.get(
+          `${serverUrl}/api/json/transaction/${itemDetail.hashdata}`
+        );
+        if (response.data.statusCode === 400) {
+          return alert(response.data.statusMsg);
+        }
         const auction = await contract.setSaleNftToken(tokenID, ethPrice);
         console.log(auction);
       }
@@ -79,6 +88,11 @@ const SellingItemPage = () => {
   now_date.setHours(now_date.getHours() + 9);
   if (itemDetail.transaction_at > now_date.toISOString()) {
     alert("경매처리가 진행중입니다!");
+    navigate("/");
+  }
+
+  if (!itemDetail.owner && token) {
+    alert("잘못된 접근입니다!");
     navigate("/");
   }
 

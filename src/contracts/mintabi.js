@@ -450,6 +450,11 @@ export const MINT_NFT_ABI = [
         name: "_tokenURI",
         type: "string",
       },
+      {
+        internalType: "uint256",
+        name: "_tokenId",
+        type: "uint256",
+      },
     ],
     name: "mintNFT",
     outputs: [
