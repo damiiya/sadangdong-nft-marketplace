@@ -13,6 +13,7 @@ import {
   getCollectionSelect,
   postMintedItem,
 } from "../redux/modules/itemSlice";
+import { serverUrl } from "../shared/api";
 // import Spinner from "../elements/Spinner";
 
 const CreateItemPage = () => {
@@ -52,11 +53,12 @@ const CreateItemPage = () => {
   };
 
   // formData로 요청하기
-  const handleSubmit = async (tokenID, tokenURI, ImgHash) => {
+  const handleSubmit = async (tokenID, tokenURI, ImgHash, hashdata) => {
     const itemInfo = {
       token_id: tokenID,
       ipfsJson: tokenURI,
       ipfsImage: ImgHash,
+      hashdata: hashdata,
       name: name,
       description: description,
       collection_name: selected,
@@ -88,9 +90,9 @@ const CreateItemPage = () => {
       );
 
       const txn = await contract.mintNFT(tokenURI);
+      const hashdata = txn.hash;
       const tx = await provider.getTransaction(txn.hash);
       const receipt = await tx.wait();
-      console.log(receipt);
 
       const getmintItem = await contract.getNftTokens(account);
       console.log(getmintItem);
@@ -106,7 +108,7 @@ const CreateItemPage = () => {
       const tokenID = tokenIds[tokenIds.length - 1];
       console.log(tokenID);
 
-      handleSubmit(tokenID, tokenURI, ImgHash);
+      handleSubmit(tokenID, tokenURI, ImgHash, hashdata);
     } catch (error) {
       console.log("Error while minting NFT with contract");
       console.log(error);
@@ -239,7 +241,6 @@ const CreateItemPage = () => {
   } else {
     return (
       <>
-
         <div className="CreateItemContainer">
           <div className="CreateItemWrapper">
             <span className="CreateItemTittle">아이템 생성</span>

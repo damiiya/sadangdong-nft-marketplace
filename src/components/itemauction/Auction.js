@@ -4,16 +4,19 @@ import { io } from "socket.io-client";
 import { serverUrl } from "../../shared/api";
 import Chat from "./Chat";
 import { Offer, PreOffer } from "./Offer";
+import { serverUrl_sol } from "../../shared/api";
+import axios from "axios";
 
 // 서버에 필요한 정보
 // "joinRoom": 채팅창 열기
-// "recOffer": 서버에서 데이터 받아오기
 // "sendOffer": 서버에 요청 보내기
+// "recOffer": 서버에서 데이터 받아오기
 // "error": 에러 처리하기
 
 // 경매용 소켓연결
 let socket;
 const address = sessionStorage.getItem("auth_token");
+const name = sessionStorage.getItem("user_nickname");
 const server = `${serverUrl}/offer`;
 
 const Auction = (props) => {
@@ -25,23 +28,30 @@ const Auction = (props) => {
 
   // 1.auction_id로 채팅창 생성
   useEffect(() => {
-    socket = io(server);
+    // 소켓연결내용
+    // socket = io(server);
     socket.emit("joinRoom", `${auction_id}`, (error) => {
       console.log("error");
       if (error) {
         alert(error);
       }
     });
+    // 리턴안에 먼저 실행하고
+    return () => {
+      socket.on("leaveRoom", () => {
+        console.log("disconnect");
+      });
+    };
   }, []);
 
   // 2. data 보내기
-  const sendOffer = async (e) => {
+  const sendServer = async (account, price) => {
     try {
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      const account = accounts[0];
-      console.log("현재 계정:", account);
+      // const accounts = await window.ethereum.request({
+      //   method: "eth_requestAccounts",
+      // });
+      // const account = accounts[0];
+      // console.log("현재 계정:", account);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const balance = await provider.getBalance(account);
       const mycoin = ethers.utils.formatEther(balance);
@@ -53,13 +63,99 @@ const Auction = (props) => {
           address: address,
           price: price,
           mycoin: mycoin,
+          name: name,
         };
-        console.log(data);
-        await socket.emit("sendOffer", data);
-        setPrice("");
+        axios
+          .post(`${serverUrl}/api/offer/${auction_id}`, data, {
+            headers: { authorization: address },
+          })
+          .then(async (response) => {
+            if (response.data.statusCode === 400) {
+              return alert(response.data.statusMsg);
+            }
+            const hello = await socket.emit("sendOffer", data);
+            console.log(hello);
+            setPrice("");
+            console.log(response);
+            console.log(response.data);
+            alert(response.data.statusMsg);
+          })
+          .catch((error) => {
+            console.log(error);
+            alert(error.message);
+          });
       }
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const sendOffer = async (e) => {
+    try {
+      if (window.ethereum) {
+        const chainId = await window.ethereum.request({
+          method: "eth_chainId",
+        });
+
+        const SDDchainId = 1387;
+        const SDD = `0x${SDDchainId.toString(16)}`;
+        console.log(chainId);
+        console.log(SDD);
+
+        if (chainId === SDD) {
+          console.log("네트워크 연결이 가능합니다!");
+          const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          const account = accounts[0];
+          console.log(accounts);
+          sendServer(account, price);
+        } else {
+          try {
+            await window.ethereum.request({
+              method: "wallet_switchEthereumChain",
+              params: [{ chainId: SDD }],
+            });
+            const accounts = await window.ethereum.request({
+              method: "eth_requestAccounts",
+            });
+            const account = accounts[0];
+            console.log(accounts);
+            sendServer(account, price);
+          } catch (switchError) {
+            try {
+              await window.ethereum.request({
+                method: "wallet_addEthereumChain",
+                params: [
+                  {
+                    chainId: SDD,
+                    chainName: "Sadangdong",
+                    rpcUrls: [`${serverUrl_sol}`],
+                  },
+                ],
+              });
+              await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: SDD }],
+              });
+              const accounts = await window.ethereum.request({
+                method: "eth_requestAccounts",
+              });
+              const account = accounts[0];
+              console.log(accounts);
+              sendServer(account, price);
+            } catch (addError) {
+              console.log("연결이 실패했습니다.");
+            }
+          }
+          console.log("연결이 실패했습니다.");
+        }
+      } else {
+        alert("메타마스크를 먼저 설치해주세요!");
+        window.open("https://metamask.io/download.html");
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
