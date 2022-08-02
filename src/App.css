@@ -810,25 +810,20 @@ input[id*="account"]:checked + label + div {
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 .SearchFailedWrapper {
-  text-align: center;
 }
 
 .SearchFailed {
   width: 180px;
   height: 180px;
   margin-top: 200px;
-  margin-left: 200px;
-  margin-right: 200px;
 }
 
 .SearchFailedText {
-  display: flex;
   margin-top: 30px;
-  margin-left: 3rem;
 
   font-size: 24px;
   font-weight: bold;

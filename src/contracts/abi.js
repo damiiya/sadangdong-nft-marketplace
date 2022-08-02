@@ -450,6 +450,11 @@ export const CONTRACT_ABI = [
         name: "_tokenURI",
         type: "string",
       },
+      {
+        internalType: "uint256",
+        name: "_tokenId",
+        type: "uint256",
+      },
     ],
     name: "mintNFT",
     outputs: [
