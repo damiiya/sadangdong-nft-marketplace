@@ -83,7 +83,7 @@ const CreateItemPage = () => {
       const getToken = ethers.utils.hexlify(Number(response.data.data));
       const TOKEN = response.data.data;
       const result = await axios
-        .post(`${serverUrl}/api/items/temp`, TOKEN)
+        .post(`${serverUrl}/api/items/temp`, { TOKEN_id: TOKEN })
         .catch((error) => {
           console.log(error);
         });
