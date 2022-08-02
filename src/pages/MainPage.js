@@ -110,20 +110,22 @@ const MainPage = () => {
             Weekly Top seller🏆
           </span>
         </div>
-        <div className="MainWrapper">
-          {mainSeller.map((list, i) => (
-            <div className="UserWrapper">
-              <Avatar
-                alt="User Name"
-                src={list.profile_image}
-                sx={{ width: 200, height: 200 }}
-                style={{ border: "2px solid #111111" }}
-              />
-              <div className="Ranking">{i + 1}</div>
-              <span className="UserName">{list.name}</span>
-            </div>
-          ))}
-        </div>
+        <Link to={`/account/${mainSeller.address}`}>
+          <div className="MainWrapper">
+            {mainSeller.map((list, i) => (
+              <div className="UserWrapper">
+                <Avatar
+                  alt="User Name"
+                  src={list.profile_image}
+                  sx={{ width: 200, height: 200 }}
+                  style={{ border: "2px solid #111111" }}
+                />
+                <div className="Ranking">{i + 1}</div>
+                <span className="UserName">{list.name}</span>
+              </div>
+            ))}
+          </div>
+        </Link>
       </div>
       <TeamInfo />
     </div>

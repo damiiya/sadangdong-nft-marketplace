@@ -6,6 +6,21 @@
     "Malgun Gothic", sans-serif;
 }
 
+body::-webkit-scrollbar {
+  width: 10px; /* 스크롤바의 너비 */
+}
+
+body::-webkit-scrollbar-thumb {
+  height: 30%; /* 스크롤바의 길이 */
+  background: #e5e5e5; /* 스크롤바의 색상 */
+
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: rgba(33, 122, 244, 0.1); /*스크롤바 뒷 배경 색상*/
+}
+
 a,
 a:hover,
 a:focus,
@@ -20,6 +35,12 @@ button {
 
 input :focus {
   outline: none;
+}
+
+.scrollBar {
+  width: 200px;
+  height: 200px;
+  overflow-y: scroll;
 }
 
 .App {
@@ -1338,7 +1359,9 @@ input[id*="account"]:checked + label + div {
   display: flex;
   align-items: center;
   position: relative;
-  right: 60px;
+  justify-content: end;
+  margin-right: 10px;
+  /* right: 60px; */
 }
 
 .SellDescriptionAvatar {
@@ -1346,7 +1369,7 @@ input[id*="account"]:checked + label + div {
 }
 
 .SellUserName {
-  width: 100px;
+  width: auto;
   font-size: 18px;
   font-weight: bold;
   line-height: 1.33;
@@ -2037,11 +2060,10 @@ input[id*="account"]:checked + label + div {
 /* offer */
 .AuctionContainer {
   width: 340px;
-  height: 600px;
+  height: 660px;
   display: flex;
-  /* flex-direction: column; */
   flex-direction: column-reverse;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
   overflow: scroll;
 }
 

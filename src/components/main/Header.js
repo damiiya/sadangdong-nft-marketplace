@@ -12,6 +12,7 @@ import LoginModal from "../../elements/LoginModal";
 import LogoutModal from "../../elements/LogoutModal";
 import createitem from "../../assets/icon/createitem.png";
 import createcollection from "../../assets/icon/createcollection.png";
+import connect from "../../assets/icon/connect.png";
 
 import cart from "../../assets/icon/cart.png";
 import user from "../../assets/icon/user.png";
