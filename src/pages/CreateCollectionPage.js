@@ -93,8 +93,8 @@ const CreateCollectionPage = () => {
       );
     }
 
-    if (e.currentTarget.value.length > 8) {
-      alert("이름은 8자 이하만 가능합니다!");
+    if (e.currentTarget.value.length > 16) {
+      alert("이름은 16자 이하만 가능합니다!");
       e.currentTarget.value = e.currentTarget.value.substring(
         0,
         e.currentTarget.value.length - 1
@@ -104,8 +104,8 @@ const CreateCollectionPage = () => {
   // 컬렉션 설명 유효성 검사
   // 띄어쓰기 포함 200글자 이하
   const checkDesc = (e) => {
-    if (e.currentTarget.value.length > 50) {
-      alert("설명은 50자 이하만 가능합니다!");
+    if (e.currentTarget.value.length > 200) {
+      alert("설명은 200자 이하만 가능합니다!");
       e.currentTarget.value = e.currentTarget.value.substring(
         0,
         e.currentTarget.value.length - 1
@@ -200,7 +200,7 @@ const CreateCollectionPage = () => {
                 <input
                   ref={name}
                   type="text"
-                  maxLength={9}
+                  maxLength={17}
                   onChange={(e) => {
                     checkName(e);
                   }}
@@ -216,7 +216,7 @@ const CreateCollectionPage = () => {
               <div>
                 <textarea
                   ref={desc}
-                  maxLength={51}
+                  maxLength={201}
                   onChange={(e) => {
                     checkDesc(e);
                   }}

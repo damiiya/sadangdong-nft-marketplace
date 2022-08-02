@@ -128,8 +128,8 @@ const EditCollectionPage = (props) => {
       );
     }
 
-    if (e.currentTarget.value.length > 8) {
-      alert("이름은 8자 이하만 가능합니다!");
+    if (e.currentTarget.value.length > 16) {
+      alert("이름은 16자 이하만 가능합니다!");
       e.currentTarget.value = e.currentTarget.value.substring(
         0,
         e.currentTarget.value.length - 1
@@ -139,8 +139,8 @@ const EditCollectionPage = (props) => {
   // 컬렉션 설명 유효성 검사
   // 띄어쓰기 포함 200글자 이하
   const checkDesc = (e) => {
-    if (e.currentTarget.value.length > 50) {
-      alert("설명은 50자 이하만 가능합니다!");
+    if (e.currentTarget.value.length > 200) {
+      alert("설명은 200자 이하만 가능합니다!");
       e.currentTarget.value = e.currentTarget.value.substring(
         0,
         e.currentTarget.value.length - 1
@@ -248,7 +248,7 @@ const EditCollectionPage = (props) => {
                   className="CreateCollectionTittleInput"
                   placeholder="컬렉션 이름을 입력해 주세요."
                   ref={name}
-                  maxLength={9}
+                  maxLength={17}
                   onChange={(e) => {
                     checkName(e);
                     setInputName(e.currentTarget.value);
@@ -266,7 +266,7 @@ const EditCollectionPage = (props) => {
                   className="CreateCollectionDescriptionTextArea"
                   placeholder="컬렉션 설명글을 작성해 주세요."
                   ref={desc}
-                  maxLength={51}
+                  maxLength={201}
                   onChange={(e) => {
                     checkDesc(e);
                     setInputDescription(e.target.value);
