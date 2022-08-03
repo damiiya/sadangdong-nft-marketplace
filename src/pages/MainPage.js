@@ -111,6 +111,7 @@ const MainPage = () => {
               count={list.count}
               price={list.price}
               token_id={list.token_id}
+              address={list.address}
             />
           </div>
         ))}
