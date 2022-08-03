@@ -37,6 +37,11 @@ input :focus {
   outline: none;
 }
 
+.HoverColor:hover {
+  color: #86c500;
+  font-weight: bold;
+}
+
 .scrollBar {
   width: 200px;
   height: 200px;
@@ -551,6 +556,8 @@ input[id*="account"]:checked + label + div {
 }
 
 .MainItemSample {
+  width: 400px;
+  height: 400px;
   margin-left: 1.5rem;
   border-radius: 16px;
 }
@@ -1121,6 +1128,10 @@ input[id*="account"]:checked + label + div {
   margin-top: -32px;
 }
 
+.CardCollectionAvatar {
+  margin-bottom: 8px;
+}
+
 .CardItemWrapper {
   flex-direction: column;
   display: flex;
@@ -1347,6 +1358,8 @@ input[id*="account"]:checked + label + div {
 }
 
 .SellCollectionInfo {
+  display: flex;
+  align-items: center;
   margin-top: 26px;
 }
 .SellCollectionSpan {

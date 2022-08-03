@@ -13,9 +13,17 @@ const CardItem = (props) => {
             </Link>
           </div>
           <div className="CardItemWrapper">
-            <span className="CardName">{val.name}</span>
-            <Link to={`/account/${val.address}`}>
-              <span className="CardUserName">by {val.user_name}</span>
+            <Link
+              className="CardName HoverColor"
+              to={`/detail/item/${val.token_id}`}
+            >
+              <span>{val.name}</span>
+            </Link>
+            <Link
+              className="CardUserName HoverColor"
+              to={`/account/${val.address}`}
+            >
+              <span>by {val.user_name}</span>
             </Link>
             <div className="HeartWrap">
               <img className="Heart" src={heart} />

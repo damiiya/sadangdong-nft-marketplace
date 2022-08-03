@@ -14,7 +14,6 @@ export const createCollection = createAsyncThunk(
           authorization: token,
           "Content-Type": "multipart/form-data",
         },
-        withCredentials: true,
       })
       .then((response) => {
         value.navigate(`/detail/collection/${value.fileInfo.name}`);
