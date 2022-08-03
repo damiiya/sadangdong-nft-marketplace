@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+![사당동_Banner](https://user-images.githubusercontent.com/102935156/182619039-821a3613-cd9d-425b-9932-6a3738ccb7b5.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# 🧸사당동
 
-In the project directory, you can run:
+## FrontEnd 핵심기능
 
-### `yarn start`
+- `ethers.js` 민팅, 블록체인 거래기능 구현
+- `IPFS` 분산형 파일 시스템에 데이터 저장, 속도 및 보안성 강화
+- `socket.io` 실시간 경매 및 채팅기능 구현
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 👨‍💻 프로젝트 소개
 
-### `yarn test`
+### **프로젝트 기간** (6주)
+- 2022/06/24 ~ 2022/08/04
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Member
+|[임형섭](https://github.com/4hsnim)|[이담](https://github.com/damiiya)|[이은총](https://github.com/eunchong2lee)|[임정현](https://github.com/lojy4231)|[이재석](https://github.com/LeeJaeSeok1)|[배재은]()|
+|:------:|:---:|:---:|:---:|:---:|:---:|
+|<img src="https://user-images.githubusercontent.com/102935156/182624707-3de3157c-5a65-42ce-8794-e3955e3fd68f.png" width="100" height="200"/>|<img src="https://user-images.githubusercontent.com/102935156/182624760-4fb85e4d-f8d9-4e7c-8481-b94af4c13204.png" width="120" height="200"/>|<img src="https://user-images.githubusercontent.com/102935156/182640237-80b8b7d0-fbb4-4fe2-82b2-f9c4332cd156.png" width="100" height="200"/>|<img src="https://user-images.githubusercontent.com/102935156/182624897-073b4da3-067f-4a54-b78b-8f889a3a6598.png" width="100" height="200"/>|<img src="https://user-images.githubusercontent.com/102935156/182624950-6850a246-d9fe-4a5f-9579-02bb2b4b076e.png" width="100" height="200"/>|<img src="https://user-images.githubusercontent.com/102935156/182624978-b6d55020-cea0-4868-adbb-e3bd28b916d1.png" width="100" height="200"/>|
+|`Front-End`|`Front-End`|`Back-End`|`Back-End`|`Back-End`|`Designer`|
 
-### `yarn build`
+### Links
+- [Home Page](https://sadangdong.com)
+- [Team Notion](https://www.notion.so/2-cef47c67331c4b0d9445d55302fc51de)
+- [Demonstration Video](https://www.youtube.com/watch?v=SSLpx3gzMSg) 1:30
+- [Presentation Link](https://www.youtube.com/watch?v=Jh_xhXWulCY) 10:33
+<br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 💎Service Architecture
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![서비스아키텍처](https://user-images.githubusercontent.com/102935156/182621757-b5caa4fa-11bf-49f7-b6c6-a66e218c0d54.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `yarn eject`
+## 🛠 Tech & Platfrom
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### **Front-end**
+<p>
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">
+<img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
+<img src="https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+<img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+  <br>
+<img src="https://img.shields.io/badge/socket.io-ffffff?style=for-the-badge&logo=socket.io&logoColor=black">
+<img src="https://img.shields.io/badge/CloudFront-D05C4B?style=for-the-badge&logo=Amazon AWS&logoColor=white">
+<img src="https://img.shields.io/badge/Route53-4A154B?style=for-the-badge&logo=Amazon AWS&logoColor=white">
+<img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white">
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br>
+</p>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📘 주요 라이브러리
 
-## Learn More
+| 라이브러리    | 설명                                    |  
+| ------------- | --------------------------------------- |
+| ethers.js | 블록체인서버 통신|
+| IPFS|분산형 파일 시스템에 데이터 저장 및 공유|
+| redux-toolkit       | 전역 상태관리                             |
+| socket.io         | 실시간 양방향 통신           |     
+| axios    | API 통신                            |
+| react-infinite-scroll-component   | lazy-loading(무한스크롤)        |
+| react-modal|modal|
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
