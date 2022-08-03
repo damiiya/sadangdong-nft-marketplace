@@ -59,6 +59,24 @@ input :focus {
   padding-bottom: 40px;
 }
 
+.mobile-page {
+  display: flex;
+  align-items: center;
+}
+.mobile-text {
+  font-size: bold;
+  text-align: center;
+}
+.link-copy-button {
+  width: 15.375rem;
+  height: 4rem;
+  padding: 1rem;
+  border-radius: 16px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
 /* UserTestButton */
 .UserInfo {
   position: fixed;
