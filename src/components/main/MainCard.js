@@ -4,7 +4,6 @@ import mainheart from "../../assets/icon/mainheart.png";
 import maintime from "../../assets/icon/maintime.png";
 
 const MainCard = (props) => {
-  console.log(props);
   return (
     <div className="CardAuctionContainerMain">
       <div className="CardImageWrapper">

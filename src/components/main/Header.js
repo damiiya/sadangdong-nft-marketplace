@@ -28,7 +28,9 @@ const Header = (userProfile) => {
   const profile = sessionStorage.getItem("user_profile");
 
   const search = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && event.target.value === "") {
+      alert("검색어를 입력해주세요");
+    } else if (event.key === "Enter") {
       setKeyword(event.target.value);
       navigate(`/list/search/${keyword}`);
       window.location.reload();
