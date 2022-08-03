@@ -10,6 +10,7 @@ import {
   loadFirstCollectionDetailAuctionItem,
   loadAfterFirstCollectionDetailAuctionItem,
 } from "../redux/modules/itemSlice";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
 import share from "../assets/icon/share.png";
@@ -113,11 +114,13 @@ const CollectionPage = () => {
         }}
       >
         <div className="UserImageWrap">
-          <Avatar
-            alt="User Name"
-            src={userInfo.profile_image}
-            sx={{ width: 152, height: 152 }}
-          />
+          <Link to={`/account/${userInfo.address}`}>
+            <Avatar
+              alt="User Name"
+              src={userInfo.profile_image}
+              sx={{ width: 152, height: 152 }}
+            />
+          </Link>
         </div>
       </div>
       <div className="CollectionInfoContainer">
@@ -141,7 +144,12 @@ const CollectionPage = () => {
           <span className="CollectionTitleLetter">
             {userInfo && userInfo.name}
           </span>
-          <span className="CollectionUerLetter">by {userInfo.user_name}</span>
+          <Link
+            className="CollectionUerLetter HoverColor"
+            to={`/account/${userInfo.address}`}
+          >
+            <span>by {userInfo.user_name}</span>
+          </Link>
         </div>
         <div className="CollectionButtonBundle">
           <input

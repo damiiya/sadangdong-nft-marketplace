@@ -84,7 +84,7 @@ const ItemDetail = (props) => {
               <div className="SellCollectionInfo">
                 <span className="SellCollectionSpan">Collection</span>
                 <Link to={`/detail/collection/${props.data.collection_name}`}>
-                  <span className="ItemCollectionName">
+                  <span className="ItemCollectionName HoverColor">
                     {props.data.collection_name}
                   </span>
                 </Link>
@@ -92,7 +92,7 @@ const ItemDetail = (props) => {
               <div className="SellCollectionInfo">
                 <span className="SellCollectionSpan">owned by</span>
                 <Link to={`/account/${props.data.owner}`}>
-                  <span className="ItemCollectionName">
+                  <span className="ItemCollectionName HoverColor">
                     {props.data.owner_name}
                   </span>
                 </Link>
@@ -107,7 +107,7 @@ const ItemDetail = (props) => {
                     alt="User Name"
                     src={props.data.profile_image}
                   />
-                  <span className="SellUserName">
+                  <span className="SellUserName HoverColor">
                     by {props.data.user_name}
                   </span>
                 </div>

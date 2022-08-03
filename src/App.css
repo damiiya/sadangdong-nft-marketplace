@@ -37,6 +37,11 @@ input :focus {
   outline: none;
 }
 
+.HoverColor:hover {
+  color: #86c500;
+  font-weight: bold;
+}
+
 .scrollBar {
   width: 200px;
   height: 200px;
@@ -52,6 +57,43 @@ input :focus {
 
   min-height: 100%;
   padding-bottom: 40px;
+}
+
+.mobile-page {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile-logo {
+  width: 80%;
+  height: 20%;
+  margin-bottom: 2rem;
+  border-radius: 2rem;
+}
+.mobile-text {
+  font-size: bold;
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+.link-copy-button {
+  width: 15.375rem;
+  height: 4rem;
+  padding: 1rem;
+  border-radius: 16px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  background-color: #111;
+  color: #fff;
+  font-size: 1.125rem;
+  border: none;
 }
 
 /* UserTestButton */
@@ -101,6 +143,21 @@ input :focus {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+.HashLoader {
+  margin-bottom: 2rem;
+}
+
+.SpinnerText {
+  font-size: 2rem;
+  font-size: bold;
+}
+
+.SpinnerDesc {
+  font-size: 1.5rem;
+  color: #001c96;
+  font-weight: 700;
 }
 
 /* EmptyView */
@@ -536,6 +593,8 @@ input[id*="account"]:checked + label + div {
 }
 
 .MainItemSample {
+  width: 400px;
+  height: 400px;
   margin-left: 1.5rem;
   border-radius: 16px;
 }
@@ -1106,6 +1165,10 @@ input[id*="account"]:checked + label + div {
   margin-top: -32px;
 }
 
+.CardCollectionAvatar {
+  margin-bottom: 8px;
+}
+
 .CardItemWrapper {
   flex-direction: column;
   display: flex;
@@ -1332,6 +1395,8 @@ input[id*="account"]:checked + label + div {
 }
 
 .SellCollectionInfo {
+  display: flex;
+  align-items: center;
   margin-top: 26px;
 }
 .SellCollectionSpan {
@@ -2077,7 +2142,7 @@ input[id*="account"]:checked + label + div {
   height: 660px;
   display: flex;
   flex-direction: column-reverse;
-  /* justify-content: flex-end; */
+  justify-content: flex-end;
   overflow: scroll;
 }
 

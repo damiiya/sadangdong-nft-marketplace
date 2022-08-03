@@ -12,9 +12,19 @@ export const Spinner = () => {
 export const MintingSpinner = () => {
   return (
     <div className="Spinner2">
-      <HashLoader />
-      <h1>아이템이 생성되는 중입니다.</h1>
-      <h1>잠시만 기다려주세요!!</h1>
+      <div className="HashLoader">
+        <HashLoader />
+      </div>
+
+      <p className="SpinnerText">아이템이 생성되는 중입니다.</p>
+      <p className="SpinnerText">잠시만 기다려주세요!!</p>
+      <br />
+      <p className="SpinnerText SpinnerDesc">
+        10초동안 메타마스크 팝업창이 나오지 않을 경우,
+      </p>
+      <p className="SpinnerText SpinnerDesc">
+        🦊메타마스크 APP을 확인해주세요.
+      </p>
     </div>
   );
 };

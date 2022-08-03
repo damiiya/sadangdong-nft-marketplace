@@ -187,14 +187,16 @@ export const loadAfterAuctionList = createAsyncThunk(
       )
       .then((response) => {
         value.setAuctionData([...value.auctionData, ...response.data.data]);
-
+        console.log(response.data.data);
         if (response.data.data.length === 0 || response.data.data.length < 12) {
-          value.setAuctionHaeMore(false);
+          value.setAuctionHasMore(false);
         }
         value.setAuctionPage(value.auctionPage + 1);
         return response.data.data;
       })
-      .catch((error) => {});
+      .catch((error) => {
+        console.log(error.message);
+      });
   }
 );
 

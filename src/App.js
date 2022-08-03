@@ -21,56 +21,55 @@ import MyActivityPage from "./pages/MyActivityPage";
 import Footer from "./components/main/Footer";
 import UserTest from "./elements/UserTest";
 import ErrorPage from "./pages/ErrorPage";
-
+import { BrowserView, MobileView } from "react-device-detect";
+import MobilePage from "./Homepage";
 function App() {
   return (
     <div className="App">
-      <Header />
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        {/* 리스트 */}
-        <Route path="list" element={<AllListPage />} />
-        <Route path="list/search/:keyword" element={<SearchListPage />} />
-        <Route path="list/auctionlist" element={<AuctionListPage />} />
-
-        {/* 상세페이지 */}
-        <Route
-          path="detail/collection/:collectionId"
-          element={<CollectionPage />}
-        />
-        <Route path="detail/item/:token_id" element={<ItemPage />} />
-
-        {/* 생성&수정&삭제 */}
-        <Route path="createcollection" element={<CreateCollectionPage />} />
-        <Route
-          path="editcollection/:collectionId"
-          element={<EditCollectionPage />}
-        />
-
-        <Route path="createitem" element={<CreateItemPage />} />
-        <Route path="edititem/:token_id" element={<EditItemPage />} />
-
-        {/* 유저페이지 */}
-        <Route path="account/:token_id" element={<AccountPage />} />
-        <Route path="account/edit/:token_id" element={<EditAccountPage />} />
-        <Route
-          path="account/myactivity/:token_id"
-          element={<MyActivityPage />}
-        />
-        <Route path="account/sell/:token_id" element={<SellingItemPage />} />
-
-        {/* 관리자페이지 */}
-        <Route path="admin" element={<AdminPage />} />
-        <Route path="approved" element={<ApprovedAdminPage />} />
-        <Route path="rejected" element={<RejectedAdminPage />} />
-
-        {/* 에러페이지 */}
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-      <Footer />
-      <UserTest />
+      <MobileView>
+        <MobilePage />
+      </MobileView>
+      <BrowserView>
+        <Header />
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          {/* 리스트 */}
+          <Route path="list" element={<AllListPage />} />
+          <Route path="list/search/:keyword" element={<SearchListPage />} />
+          <Route path="list/auctionlist" element={<AuctionListPage />} />
+          {/* 상세페이지 */}
+          <Route
+            path="detail/collection/:collectionId"
+            element={<CollectionPage />}
+          />
+          <Route path="detail/item/:token_id" element={<ItemPage />} />
+          {/* 생성&수정&삭제 */}
+          <Route path="createcollection" element={<CreateCollectionPage />} />
+          <Route
+            path="editcollection/:collectionId"
+            element={<EditCollectionPage />}
+          />
+          <Route path="createitem" element={<CreateItemPage />} />
+          <Route path="edititem/:token_id" element={<EditItemPage />} />
+          {/* 유저페이지 */}
+          <Route path="account/:token_id" element={<AccountPage />} />
+          <Route path="account/edit/:token_id" element={<EditAccountPage />} />
+          <Route
+            path="account/myactivity/:token_id"
+            element={<MyActivityPage />}
+          />
+          <Route path="account/sell/:token_id" element={<SellingItemPage />} />
+          {/* 관리자페이지 */}
+          <Route path="admin" element={<AdminPage />} />
+          <Route path="approved" element={<ApprovedAdminPage />} />
+          <Route path="rejected" element={<RejectedAdminPage />} />
+          {/* 에러페이지 */}
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+        <Footer />
+        <UserTest />
+      </BrowserView>
     </div>
   );
 }
-
 export default App;

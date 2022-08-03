@@ -21,9 +21,18 @@ const CardAuction = (props) => {
                 <span className="TimeLimit">경매 종료 시간 {val.ended_at}</span>
               </div>
             </div>
-            <span className="CardName">{val.name}</span>
-            <Link to href={`/account/${val.address}`}>
-              <span className="CardUserName">by {val.user_name}</span>
+            <Link
+              className="CardName HoverColor"
+              to={`/detail/item/${val.token_id}`}
+            >
+              <span>{val.name}</span>
+            </Link>
+            <Link
+              className="CardUserName HoverColor"
+              to
+              href={`/account/${val.address}`}
+            >
+              <span>by {val.user_name}</span>
             </Link>
             <div className="HeartWrap">
               <img className="Heart" src={heart} />

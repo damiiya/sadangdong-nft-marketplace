@@ -177,7 +177,7 @@ const AllListPage = () => {
         <InfiniteScroll
           dataLength={auctionData.length}
           next={auctionFetchData}
-          auctionHasMore={auctionHasMore}
+          hasMore={auctionHasMore}
           loader={<Spinner />}
           style={{ overflowY: "hidden" }}
         >

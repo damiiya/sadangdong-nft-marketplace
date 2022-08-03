@@ -13,18 +13,25 @@ const CardCollection = (props) => {
             </Link>
           </div>
           <div className="CardCollectionContentWrapper">
-            <Avatar
-              alt="username"
-              src={val.profile_image}
-              sx={{ width: 64, height: 64 }}
-              style={{
-                border: "solid 5px #fff",
-                backgroundColor: "#fff",
-              }}
-            />
-            <span className="CardName">{val.name}</span>
             <Link to={`/account/${val.address}`}>
-              <span className="CardUserName">by {val.user_name}</span>
+              <Avatar
+                className="CardCollectionAvatar"
+                alt="username"
+                src={val.profile_image}
+                sx={{ width: 64, height: 64 }}
+                style={{
+                  border: "solid 5px #fff",
+                  backgroundColor: "#fff",
+                }}
+              />
+            </Link>
+            <Link to={`/account/${val.address}`}>
+              <span className="CardName HoverColor">{val.name}</span>
+            </Link>
+            <Link to={`/account/${val.address}`}>
+              <span className="CardUserName HoverColor">
+                by {val.user_name}
+              </span>
             </Link>
             {val.description.length > 30 ? (
               <span className="CardCollectionDescription">
