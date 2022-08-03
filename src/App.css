@@ -37,10 +37,10 @@ input :focus {
   outline: none;
 }
 
-.HoverColor:hover {
+/* .HoverColor:hover {
   color: #86c500;
   font-weight: bold;
-}
+} */
 
 .scrollBar {
   width: 200px;
@@ -1165,9 +1165,9 @@ input[id*="account"]:checked + label + div {
   margin-top: -32px;
 }
 
-.CardCollectionAvatar {
+/* .CardCollectionAvatar {
   margin-bottom: 8px;
-}
+} */
 
 .CardItemWrapper {
   flex-direction: column;
@@ -1244,6 +1244,17 @@ input[id*="account"]:checked + label + div {
   font-size: 14px;
   font-weight: normal;
   line-height: 1.43;
+  text-align: center;
+  color: #111;
+}
+
+.CardName_1 {
+  width: auto;
+  height: auto;
+  margin-bottom: 8px;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.25;
   text-align: center;
   color: #111;
 }

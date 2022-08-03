@@ -25,13 +25,17 @@ const CardCollection = (props) => {
                 }}
               />
             </Link>
-            <Link to={`/account/${val.address}`}>
-              <span className="CardName HoverColor">{val.name}</span>
+            <Link
+              className="CardName_1 HoverColor"
+              to={`/account/${val.address}`}
+            >
+              <span>{val.name}</span>
             </Link>
-            <Link to={`/account/${val.address}`}>
-              <span className="CardUserName HoverColor">
-                by {val.user_name}
-              </span>
+            <Link
+              className="CardUserName HoverColor"
+              to={`/account/${val.address}`}
+            >
+              <span>by {val.user_name}</span>
             </Link>
             {val.description.length > 30 ? (
               <span className="CardCollectionDescription">
