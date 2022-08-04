@@ -30,7 +30,8 @@
 
 ## 💎Service Architecture
 
-![서비스아키텍처](https://user-images.githubusercontent.com/102935156/182621757-b5caa4fa-11bf-49f7-b6c6-a66e218c0d54.png)
+![image (1)](https://user-images.githubusercontent.com/102935156/182826105-130a0fd4-cfda-4b91-bb95-9da6d2a87106.png)
+
 
 ---
 
