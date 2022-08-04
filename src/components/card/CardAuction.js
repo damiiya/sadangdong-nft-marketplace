@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import heart from "../../assets/icon/heart.png";
 import time from "../../assets/icon/time.png";
 import { Link } from "react-router-dom";
-import EmptyView from "../../elements/EmptyView";
 
 const CardAuction = (props) => {
   return (
