@@ -29,11 +29,6 @@ const BidResult = (props) => {
   // 메타마스크로 거래완료하기
   const sendTransaction = async (account) => {
     try {
-      // const accounts = await window.ethereum.request({
-      //   method: "eth_requestAccounts",
-      // });
-      // const account = accounts[0];
-
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const contract = new ethers.Contract(

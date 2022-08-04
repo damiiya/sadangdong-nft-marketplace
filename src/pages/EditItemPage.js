@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   getCollectionSelect,
   loadItemDetail,
@@ -16,6 +16,7 @@ const token = sessionStorage.getItem("auth_token");
 
 const EditItemPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const params = useParams();
   const token_id = params.token_id;
 
@@ -30,7 +31,14 @@ const EditItemPage = () => {
 
   // 아이템 삭제하기
   const handleDelete = () => {
-    dispatch(deleteItem(token_id));
+    const now_date = new Date();
+    now_date.setHours(now_date.getHours() + 9);
+    if (itemDetail.transaction_at > now_date.toISOString()) {
+      alert("경매처리가 진행중일 때는 아이템을 수정할 수 없습니다!");
+      navigate("/");
+    } else {
+      dispatch(deleteItem(token_id));
+    }
   };
 
   // 수정 요청하기
@@ -47,7 +55,14 @@ const EditItemPage = () => {
       collection_name: collectionValue,
     };
 
-    dispatch(editItem({ itemInfo: itemInfo, token_id: token_id }));
+    const now_date = new Date();
+    now_date.setHours(now_date.getHours() + 9);
+    if (itemDetail.transaction_at > now_date.toISOString()) {
+      alert("경매처리가 진행중일 때는 아이템을 수정할 수 없습니다!");
+      navigate("/");
+    } else {
+      dispatch(editItem({ itemInfo: itemInfo, token_id: token_id }));
+    }
   };
 
   // tokenURI 받기

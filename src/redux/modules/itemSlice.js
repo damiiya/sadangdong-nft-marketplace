@@ -194,9 +194,7 @@ export const loadAfterAuctionList = createAsyncThunk(
         value.setAuctionPage(value.auctionPage + 1);
         return response.data.data;
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }
 );
 
