@@ -4,20 +4,12 @@ import { Link } from "react-router-dom";
 import MainCard from "../components/main/MainCard";
 import TeamInfo from "../components/main/TeamInfo";
 import { Avatar } from "@mui/material";
-import bear1 from "../assets/itemsample/bear/bear1.png";
-import bear2 from "../assets/itemsample/bear/bear2.png";
-import bear3 from "../assets/itemsample/bear/bear3.png";
-import bear6 from "../assets/itemsample/bear/bear6.png";
-import bear7 from "../assets/itemsample/bear/bear7.png";
-import bear8 from "../assets/itemsample/bear/bear8.png";
-import bear11 from "../assets/itemsample/bear/bear11.png";
-import tiger1 from "../assets/itemsample/tiger/tiger1.png";
-import tiger2 from "../assets/itemsample/tiger/tiger2.png";
-import tiger4 from "../assets/itemsample/tiger/tiger4.png";
-import tiger6 from "../assets/itemsample/tiger/tiger6.png";
-import tiger8 from "../assets/itemsample/tiger/tiger8.png";
-import tiger12 from "../assets/itemsample/tiger/tiger12.png";
-import tiger16 from "../assets/itemsample/tiger/tiger16.png";
+import i1 from "../assets/itemsample/i1.png";
+import i2 from "../assets/itemsample/i2.png";
+import i3 from "../assets/itemsample/i3.png";
+import i4 from "../assets/itemsample/i4.png";
+import i5 from "../assets/itemsample/i5.png";
+import i6 from "../assets/itemsample/i6.png";
 
 import viewarrow from "../assets/icon/viewarrow.png";
 import { loadMain } from "../redux/modules/itemSlice";
@@ -48,24 +40,22 @@ const MainPage = () => {
     <div className="MainContainer">
       <div className="MainBanner1">
         <Marquee gradient={false}>
-          <img className="MainItemSample" src={bear1} />
-          <img className="MainItemSample" src={bear2} />
-          <img className="MainItemSample" src={bear3} />
-          <img className="MainItemSample" src={bear11} />
-          <img className="MainItemSample" src={bear7} />
-          <img className="MainItemSample" src={bear8} />
-          <img className="MainItemSample" src={bear6} />
+          <img className="MainItemSample" src={i1} />
+          <img className="MainItemSample" src={i2} />
+          <img className="MainItemSample" src={i3} />
+          <img className="MainItemSample" src={i4} />
+          <img className="MainItemSample" src={i5} />
+          <img className="MainItemSample" src={i6} />
         </Marquee>
       </div>
       <div className="MainBanner2">
         <Marquee gradient={false} direction="right">
-          <img className="MainItemSample" src={tiger1} />
-          <img className="MainItemSample" src={tiger2} />
-          <img className="MainItemSample" src={tiger16} />
-          <img className="MainItemSample" src={tiger4} />
-          <img className="MainItemSample" src={tiger6} />
-          <img className="MainItemSample" src={tiger8} />
-          <img className="MainItemSample" src={tiger12} />
+          <img className="MainItemSample" src={i1} />
+          <img className="MainItemSample" src={i2} />
+          <img className="MainItemSample" src={i3} />
+          <img className="MainItemSample" src={i4} />
+          <img className="MainItemSample" src={i5} />
+          <img className="MainItemSample" src={i6} />
         </Marquee>
       </div>
       <div className="MainLetterWrap">
@@ -111,6 +101,7 @@ const MainPage = () => {
               count={list.count}
               price={list.price}
               token_id={list.token_id}
+              address={list.address}
             />
           </div>
         ))}

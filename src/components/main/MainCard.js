@@ -20,8 +20,18 @@ const MainCard = (props) => {
             </span>
           </div>
         </div>
-        <span className="CardNameMain">{props.name}</span>
-        <span className="CardUserNameMain">by {props.user_name}</span>
+        <Link
+          className="CardNameMain HoverColor"
+          to={`/detail/item/${props.token_id}`}
+        >
+          <span>{props.name}</span>
+        </Link>
+        <Link
+          className="CardUserNameMain HoverColor"
+          to={`/account/${props.address}`}
+        >
+          <span>by {props.user_name}</span>
+        </Link>
         <div className="HeartWrap">
           <img className="Heart" src={mainheart} />
           <span className="HeartCountMain">{props.count}</span>
