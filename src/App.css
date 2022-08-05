@@ -605,7 +605,7 @@ input[id*="account"]:checked + label + div {
   gap: 2rem;
   width: 75%;
   height: auto;
-  margin: 0 240px 160px;
+  margin: 0 auto 160px;
 }
 
 .MainLetterWrap {
@@ -635,6 +635,10 @@ input[id*="account"]:checked + label + div {
   white-space: nowrap;
   will-change: transform;
   animation: marquee 60s linear infinite;
+}
+
+.MainContentWrapper {
+  width: 100%;
 }
 
 @keyframes marquee {
@@ -1300,9 +1304,9 @@ input[id*="account"]:checked + label + div {
 }
 
 .CurrentAuctionMain {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: bold;
-  line-height: 1.25;
+  line-height: 1.5;
   text-align: left;
   color: #60d329;
 }

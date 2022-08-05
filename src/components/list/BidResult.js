@@ -49,6 +49,11 @@ const BidResult = (props) => {
   };
 
   const getTransaction = async () => {
+    const now_date = new Date();
+    now_date.setHours(now_date.getHours() + 9);
+    if (props.transaction_at < now_date.toISOString()) {
+      return alert("아쉽게도 경매처리시간이 지났습니다.");
+    }
     try {
       if (window.ethereum) {
         const chainId = await window.ethereum.request({
