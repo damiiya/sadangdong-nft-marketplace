@@ -78,18 +78,12 @@
 <details>
 <summary>API 명세서</summary>
 <div markdown="1">
-
-![Account API](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/42d319a9-4d28-4407-b808-8c50ccd24661/Untitled.png)
-  
-![Collections API](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ba8272c4-33ed-4449-a356-7edae0a5387f/Untitled.png)
-  
-![Items API](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/be8fd50a-ce17-40a3-b150-f1bb707a8cd6/Untitled.png)
-  
-![Auction,search,explore API](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2e33d700-472a-491f-95b2-7203bbf49a66/Untitled.png)
-  
-![Default API](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/12e137f5-d845-44b0-8632-ca0bcf273de6/Untitled.png)
-  
-![Img,offer,chat API](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d57e6042-0f83-4b2f-a077-fefaf3d8c97b/Untitled.png)
+<img src ="https://user-images.githubusercontent.com/81402579/182878896-8bdbddc2-8244-48b7-b64a-3ea80a607cc2.png">
+<img src = "https://user-images.githubusercontent.com/81402579/182878973-f3404687-e1e8-4602-8e73-8efcfe1a2ac4.png">
+<img src = "https://user-images.githubusercontent.com/81402579/182879041-0c9fb569-e403-4b38-96cd-6bddb40c8ba9.png">
+<img src = "https://user-images.githubusercontent.com/81402579/182879104-431ceec9-54e6-414a-843a-fc414f2288b9.png">
+</div>
+</details>
   
 </div>
 
