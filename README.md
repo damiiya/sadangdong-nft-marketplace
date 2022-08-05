@@ -79,14 +79,18 @@
 <summary>API 명세서</summary>
 <div markdown="1">
 
-![boardAPI](https://user-images.githubusercontent.com/46555489/161772534-9a7b2743-3794-4bad-9431-6dd38f6a0980.PNG)
-
-![authAPI](https://user-images.githubusercontent.com/46555489/161772548-c298d77c-3104-4531-a940-c4595e0b9515.PNG)
-
-![userAPI](https://user-images.githubusercontent.com/46555489/161772555-7c435356-330c-40a1-91dc-0b267301d1bb.PNG)
-
-![projectAPI](https://user-images.githubusercontent.com/46555489/161772564-1c7fab5c-c080-47df-be08-84f916930106.PNG)
-
+![Account API](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/42d319a9-4d28-4407-b808-8c50ccd24661/Untitled.png)
+  
+![Collections API](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ba8272c4-33ed-4449-a356-7edae0a5387f/Untitled.png)
+  
+![Items API](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/be8fd50a-ce17-40a3-b150-f1bb707a8cd6/Untitled.png)
+  
+![Auction,search,explore API](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2e33d700-472a-491f-95b2-7203bbf49a66/Untitled.png)
+  
+![Default API](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/12e137f5-d845-44b0-8632-ca0bcf273de6/Untitled.png)
+  
+![Img,offer,chat API](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d57e6042-0f83-4b2f-a077-fefaf3d8c97b/Untitled.png)
+  
 </div>
 
 
