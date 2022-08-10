@@ -71,6 +71,8 @@
 
 ## 🔥이슈 및 트러블슈팅
 
+- <a href = "https://seobzzart.tistory.com/103">AWS S3 배포 404에러</a>
+
 ---
 
 ## more info
