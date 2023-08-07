@@ -24,7 +24,6 @@
 
 ### Links
 [시연영상](https://www.youtube.com/watch?v=jTech_pwjCU)   
-[Team Notion](https://www.notion.so/2-cef47c67331c4b0d9445d55302fc51de)   
 [Front-End Github](https://github.com/damiiya/sadangdong)   
 [Blockchain Github](https://github.com/eunchong2lee/SDD_Blockchain)  
 
